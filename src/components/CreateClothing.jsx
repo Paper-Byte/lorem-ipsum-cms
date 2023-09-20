@@ -54,8 +54,8 @@ export default function Multistep() {
       console.log(clothingDetails)
 
 
-    const handleClothingOptions = (event, itemKey) => {
-        setClothingDetails({...clothingDetails, itemKey: event.target.value});
+    const handleClothingOptions = (event) => {
+        setClothingDetails({...clothingDetails, [event.target.id]: event.target.value});
     };
        
     return (
@@ -136,7 +136,7 @@ export default function Multistep() {
     )
   }
 
-const Form1 = ({item, img, description, type, handleClothingOptions}) => {
+const Form1 = ({item, img, description, clothingType, handleClothingOptionsString}) => {
 
   return (
     <>
@@ -145,18 +145,18 @@ const Form1 = ({item, img, description, type, handleClothingOptions}) => {
       </Heading>
       <Flex>
         <FormControl isRequired mr="5%">
-          <FormLabel htmlFor="item-name" fontWeight={'normal'}>
+          <FormLabel htmlFor="item" fontWeight={'normal'}>
             Item Name
           </FormLabel>
-          <Input id="item-name" type="text" value={item} onChange={handleClothingOptions()}placeholder="Item name..." />
+          <Input id="item" type="text" value={item} onChange={handleClothingOptionsString} placeholder="Item name..." />
         </FormControl>
         </Flex>
         <Flex>
         <FormControl isRequired mr="5%">
-          <FormLabel htmlFor="item-image" fontWeight={'normal'}>
+          <FormLabel htmlFor="img" fontWeight={'normal'}>
             Item Image URL
           </FormLabel>
-          <Input id="item-image" type="text" value={img} onChange={handleClothingOptions()}placeholder="Ex. 'https://png.pngtree.com/png-vector/...'" />
+          <Input id="img" type="text" value={img} onChange={handleClothingOptionsString} placeholder="Ex. 'https://png.pngtree.com/png-vector/...'" />
         </FormControl>
       </Flex>
       <Flex>
@@ -176,6 +176,8 @@ const Form1 = ({item, img, description, type, handleClothingOptions}) => {
           name="type"
           placeholder="Select option"
           focusBorderColor="brand.400"
+          onChange={handleClothingOptionsString}
+          value={clothingType}
           shadow="sm"
           w="full"
           rounded="md">          
@@ -192,7 +194,7 @@ const Form1 = ({item, img, description, type, handleClothingOptions}) => {
           <FormLabel htmlFor="item-description" fontWeight={'normal'}>
             Item Description
           </FormLabel>
-          <Input id="item-description" type="text" value={description} onChange={handleClothingOptions}placeholder="Ex. 'https://png.pngtree.com/png-vector/...'" />
+          <Input id="description" type="text" value={description} onChange={handleClothingOptionsString} placeholder="Ex. 'https://png.pngtree.com/png-vector/...'" />
         </FormControl>
       </Flex>
     </>
