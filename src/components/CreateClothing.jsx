@@ -35,21 +35,21 @@ export default function Multistep() {
     type: '',
     image: '',
     description: '',
-    sizes: {
-      xs: false,
-      s: false,
-      m: false,
-      l: false,
-      xl: false,
-    },
-    colors: {
-      black: false,
-      white: false,
-      firebrick: false,
-      navy: false,
-      aquamarine: false,
-      coral: false,
-    },
+    sizes: [
+      { size: 'xs', isAvailable: false },
+      { size: 's', isAvailable: false },
+      { size: 'm', isAvailable: false },
+      { size: 'l', isAvailable: false },
+      { size: 'xl', isAvailable: false },
+    ],
+    colors: [
+      { color: 'black', isAvailable: false },
+      { color: 'white', isAvailable: false },
+      { color: 'firebrick', isAvailable: false },
+      { color: 'navy', isAvailable: false },
+      { color: 'aquamarine', isAvailable: false },
+      { color: 'coral', isAvailable: false },
+    ],
     price: 0,
     availability: true,
   });
@@ -65,8 +65,6 @@ export default function Multistep() {
   ) {
     canSubmit = true;
   }
-
-  console.log(clothingDetails);
 
   const handleClothingOptions = (event) => {
     const { name, value, type } = event.target;
@@ -85,8 +83,6 @@ export default function Multistep() {
       setClothingDetails({ ...clothingDetails, [name]: value });
     }
   };
-
-  console.log(clothingDetails.sizes.xs);
 
   return (
     <>
@@ -323,6 +319,37 @@ const Form1 = ({
 };
 
 const Form2 = ({ sizes, colors, price, handleClothingOptions }) => {
+  const stupidfuckindumbjsx = (sizes) => {
+    return sizes.map((size) => {
+      return (
+        <Checkbox
+          size="md"
+          onChange={handleClothingOptions}
+          name={Object.keys(size)}
+          isChecked={Object.values(size)}
+        />
+      );
+    });
+    /*
+        [
+    {
+        "xs": false
+    },
+    {
+        "s": false
+    },
+    {
+        "m": false
+    },
+    {
+        "l": false
+    },
+    {
+        "xl": false
+    }
+]
+        */
+  };
   return (
     <>
             
@@ -353,6 +380,17 @@ const Form2 = ({ sizes, colors, price, handleClothingOptions }) => {
           </FormLabel>
                   
           <Stack spacing={[1, 50]} direction={['column', 'row']}>
+            {/* {sizes.map((size) => {
+              return (
+                <Checkbox
+                  size="md"
+                  onChange={handleClothingOptions}
+                  name={Object.keys(size[0])}
+                  isChecked={size.Object.keys(size[0])}
+                />
+              );
+            })} */}
+            {stupidfuckindumbjsx(sizes)}
             <Checkbox
               size="md"
               onChange={handleClothingOptions}

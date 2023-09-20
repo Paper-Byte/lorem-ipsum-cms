@@ -3,7 +3,17 @@ import { mode } from '@chakra-ui/theme-tools';
 const fontColor = 'white';
 
 export const ButtonStyle = {
-  baseStyle: {},
+  baseStyle: {
+    _disabled: {
+      bg: 'secondary.200',
+      color: fontColor,
+      _hover: {
+        bg: 'secondary.200',
+        boxShadow: 'none',
+        transform: 'none',
+      },
+    },
+  },
   sizes: {},
   variants: {
     primary: (props) => ({
@@ -14,15 +24,6 @@ export const ButtonStyle = {
         boxShadow: 'md',
         transform: 'translateY(-2px)',
       },
-      _disabled: {
-        bg: 'primary.200',
-        color: fontColor,
-        _hover: {
-          bg: 'primary.200',
-          boxShadow: 'none',
-          transform: 'none',
-        },
-      },
     }),
     secondary: (props) => ({
       bg: 'secondary.500',
@@ -31,15 +32,6 @@ export const ButtonStyle = {
         bg: mode('secondary.700', 'secondary.400')(props),
         boxShadow: 'md',
         transform: 'translateY(-2px)',
-      },
-      _disabled: {
-        bg: 'secondary.200',
-        color: fontColor,
-        _hover: {
-          bg: 'secondary.200',
-          boxShadow: 'none',
-          transform: 'none',
-        },
       },
     }),
   },
