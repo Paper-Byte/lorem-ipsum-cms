@@ -18,7 +18,7 @@ import {
   InputGroup,
   Textarea,
   FormHelperText,
-  InputRightElement,
+  CheckboxGroup
 } from '@chakra-ui/react'
 
 import { useToast } from '@chakra-ui/react'
@@ -39,9 +39,23 @@ export default function Multistep() {
         availability: true,
     })
 
-    const handleClothingName = (event) => {
-        setClothingDetails({...clothingDetails, item: event.target.value});
-        console.log(clothingDetails);
+    let canSubmit = false;
+
+    if(clothingDetails.item !== "" &&
+      clothingDetails.type !== "" &&
+      clothingDetails.image !== "" &&
+      clothingDetails.description !== "" &&
+      clothingDetails.sizes.length > 0 &&
+      clothingDetails.colors.length > 0 &&
+      clothingDetails.price > 0){
+        canSubmit = true
+      }
+
+      console.log(clothingDetails)
+
+
+    const handleClothingOptions = (event, itemKey) => {
+        setClothingDetails({...clothingDetails, itemKey: event.target.value});
     };
        
     return (
@@ -55,7 +69,17 @@ export default function Multistep() {
           m="10px auto"
           as="form">
           <Progress hasStripe value={progress} mb="5%" mx="5%" isAnimated></Progress>
-          {step === 1 ? <Form1 item={clothingDetails.item} handleClothingName={handleClothingName}/> : step === 2 ? <Form2 /> : <Form3 />}
+          {step === 1 ? 
+            <Form1 
+              item={clothingDetails.item}
+              description={clothingDetails.description}
+              clothingType = {clothingDetails.type} 
+              img={clothingDetails.image} 
+              handleClothingOptions={handleClothingOptions} /> 
+          : step === 2 ? 
+            <Form2 /> 
+          : 
+            <Form3 />}
           <ButtonGroup mt="5%" w="100%">
             <Flex w="100%" justifyContent="space-between">
               <Flex>
@@ -92,6 +116,7 @@ export default function Multistep() {
                   w="7rem"
                   colorScheme="red"
                   variant="solid"
+                  isDisabled = {!canSubmit}
                   onClick={() => {
                     toast({
                       title: 'Item created.',
@@ -101,7 +126,7 @@ export default function Multistep() {
                       isClosable: true,
                     })
                   }}>
-                  Submit
+                  {canSubmit ? 'Submit' : 'Invalid'}
                 </Button>
               ) : null}
             </Flex>
@@ -111,7 +136,7 @@ export default function Multistep() {
     )
   }
 
-const Form1 = ({item, handleClothingName}) => {
+const Form1 = ({item, img, description, type, handleClothingOptions}) => {
 
   return (
     <>
@@ -119,11 +144,55 @@ const Form1 = ({item, handleClothingName}) => {
         Clothing Creation
       </Heading>
       <Flex>
-        <FormControl mr="5%">
+        <FormControl isRequired mr="5%">
           <FormLabel htmlFor="item-name" fontWeight={'normal'}>
             Item Name
           </FormLabel>
-          <Input id="item-name" type="text" value={item} onChange={handleClothingName}placeholder="Item name..." />
+          <Input id="item-name" type="text" value={item} onChange={handleClothingOptions()}placeholder="Item name..." />
+        </FormControl>
+        </Flex>
+        <Flex>
+        <FormControl isRequired mr="5%">
+          <FormLabel htmlFor="item-image" fontWeight={'normal'}>
+            Item Image URL
+          </FormLabel>
+          <Input id="item-image" type="text" value={img} onChange={handleClothingOptions()}placeholder="Ex. 'https://png.pngtree.com/png-vector/...'" />
+        </FormControl>
+      </Flex>
+      <Flex>
+      <FormControl isRequired mr="5%">
+        <FormLabel
+          htmlFor="type"
+          fontSize="sm"
+          fontWeight="md"
+          color="gray.700"
+          _dark={{
+            color: 'gray.50',
+          }}>
+          Type Of Clothing
+        </FormLabel>
+        <Select
+          id="type"
+          name="type"
+          placeholder="Select option"
+          focusBorderColor="brand.400"
+          shadow="sm"
+          w="full"
+          rounded="md">          
+          <option value="tshirt">T-Shirt</option>
+          <option value="hoodie">Hoodie</option>
+          <option value="sweatshirt">Sweatshirt</option>
+          <option value="hat">Hat</option>
+          <option value="jacket">Jacket</option>
+        </Select>
+      </FormControl>
+      </Flex>
+      <Flex>
+        <FormControl isRequired mr="5%">
+          <FormLabel htmlFor="item-description" fontWeight={'normal'}>
+            Item Description
+          </FormLabel>
+          <Input id="item-description" type="text" value={description} onChange={handleClothingOptions}placeholder="Ex. 'https://png.pngtree.com/png-vector/...'" />
         </FormControl>
       </Flex>
     </>
@@ -134,38 +203,11 @@ const Form2 = () => {
   return (
     <>
       <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
-        Item Creation
-      </Heading>
-      <FormControl as={GridItem} colSpan={[6, 3]}>
+        Clothing Options
+      </Heading>   
+      <FormControl isRequired colSpan={6}>
         <FormLabel
-          htmlFor="country"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: 'gray.50',
-          }}>
-          Country / Region
-        </FormLabel>
-        <Select
-          id="country"
-          name="country"
-          autoComplete="country"
-          placeholder="Select option"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md">
-          <option>United States</option>
-          <option>Canada</option>
-          <option>Mexico</option>
-        </Select>
-      </FormControl>
-
-      <FormControl as={GridItem} colSpan={6}>
-        <FormLabel
-          htmlFor="street_address"
+          htmlFor="sizing"
           fontSize="sm"
           fontWeight="md"
           color="gray.700"
@@ -173,21 +215,12 @@ const Form2 = () => {
             color: 'gray.50',
           }}
           mt="2%">
-          Street address
+          Size Options
         </FormLabel>
-        <Input
-          type="text"
-          name="street_address"
-          id="street_address"
-          autoComplete="street-address"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-      </FormControl>
+          <CheckboxGroup >
 
+          </CheckboxGroup>
+      </FormControl>
       <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
         <FormLabel
           htmlFor="city"
