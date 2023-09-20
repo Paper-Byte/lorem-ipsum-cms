@@ -43,7 +43,7 @@ export default function Multistep() {
         setClothingDetails({...clothingDetails, item: event.target.value});
         console.log(clothingDetails);
     };
-        //this works as intended
+       
     return (
       <>
         <Box
@@ -94,8 +94,8 @@ export default function Multistep() {
                   variant="solid"
                   onClick={() => {
                     toast({
-                      title: 'Account created.',
-                      description: "We've created your account for you.",
+                      title: 'Item created.',
+                      description: "We've created your listing for you.",
                       status: 'success',
                       duration: 3000,
                       isClosable: true,
