@@ -1,9 +1,12 @@
 import React from "react";
-import { Heading } from "@chakra-ui/react";
+import { Heading , Button} from "@chakra-ui/react";
 
 const Header = () => {
     return(
-        <Heading as="h2" size="2xl" noOfLines={1}>Chakra Testing</Heading>
+        <>
+        <Button variant="primary">Test new custom button variant</Button>
+        <Heading as="h2" size="2xl" noOfLines={1}>Marketplace Admin Panel</Heading>
+        </>
     )
 }
 
