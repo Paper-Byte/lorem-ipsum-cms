@@ -229,6 +229,10 @@ const MobileNavItem = ({ label, children, href }) => {
 
 const NAV_ITEMS = [
   {
+    label: 'Welcome',
+    href: "#"
+  },
+  {
     label: 'Create Listing',
     children: [
       {
@@ -244,7 +248,8 @@ const NAV_ITEMS = [
     ],
   },
   {
-    label: 'Your Inventory',href:'#',
+    label: 'Your Inventory',
+    href:'#',
   },
   {
     label: 'Preview Catalogue',

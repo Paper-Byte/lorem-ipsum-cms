@@ -1,40 +1,15 @@
 import React from "react";
-import Header from "./Header";
-import Navbar from "./Navbar.jsx";
-import CreateClothing from "./CreateClothing";
+import Header from "./components/Header";
+import Navbar from "./components/Navbar.jsx";
+import CreateClothing from "./components/CreateClothing";
 
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true, error };
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div>
-          noah broke it
-          <p>{this.state.error.message}</p>
-        </div>
-      );
-    }
-
-    return this.props.children;
-  }
-}
 
 function App() {
   return (
     <div>
       <Header />
       <Navbar />
-      <ErrorBoundary>
-        <CreateClothing />
-      </ErrorBoundary>
+      <CreateClothing />
     </div>
   );
 }
