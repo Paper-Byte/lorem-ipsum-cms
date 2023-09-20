@@ -35,8 +35,21 @@ export default function Multistep() {
     type: '',
     image: '',
     description: '',
-    sizes: [],
-    colors: [],
+    sizes: {
+      xs: false,
+      s: false,
+      m: false,
+      l: false,
+      xl: false,
+    },
+    colors: {
+      black: false,
+      white: false,
+      firebrick: false,
+      navy: false,
+      aquamarine: false,
+      coral: false,
+    },
     price: 0,
     availability: true,
   });
@@ -48,8 +61,6 @@ export default function Multistep() {
     clothingDetails.type !== '' &&
     clothingDetails.image !== '' &&
     clothingDetails.description !== '' &&
-    clothingDetails.sizes.length > 0 &&
-    clothingDetails.colors.length > 0 &&
     clothingDetails.price > 0
   ) {
     canSubmit = true;
@@ -57,20 +68,25 @@ export default function Multistep() {
 
   console.log(clothingDetails);
 
-  const handleClothingOptionsStrings = (event) => {
-    if (event.target.name === 'price') {
-      let newPrice = parseInt(event.target.value);
+  const handleClothingOptions = (event) => {
+    const { name, value, type } = event.target;
+    if (name === 'price') {
+      let newPrice = parseInt(value);
       setClothingDetails({
         ...clothingDetails,
-        [event.target.name]: newPrice,
+        [name]: newPrice,
+      });
+    } else if (type === 'checkbox') {
+      setClothingDetails({
+        ...clothingDetails.sizes,
+        [name]: !clothingDetails.sizes[name],
       });
     } else {
-      setClothingDetails({
-        ...clothingDetails,
-        [event.target.name]: event.target.value,
-      });
+      setClothingDetails({ ...clothingDetails, [name]: value });
     }
   };
+
+  console.log(clothingDetails.sizes.xs);
 
   return (
     <>
@@ -99,14 +115,14 @@ export default function Multistep() {
             description={clothingDetails.description}
             clothingType={clothingDetails.type}
             img={clothingDetails.image}
-            handleClothingOptions={handleClothingOptionsStrings}
+            handleClothingOptions={handleClothingOptions}
           />
         ) : step === 2 ? (
           <Form2
             sizes={clothingDetails.sizes}
             colors={clothingDetails.colors}
             price={clothingDetails.price}
-            handleClothingPrice={handleClothingOptionsStrings}
+            handleClothingOptions={handleClothingOptions}
           />
         ) : (
           <Form3 />
@@ -186,7 +202,7 @@ const Form1 = ({
   img,
   clothingType,
   description,
-  handleClothingOptionsStrings,
+  handleClothingOptions,
 }) => {
   return (
     <>
@@ -213,7 +229,7 @@ const Form1 = ({
             name="item"
             type="text"
             value={item}
-            onChange={handleClothingOptionsStrings}
+            onChange={handleClothingOptions}
             placeholder="Item name..."
           />
                   
@@ -234,7 +250,7 @@ const Form1 = ({
             name="image"
             type="text"
             value={img}
-            onChange={handleClothingOptionsStrings}
+            onChange={handleClothingOptions}
             placeholder="Ex. 'https://png.pngtree.com/png-vector/...'"
           />
                   
@@ -262,7 +278,7 @@ const Form1 = ({
             id="type"
             name="type"
             value={clothingType}
-            onChange={handleClothingOptionsStrings}
+            onChange={handleClothingOptions}
             placeholder="Select option"
             focusBorderColor="brand.400"
             shadow="sm"
@@ -294,7 +310,7 @@ const Form1 = ({
             name="description"
             type="text"
             value={description}
-            onChange={handleClothingOptionsStrings}
+            onChange={handleClothingOptions}
             placeholder="Ex. 'https://png.pngtree.com/png-vector/...'"
           />
                   
@@ -306,7 +322,7 @@ const Form1 = ({
   );
 };
 
-const Form2 = ({ sizes, colors, price, handleClothingPrice }) => {
+const Form2 = ({ sizes, colors, price, handleClothingOptions }) => {
   return (
     <>
             
@@ -325,7 +341,7 @@ const Form2 = ({ sizes, colors, price, handleClothingPrice }) => {
                   
           <FormLabel
             htmlFor="sizes"
-            fontSize="sm"
+            fontSize="md"
             fontWeight="md"
             color="gray.700"
             _dark={{
@@ -336,20 +352,48 @@ const Form2 = ({ sizes, colors, price, handleClothingPrice }) => {
                       Size Options         
           </FormLabel>
                   
-          <CheckboxGroup
-            id="item-sizes"
-            name="sizes"
-            w="100%"
-            mr="5%"
-          >
-            <Stack spacing={[1, 50]} direction={['column', 'row']}>
-              <Checkbox value="xs">XS</Checkbox>
-              <Checkbox value="s">S</Checkbox>
-              <Checkbox value="m">M</Checkbox>
-              <Checkbox value="l">L</Checkbox>
-              <Checkbox value="xl">XL</Checkbox>
-            </Stack>
-          </CheckboxGroup>
+          <Stack spacing={[1, 50]} direction={['column', 'row']}>
+            <Checkbox
+              size="md"
+              onChange={handleClothingOptions}
+              name="xs"
+              isChecked={sizes.xs}
+            >
+              XS
+            </Checkbox>
+            <Checkbox
+              size="md"
+              isChecked={sizes.s}
+              onChange={handleClothingOptions}
+              name="s"
+            >
+              S
+            </Checkbox>
+            <Checkbox
+              size="md"
+              isChecked={sizes.m}
+              onChange={handleClothingOptions}
+              name="m"
+            >
+              M
+            </Checkbox>
+            <Checkbox
+              size="md"
+              isChecked={sizes.l}
+              onChange={handleClothingOptions}
+              name="l"
+            >
+              L
+            </Checkbox>
+            <Checkbox
+              size="md"
+              isChecked={sizes.xl}
+              onChange={handleClothingOptions}
+              name="xl"
+            >
+              XL
+            </Checkbox>
+          </Stack>
                 
         </FormControl>
              
