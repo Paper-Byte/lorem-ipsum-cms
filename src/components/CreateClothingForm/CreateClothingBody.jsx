@@ -1,30 +1,14 @@
-import React from 'react';
-
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   Progress,
   Box,
   ButtonGroup,
   Button,
-  Heading,
   Flex,
-  FormControl,
-  GridItem,
-  FormLabel,
-  Input,
-  Select,
-  SimpleGrid,
-  InputGroup,
-  Textarea,
-  FormHelperText,
-  Checkbox,
-  Stack,
-  InputLeftAddon,
-  InputRightAddon,
 } from '@chakra-ui/react';
-
-import ItemCard from './ItemCard';
-
+import Form1 from './Forms/ClothingForm1';
+import Form2 from './Forms/ClothingForm2';
+import Form3 from './Forms/ClothingForm3';
 import { useToast } from '@chakra-ui/react';
 
 export default function Multistep() {
@@ -157,11 +141,11 @@ export default function Multistep() {
           }),
         });
         const data = await resp.json();
-        successMessage();
         setCanReset(true);
+        successMessage();
       } catch {
-        failMessage();
         setCanReset(false);
+        failMessage();
       }
     };
     postNewClothing();
@@ -194,8 +178,6 @@ export default function Multistep() {
       setStep(1);
     }
   };
-
-  console.log(clothingDetails);
 
   return (
     <>
@@ -302,261 +284,3 @@ export default function Multistep() {
     </>
   );
 }
-
-const Form1 = ({
-  item,
-  img,
-  clothingType,
-  description,
-  handleClothingOptionsStrings,
-}) => {
-  return (
-    <>
-            
-      <Heading w="100%" textAlign={'center'} mb="2%" size="md">
-        Clothing Creation       
-      </Heading>
-            
-      <Flex direction={'column'}>
-                
-        <FormControl isRequired>
-               
-          <FormLabel htmlFor="item-name" fontWeight={'normal'}>
-            Item Name
-          </FormLabel>
-                    
-          <Input
-            id="item-name"
-            name="item"
-            type="text"
-            value={item}
-            onChange={handleClothingOptionsStrings}
-            placeholder="Item name..."
-          />
-                  
-        </FormControl>
-                       
-        <FormControl isRequired>
-                    
-          <FormLabel htmlFor="item-image" fontWeight={'normal'}>
-            Item Image URL           
-          </FormLabel>
-                    
-          <Input
-            id="item-image"
-            name="image"
-            type="text"
-            value={img}
-            onChange={handleClothingOptionsStrings}
-            placeholder="Ex. 'https://png.pngtree.com/png-vector/...'"
-          />
-                  
-        </FormControl>
-                       
-        <FormControl isRequired>
-                    
-          <FormLabel
-            htmlFor="type"
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: 'gray.50',
-            }}
-          >
-             Type Of Clothing           
-          </FormLabel>
-                    
-          <Select
-            id="type"
-            name="type"
-            value={clothingType}
-            onChange={handleClothingOptionsStrings}
-            placeholder="Select option"
-            focusBorderColor="brand.400"
-            shadow="sm"
-            w="full"
-            rounded="md"
-          >
-                        <option value="tshirt">T-Shirt</option>
-                        <option value="hoodie">Hoodie</option>
-                        
-            <option value="sweatshirt">Sweatshirt</option>
-                        <option value="hat">Hat</option>
-                        <option value="jacket">Jacket</option>
-                      
-          </Select>
-                  
-        </FormControl>
-                       
-        <FormControl isRequired>
-                    
-          <FormLabel
-            htmlFor="type"
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: 'gray.50',
-            }}
-          >
-            Item Description           
-          </FormLabel>
-                    
-          <Input
-            id="item-description"
-            name="description"
-            type="text"
-            value={description}
-            onChange={handleClothingOptionsStrings}
-            placeholder="Ex. 'https://png.pngtree.com/png-vector/...'"
-          />
-        </FormControl>
-      </Flex>
-          
-    </>
-  );
-};
-
-const Form2 = ({
-  sizes,
-  colors,
-  price,
-  handleClothingOptionsSizes,
-  handleClothingOptionsColors,
-  handleClothingOptionsInteger,
-}) => {
-  return (
-    <>
-            
-      <Heading w="100%" textAlign={'center'} size="md" mb="2%">
-        Clothing Options       
-      </Heading>
-       
-      <Flex>
-           
-        <FormControl isRequired>
-                  
-          <FormLabel
-            htmlFor="sizes"
-            fontSize="md"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: 'gray.50',
-            }}
-            mt="2%"
-          >
-             Size Options         
-          </FormLabel>
-                  
-          <Stack spacing={[1, 50]} direction={['column', 'row']}>
-            {sizes.map((e) => {
-              return (
-                <Checkbox
-                  key={e.size}
-                  size="md"
-                  onChange={handleClothingOptionsSizes}
-                  name={e.size}
-                  isChecked={e.isAvailable}
-                >
-                  {e.size.toUpperCase()}
-                </Checkbox>
-              );
-            })}
-          </Stack>
-                
-        </FormControl>
-             
-      </Flex>
-      <Flex>
-           
-        <FormControl isRequired>
-                  
-          <FormLabel
-            htmlFor="colors"
-            fontSize="md"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: 'gray.50',
-            }}
-            mt="2%"
-          >
-             Color Options         
-          </FormLabel>
-                  
-          <Stack spacing={[1, 50]} direction={['column', 'row']}>
-            {colors.map((e) => {
-              return (
-                <Checkbox
-                  key={e.colorName}
-                  size="doItBIG"
-                  onChange={handleClothingOptionsColors}
-                  name={e.colorName}
-                  isChecked={e.isAvailable}
-                  colorScheme={'red'}
-                ></Checkbox>
-              );
-            })}
-          </Stack>
-                
-        </FormControl>
-             
-      </Flex>
-      <Box>
-              
-        <FormControl>
-                  
-          <FormLabel
-            htmlFor="price"
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: 'gray.50',
-            }}
-            mt="2%"
-          >
-            Item Price (USD)         
-          </FormLabel>
-          <div className="">
-            <InputGroup
-              size="md"
-              rounded="md"
-              className="justify-start"
-              name="price"
-            >
-              <InputLeftAddon children="$" />
-                     
-              <Input
-                type="text"
-                name="price"
-                id="price"
-                focusBorderColor="brand.400"
-                shadow="sm"
-                onChange={handleClothingOptionsInteger}
-                w="24"
-              />
-              <InputRightAddon children=".99" />
-            </InputGroup>
-                  
-          </div>
-        </FormControl>
-      </Box>
-          
-    </>
-  );
-};
-
-const Form3 = ({ clothingDetails }) => {
-  return (
-    <>
-            
-      <Heading w="100%" textAlign={'center'} size="md">
-                Card Preview       
-      </Heading>
-      <ItemCard itemListing={clothingDetails} />
-    </>
-  );
-};
