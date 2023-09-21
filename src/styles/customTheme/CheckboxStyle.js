@@ -13,11 +13,14 @@ export const CheckboxStyle = defineStyleConfig({
         boxShadow: 'none',
       },
       _checked: (props) => ({
-        bg: props.colorScheme || 'primary.500',
+        backgroundColor:
+          `${props.colorScheme} !important` || 'primary.500',
+
         borderColor: 'primary.500',
         color: 'white',
         _hover: {
-          bg: 'primary.600', // <-- this is hover color
+          backgroundColor:
+            `${props.colorScheme} !important` || 'primary.500',
           borderColor: 'primary.600',
         },
       }),

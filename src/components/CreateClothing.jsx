@@ -23,6 +23,8 @@ import {
   InputRightAddon,
 } from '@chakra-ui/react';
 
+import ItemCard from './ItemCard';
+
 import { useToast } from '@chakra-ui/react';
 
 export default function Multistep() {
@@ -146,7 +148,7 @@ export default function Multistep() {
             }
           />
         ) : (
-          <Form3 />
+          <Form3 clothingDetails={clothingDetails} />
         )}
                 
         <ButtonGroup mt="5%" w="100%">
@@ -424,7 +426,7 @@ const Form2 = ({
         <FormControl>
                   
           <FormLabel
-            htmlFor="postal_code"
+            htmlFor="price"
             fontSize="sm"
             fontWeight="md"
             color="gray.700"
@@ -440,6 +442,7 @@ const Form2 = ({
               size="md"
               rounded="md"
               className="justify-start"
+              name="price"
             >
               <InputLeftAddon children="$" />
                      
@@ -463,81 +466,14 @@ const Form2 = ({
   );
 };
 
-const Form3 = () => {
+const Form3 = ({ clothingDetails }) => {
   return (
     <>
             
       <Heading w="100%" textAlign={'center'} size="md">
-                Social Handles       
+                Card Preview       
       </Heading>
-                     
-      <FormControl as={GridItem} colSpan={[3, 2]}>
-                  
-        <FormLabel
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: 'gray.50',
-          }}
-        >
-                      Website           
-        </FormLabel>
-                  
-        <InputGroup size="sm">
-                      
-          <InputLeftAddon
-            bg="gray.50"
-            _dark={{
-              bg: 'gray.800',
-            }}
-            color="gray.500"
-            rounded="md"
-          >
-            http://             
-          </InputLeftAddon>
-                      
-          <Input
-            type="tel"
-            placeholder="www.example.com"
-            focusBorderColor="brand.400"
-            rounded="md"
-          />
-                    
-        </InputGroup>
-                
-      </FormControl>
-              
-      <FormControl id="email" mt={1}>
-                  
-        <FormLabel
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: 'gray.50',
-          }}
-        >
-                      About           
-        </FormLabel>
-                  
-        <Textarea
-          placeholder="you@example.com"
-          rows={3}
-          shadow="sm"
-          focusBorderColor="brand.400"
-          fontSize={{
-            sm: 'sm',
-          }}
-        />
-                  
-        <FormHelperText>
-                      Brief description for your profile. URLs are
-          hyperlinked.           
-        </FormHelperText>
-                
-      </FormControl>
-                 
+      <ItemCard itemListing={clothingDetails} />
     </>
   );
 };
