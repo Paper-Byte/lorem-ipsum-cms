@@ -15,7 +15,6 @@ export const CheckboxStyle = defineStyleConfig({
       _checked: (props) => ({
         backgroundColor:
           `${props.colorScheme} !important` || 'primary.500',
-
         borderColor: 'primary.500',
         color: 'white',
         _hover: {
@@ -28,6 +27,22 @@ export const CheckboxStyle = defineStyleConfig({
     label: {
       ml: 2,
     },
+  },
+  variants: {
+    dynamic: (props) => ({
+      control: {
+        _checked: {
+          backgroundColor:
+            `${props.variantColor} !important` || 'primary.500',
+          borderColor: props.variantColor || 'primary.500',
+          _hover: {
+            backgroundColor:
+              `${props.variantColor} !important` || 'primary.500',
+            borderColor: props.variantColor || 'primary.600',
+          },
+        },
+      },
+    }),
   },
   defaultProps: {},
   sizes: {

@@ -45,17 +45,17 @@ const Form2 = ({
           </FormLabel>
                   
           <Stack spacing={[1, 50]} direction={['column', 'row']}>
-            {sizes.map((e) => {
+            {colors.map((e) => {
               return (
                 <Checkbox
-                  key={e.size}
-                  size="md"
-                  onChange={handleClothingOptionsSizes}
-                  name={e.size}
+                  key={e.colorName}
+                  size="doItBIG"
+                  onChange={handleClothingOptionsColors}
+                  name={e.colorName}
                   isChecked={e.isAvailable}
-                >
-                  {e.size.toUpperCase()}
-                </Checkbox>
+                  variant={'dynamic'}
+                  variantColor={e.colorName}
+                ></Checkbox>
               );
             })}
           </Stack>
