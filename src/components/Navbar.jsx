@@ -29,11 +29,10 @@ export default function WithSubnavigation() {
   const { colorMode, toggleColorMode } = useColorMode();
 
   const { isOpen, onToggle } = useDisclosure();
-  const useTheme = (colorKey) => `${colorMode}.${colorKey}`;
+
   return (
     <Box>
       <Flex
-        bg={useTheme('primary.500')}
         minH={'60px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
@@ -87,7 +86,7 @@ export default function WithSubnavigation() {
           spacing={6}
         >
           <div>
-            <Button onClick={toggleColorMode} variant="secondary">
+            <Button onClick={toggleColorMode} variant={'accent'}>
               {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
             </Button>
           </div>
@@ -102,6 +101,19 @@ export default function WithSubnavigation() {
 }
 
 const DesktopNav = () => {
+  const linkColor = useColorModeValue(
+    'light.primary.50',
+    'dark.primary.50'
+  );
+  const linkHoverColor = useColorModeValue(
+    'light.primary.50',
+    'dark.primary.50'
+  );
+  const popoverContentBgColor = useColorModeValue(
+    'white',
+    'gray.800'
+  );
+
   return (
     <Stack direction={'row'} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
@@ -114,8 +126,10 @@ const DesktopNav = () => {
                 href={navItem.href ?? '#'}
                 fontSize={'sm'}
                 fontWeight={500}
+                color={linkColor}
                 _hover={{
                   textDecoration: 'none',
+                  color: linkHoverColor,
                 }}
               >
                 {navItem.label}
@@ -126,6 +140,7 @@ const DesktopNav = () => {
               <PopoverContent
                 border={0}
                 boxShadow={'xl'}
+                bg={popoverContentBgColor}
                 p={4}
                 rounded={'xl'}
                 minW={'sm'}

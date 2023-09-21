@@ -6,8 +6,8 @@ import { mode } from '@chakra-ui/theme-tools';
 import colors from './palette';
 export default extendTheme({
   fonts: {
-    heading: `Lato, sans-serif`,
-    body: `Raleway, sans-serif`,
+    heading: `Italiana, cursive`,
+    body: `Cinzel, serif`,
   },
   config: {
     initialColorMode: 'light',

@@ -18,7 +18,6 @@ import {
   InputGroup,
   Textarea,
   FormHelperText,
-  CheckboxGroup,
   Checkbox,
   Stack,
 } from '@chakra-ui/react';
@@ -66,37 +65,40 @@ export default function Multistep() {
     canSubmit = true;
   }
 
-
   const handleClothingOptionsStrings = (event) => {
     const { name, value } = event.target;
-      setClothingDetails({ ...clothingDetails, [name]: value });
+    setClothingDetails({ ...clothingDetails, [name]: value });
   };
 
   const handleClothingOptionsSizes = (event) => {
-    const { name } = event.target
+    const { name } = event.target;
     const newSizes = clothingDetails.sizes.map((e) => {
-        if(e.size === name){
-            e.isAvailable = !e.isAvailable
-        }
-        return e;
-    })
-    setClothingDetails({...clothingDetails, sizes: newSizes})
+      if (e.size === name) {
+        e.isAvailable = !e.isAvailable;
+      }
+      return e;
+    });
+    setClothingDetails({ ...clothingDetails, sizes: newSizes });
+  };
 
-    const handleClothingOptionsColors = (event) => {
-        const {name} = event.target;
-        const newColors = clothingDetails.colors.map((e) => {
-            if(e.colorName === name){
-                e.isAvailable = !e.isAvailable
-            }
-            return e;
-        })
-        setClothingDetails({...clothingDetails, colors: newColors})
-    }
+  const handleClothingOptionsColors = (event) => {
+    const { name } = event.target;
+    const newColors = clothingDetails.colors.map((e) => {
+      if (e.colorName === name) {
+        e.isAvailable = !e.isAvailable;
+      }
+      return e;
+    });
+    setClothingDetails({ ...clothingDetails, colors: newColors });
+  };
 
-    const handleClothingOptionsInteger = (event) => {
-        const {name, value} = event.target;
-        setClothingDetails({...clothingDetails, [name]: parseInt(value)})
-    }
+  const handleClothingOptionsInteger = (event) => {
+    const { name, value } = event.target;
+    setClothingDetails({
+      ...clothingDetails,
+      [name]: parseInt(value),
+    });
+  };
 
   return (
     <>
@@ -125,7 +127,9 @@ export default function Multistep() {
             description={clothingDetails.description}
             clothingType={clothingDetails.type}
             img={clothingDetails.image}
-            handleClothingOptionsStrings={handleClothingOptionsStrings}
+            handleClothingOptionsStrings={
+              handleClothingOptionsStrings
+            }
           />
         ) : step === 2 ? (
           <Form2
@@ -134,7 +138,9 @@ export default function Multistep() {
             price={clothingDetails.price}
             handleClothingOptionsSizes={handleClothingOptionsSizes}
             handleClothingOptionsColors={handleClothingOptionsColors}
-            handleClothingOptionsInteger={handleClothingOptionsInteger}
+            handleClothingOptionsInteger={
+              handleClothingOptionsInteger
+            }
           />
         ) : (
           <Form3 />
@@ -241,7 +247,7 @@ const Form1 = ({
             name="item"
             type="text"
             value={item}
-            onChange={handleClothingOptions}
+            onChange={handleClothingOptionsStrings}
             placeholder="Item name..."
           />
                   
@@ -262,7 +268,7 @@ const Form1 = ({
             name="image"
             type="text"
             value={img}
-            onChange={handleClothingOptions}
+            onChange={handleClothingOptionsStrings}
             placeholder="Ex. 'https://png.pngtree.com/png-vector/...'"
           />
                   
@@ -290,7 +296,7 @@ const Form1 = ({
             id="type"
             name="type"
             value={clothingType}
-            onChange={handleClothingOptions}
+            onChange={handleClothingOptionsStrings}
             placeholder="Select option"
             focusBorderColor="brand.400"
             shadow="sm"
@@ -299,7 +305,8 @@ const Form1 = ({
           >
                         <option value="tshirt">T-Shirt</option>
                         <option value="hoodie">Hoodie</option>
-                        <option value="sweatshirt">Sweatshirt</option>
+                        
+            <option value="sweatshirt">Sweatshirt</option>
                         <option value="hat">Hat</option>
                         <option value="jacket">Jacket</option>
                       
@@ -322,38 +329,24 @@ const Form1 = ({
             name="description"
             type="text"
             value={description}
-            onChange={handleClothingOptions}
+            onChange={handleClothingOptionsStrings}
             placeholder="Ex. 'https://png.pngtree.com/png-vector/...'"
           />
-                  
-        </FormControl>
-              
+        </FormControl>{' '}
       </Flex>
           
     </>
   );
 };
 
-const Form2 = ({ sizes, colors, price, handleClothingOptionsSizes, handleClothingOptionsColors, handleClothingOptionsInteger }) => {
-  /*
-        [
-    {
-        "xs": false
-    },
-    {
-        "s": false
-    },
-    {
-        "m": false
-    },
-    {
-        "l": false
-    },
-    {
-        "xl": false
-    }
-]
-        */
+const Form2 = ({
+  sizes,
+  colors,
+  price,
+  handleClothingOptionsSizes,
+  handleClothingOptionsColors,
+  handleClothingOptionsInteger,
+}) => {
   return (
     <>
             
@@ -384,16 +377,16 @@ const Form2 = ({ sizes, colors, price, handleClothingOptionsSizes, handleClothin
           </FormLabel>
                   
           <Stack spacing={[1, 50]} direction={['column', 'row']}>
-            {sizes.map((size) => {
+            {sizes.map((e) => {
               return (
                 <Checkbox
-                  key={size.size}
+                  key={e.size}
                   size="md"
-                  onChange={handleClothingOptions}
-                  name={size.size}
-                  isChecked={size.isAvailable}
+                  onChange={handleClothingOptionsSizes}
+                  name={e.size}
+                  isChecked={e.isAvailable}
                 >
-                  {size.size.toUpperCase()}
+                  {e.size.toUpperCase()}
                 </Checkbox>
               );
             })}
@@ -402,35 +395,37 @@ const Form2 = ({ sizes, colors, price, handleClothingOptionsSizes, handleClothin
         </FormControl>
              
       </Flex>
-              
-      <FormControl isRequired mr="5%">
-                
-        <FormLabel
-          htmlFor="state"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: 'gray.50',
-          }}
-          mt="2%"
-        >
-                    State / Province         
-        </FormLabel>
-                
-        <Input
-          type="text"
-          name="state"
-          id="state"
-          autoComplete="state"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-              
-      </FormControl>
+      <Flex>
+                
+        <FormControl isRequired mr="5%">
+                  
+          <FormLabel
+            htmlFor="state"
+            fontSize="sm"
+            fontWeight="md"
+            color="gray.700"
+            _dark={{
+              color: 'gray.50',
+            }}
+            mt="2%"
+          >
+                      State / Province         
+          </FormLabel>
+                  
+          <Input
+            type="text"
+            name="state"
+            id="state"
+            autoComplete="state"
+            focusBorderColor="brand.400"
+            shadow="sm"
+            size="sm"
+            w="full"
+            rounded="md"
+          />
+                
+        </FormControl>
+      </Flex>
             
       <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
                 

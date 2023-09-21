@@ -1,9 +1,8 @@
-import React from "react";
-import Header from "./components/Header";
-import Navbar from "./components/Navbar.jsx";
-import CreateClothing from "./components/CreateClothing";
-import Footer from "./components/Footer"
-
+import React from 'react';
+import Header from './components/Header';
+import Navbar from './components/Navbar.jsx';
+import CreateClothing from './components/CreateClothing';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -11,7 +10,7 @@ function App() {
       <Header />
       <Navbar />
       <CreateClothing />
-      <Footer position='bottom'/>
+      <Footer position="bottom" />
     </div>
   );
 }
