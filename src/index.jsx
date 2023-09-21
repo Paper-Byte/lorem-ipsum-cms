@@ -4,12 +4,15 @@ import './global.css';
 import App from './App';
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import customTheme from './styles/customTheme/customTheme';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <ChakraProvider theme={customTheme}>
     <ColorModeScript initialColorMode={'light'} />
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </ChakraProvider>
 );

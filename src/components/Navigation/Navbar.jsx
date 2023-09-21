@@ -240,7 +240,7 @@ const MobileNavItem = ({ label, children, href }) => {
 const NAV_ITEMS = [
   {
     label: 'Welcome',
-    href: '#',
+    href: process.env.REACT_APP_WEBPAGE_HOME,
   },
   {
     label: 'Create Listing',
@@ -248,7 +248,7 @@ const NAV_ITEMS = [
       {
         label: 'Clothing',
         subLabel: 'T-Shirts, Sweaters, Hoodies, etc.',
-        href: '#',
+        href: process.env.REACT_APP_WEBPAGE_CREATE_CLOTHING,
       },
       {
         label: 'Novelties',

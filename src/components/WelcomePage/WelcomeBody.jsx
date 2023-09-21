@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import {
   Box,
   Heading,
@@ -10,7 +9,6 @@ import {
   useColorModeValue,
   createIcon,
 } from '@chakra-ui/react';
-
 import React, { useEffect, useState } from 'react';
 import WelcomeCard from './WelcomeCard';
 
