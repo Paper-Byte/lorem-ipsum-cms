@@ -31,6 +31,7 @@ export default function Multistep() {
   const toast = useToast();
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
+  const [canReset, setCanReset] = useState(false);
   const [clothingDetails, setClothingDetails] = useState({
     item: '',
     category: 'clothing',
@@ -101,6 +102,97 @@ export default function Multistep() {
       ...clothingDetails,
       [name]: parseInt(value) + 0.99,
     });
+  };
+
+  const handleSubmitClothingOption = (event) => {
+    event.preventDefault();
+    const {
+      item,
+      category,
+      type,
+      image,
+      description,
+      sizes,
+      colors,
+      price,
+      availabilty,
+    } = clothingDetails;
+
+    const successMessage = () => {
+      toast({
+        title: 'Item created.',
+        description: "We've created your listing for you.",
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+    };
+
+    const failMessage = () => {
+      toast({
+        title: 'Error encountered.',
+        description:
+          'We were unable to create your item, please try again.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    };
+
+    const postNewClothing = async () => {
+      try {
+        const resp = await fetch(process.env.REACT_APP_LOCAL_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            item,
+            category,
+            type,
+            image,
+            description,
+            sizes,
+            colors,
+            price,
+            availabilty,
+          }),
+        });
+        const data = await resp.json();
+        successMessage();
+        setCanReset(true);
+      } catch {
+        failMessage();
+        setCanReset(false);
+      }
+    };
+    postNewClothing();
+    if (canReset) {
+      setClothingDetails({
+        ...clothingDetails,
+        item: '',
+        category: 'clothing',
+        type: '',
+        image: '',
+        description: '',
+        sizes: [
+          { size: 'xs', isAvailable: false },
+          { size: 's', isAvailable: false },
+          { size: 'm', isAvailable: false },
+          { size: 'l', isAvailable: false },
+          { size: 'xl', isAvailable: false },
+        ],
+        colors: [
+          { colorName: 'black', isAvailable: false },
+          { colorName: 'white', isAvailable: false },
+          { colorName: 'firebrick', isAvailable: false },
+          { colorName: 'navy', isAvailable: false },
+          { colorName: 'aquamarine', isAvailable: false },
+          { colorName: 'coral', isAvailable: false },
+        ],
+        price: 0,
+        availability: true,
+      });
+      setStep(1);
+    }
   };
 
   console.log(clothingDetails);
@@ -194,16 +286,7 @@ export default function Multistep() {
                 colorScheme="red"
                 variant="solid"
                 isDisabled={!canSubmit}
-                onClick={() => {
-                  toast({
-                    title: 'Item created.',
-                    description:
-                      "We've created your listing for you.",
-                    status: 'success',
-                    duration: 3000,
-                    isClosable: true,
-                  });
-                }}
+                onClick={handleSubmitClothingOption}
               >
                                 {canSubmit ? 'Submit' : 'Invalid'}
                               
