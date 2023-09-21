@@ -6,28 +6,21 @@ import {
   Stack,
   Collapse,
   Icon,
-  Button,
   Popover,
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
-  useColorMode,
-  Switch,
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
   CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
-  MoonIcon,
-  SunIcon,
 } from '@chakra-ui/icons';
 
 export default function WithSubnavigation() {
-  const { colorMode, toggleColorMode } = useColorMode();
-
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -38,7 +31,6 @@ export default function WithSubnavigation() {
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
         align={'center'}
       >
         <Flex
@@ -64,33 +56,22 @@ export default function WithSubnavigation() {
           justify={{ base: 'center', md: 'start' }}
         >
           <Text
-            textAlign={useBreakpointValue({
-              base: 'center',
-              md: 'left',
-            })}
-            fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}
+          // textAlign={useBreakpointValue({
+          //   base: "center",
+          //   md: "left",
+          // })}
+          // fontFamily={"heading"}
           >
             Logo
           </Text>
 
-          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+          <Flex
+            display={{ base: 'none', md: 'flex' }}
+            className="w-full"
+          >
             <DesktopNav />
           </Flex>
         </Flex>
-
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={'flex-end'}
-          direction={'row'}
-          spacing={6}
-        >
-          <div>
-            <Button onClick={toggleColorMode} variant={'accent'}>
-              {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-            </Button>
-          </div>
-        </Stack>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
@@ -101,21 +82,8 @@ export default function WithSubnavigation() {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue(
-    'light.primary.50',
-    'dark.primary.50'
-  );
-  const linkHoverColor = useColorModeValue(
-    'light.primary.50',
-    'dark.primary.50'
-  );
-  const popoverContentBgColor = useColorModeValue(
-    'white',
-    'gray.800'
-  );
-
   return (
-    <Stack direction={'row'} spacing={4}>
+    <div className="flex text-center w-full align-center justify-center space-x-36">
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
@@ -126,10 +94,8 @@ const DesktopNav = () => {
                 href={navItem.href ?? '#'}
                 fontSize={'sm'}
                 fontWeight={500}
-                color={linkColor}
                 _hover={{
                   textDecoration: 'none',
-                  color: linkHoverColor,
                 }}
               >
                 {navItem.label}
@@ -140,7 +106,6 @@ const DesktopNav = () => {
               <PopoverContent
                 border={0}
                 boxShadow={'xl'}
-                bg={popoverContentBgColor}
                 p={4}
                 rounded={'xl'}
                 minW={'sm'}
@@ -155,7 +120,7 @@ const DesktopNav = () => {
           </Popover>
         </Box>
       ))}
-    </Stack>
+    </div>
   );
 };
 
@@ -168,13 +133,13 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
       display={'block'}
       p={2}
       rounded={'md'}
-      _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}
+      _hover={{ bg: useColorModeValue('primary.50', 'primary.900') }}
     >
       <Stack direction={'row'} align={'center'}>
         <Box>
           <Text
             transition={'all .3s ease'}
-            _groupHover={{ color: 'pink.400' }}
+            _groupHover={{ color: 'secondary.500' }}
             fontWeight={500}
           >
             {label}
@@ -194,7 +159,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
           flex={1}
         >
           <Icon
-            color={'pink.400'}
+            color={'secondary.400'}
             w={5}
             h={5}
             as={ChevronRightIcon}
@@ -261,7 +226,7 @@ const MobileNavItem = ({ label, children, href }) => {
           pl={4}
           borderLeft={1}
           borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.200', 'gray.700')}
+          borderColor={useColorModeValue('primary.200', 'primary.50')}
           align={'start'}
         >
           {children &&

@@ -14,12 +14,13 @@ import {
   Input,
   Select,
   SimpleGrid,
-  InputLeftAddon,
   InputGroup,
   Textarea,
   FormHelperText,
   Checkbox,
   Stack,
+  InputLeftAddon,
+  InputRightAddon,
 } from '@chakra-ui/react';
 
 import { useToast } from '@chakra-ui/react';
@@ -96,13 +97,15 @@ export default function Multistep() {
     const { name, value } = event.target;
     setClothingDetails({
       ...clothingDetails,
-      [name]: parseInt(value),
+      [name]: parseInt(value) + 0.99,
     });
   };
 
+  console.log(clothingDetails);
+
   return (
     <>
-            
+         
       <Box
         borderWidth="1px"
         rounded="lg"
@@ -112,7 +115,7 @@ export default function Multistep() {
         m="10px auto"
         as="form"
       >
-                
+         
         <Progress
           hasStripe
           value={progress}
@@ -225,21 +228,16 @@ const Form1 = ({
   return (
     <>
             
-      <Heading
-        w="100%"
-        textAlign={'center'}
-        fontWeight="normal"
-        mb="2%"
-      >
-                Clothing Creation       
+      <Heading w="100%" textAlign={'center'} mb="2%" size="md">
+        Clothing Creation       
       </Heading>
             
-      <Flex>
+      <Flex direction={'column'}>
                 
-        <FormControl isRequired mr="5%">
-                    
+        <FormControl isRequired>
+               
           <FormLabel htmlFor="item-name" fontWeight={'normal'}>
-                        Item Name           
+            Item Name
           </FormLabel>
                     
           <Input
@@ -252,15 +250,11 @@ const Form1 = ({
           />
                   
         </FormControl>
-              
-      </Flex>
-            
-      <Flex>
-                
-        <FormControl isRequired mr="5%">
+                       
+        <FormControl isRequired>
                     
           <FormLabel htmlFor="item-image" fontWeight={'normal'}>
-                        Item Image URL           
+            Item Image URL           
           </FormLabel>
                     
           <Input
@@ -273,12 +267,8 @@ const Form1 = ({
           />
                   
         </FormControl>
-              
-      </Flex>
-            
-      <Flex>
-                
-        <FormControl isRequired mr="5%">
+                       
+        <FormControl isRequired>
                     
           <FormLabel
             htmlFor="type"
@@ -289,7 +279,7 @@ const Form1 = ({
               color: 'gray.50',
             }}
           >
-                        Type Of Clothing           
+             Type Of Clothing           
           </FormLabel>
                     
           <Select
@@ -313,15 +303,19 @@ const Form1 = ({
           </Select>
                   
         </FormControl>
-              
-      </Flex>
-            
-      <Flex>
-                
-        <FormControl isRequired mr="5%">
+                       
+        <FormControl isRequired>
                     
-          <FormLabel htmlFor="item-description" fontWeight={'normal'}>
-                        Item Description           
+          <FormLabel
+            htmlFor="type"
+            fontSize="sm"
+            fontWeight="md"
+            color="gray.700"
+            _dark={{
+              color: 'gray.50',
+            }}
+          >
+            Item Description           
           </FormLabel>
                     
           <Input
@@ -332,7 +326,7 @@ const Form1 = ({
             onChange={handleClothingOptionsStrings}
             placeholder="Ex. 'https://png.pngtree.com/png-vector/...'"
           />
-        </FormControl>{' '}
+        </FormControl>
       </Flex>
           
     </>
@@ -350,18 +344,13 @@ const Form2 = ({
   return (
     <>
             
-      <Heading
-        w="100%"
-        textAlign={'center'}
-        fontWeight="normal"
-        mb="2%"
-      >
-                Clothing Options       
+      <Heading w="100%" textAlign={'center'} size="md" mb="2%">
+        Clothing Options       
       </Heading>
        
       <Flex>
            
-        <FormControl isRequired mr="5%">
+        <FormControl isRequired>
                   
           <FormLabel
             htmlFor="sizes"
@@ -373,7 +362,7 @@ const Form2 = ({
             }}
             mt="2%"
           >
-                      Size Options         
+             Size Options         
           </FormLabel>
                   
           <Stack spacing={[1, 50]} direction={['column', 'row']}>
@@ -396,11 +385,46 @@ const Form2 = ({
              
       </Flex>
       <Flex>
-                
-        <FormControl isRequired mr="5%">
+           
+        <FormControl isRequired>
                   
           <FormLabel
-            htmlFor="state"
+            htmlFor="colors"
+            fontSize="md"
+            fontWeight="md"
+            color="gray.700"
+            _dark={{
+              color: 'gray.50',
+            }}
+            mt="2%"
+          >
+             Color Options         
+          </FormLabel>
+                  
+          <Stack spacing={[1, 50]} direction={['column', 'row']}>
+            {colors.map((e) => {
+              return (
+                <Checkbox
+                  key={e.colorName}
+                  size="doItBIG"
+                  onChange={handleClothingOptionsColors}
+                  name={e.colorName}
+                  isChecked={e.isAvailable}
+                  colorScheme={'red'}
+                ></Checkbox>
+              );
+            })}
+          </Stack>
+                
+        </FormControl>
+             
+      </Flex>
+      <Box>
+              
+        <FormControl>
+                  
+          <FormLabel
+            htmlFor="postal_code"
             fontSize="sm"
             fontWeight="md"
             color="gray.700"
@@ -409,52 +433,31 @@ const Form2 = ({
             }}
             mt="2%"
           >
-                      State / Province         
+            Item Price (USD)         
           </FormLabel>
-                  
-          <Input
-            type="text"
-            name="state"
-            id="state"
-            autoComplete="state"
-            focusBorderColor="brand.400"
-            shadow="sm"
-            size="sm"
-            w="full"
-            rounded="md"
-          />
-                
+          <div className="">
+            <InputGroup
+              size="md"
+              rounded="md"
+              className="justify-start"
+            >
+              <InputLeftAddon children="$" />
+                     
+              <Input
+                type="text"
+                name="price"
+                id="price"
+                focusBorderColor="brand.400"
+                shadow="sm"
+                onChange={handleClothingOptionsInteger}
+                w="24"
+              />
+              <InputRightAddon children=".99" />
+            </InputGroup>
+                  
+          </div>
         </FormControl>
-      </Flex>
-            
-      <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
-                
-        <FormLabel
-          htmlFor="postal_code"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: 'gray.50',
-          }}
-          mt="2%"
-        >
-                    ZIP / Postal         
-        </FormLabel>
-                
-        <Input
-          type="text"
-          name="postal_code"
-          id="postal_code"
-          autoComplete="postal-code"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-              
-      </FormControl>
+      </Box>
           
     </>
   );
@@ -464,81 +467,77 @@ const Form3 = () => {
   return (
     <>
             
-      <Heading w="100%" textAlign={'center'} fontWeight="normal">
+      <Heading w="100%" textAlign={'center'} size="md">
                 Social Handles       
       </Heading>
-            
-      <SimpleGrid columns={1} spacing={6}>
-                
-        <FormControl as={GridItem} colSpan={[3, 2]}>
-                    
-          <FormLabel
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
+                     
+      <FormControl as={GridItem} colSpan={[3, 2]}>
+                  
+        <FormLabel
+          fontSize="sm"
+          fontWeight="md"
+          color="gray.700"
+          _dark={{
+            color: 'gray.50',
+          }}
+        >
+                      Website           
+        </FormLabel>
+                  
+        <InputGroup size="sm">
+                      
+          <InputLeftAddon
+            bg="gray.50"
             _dark={{
-              color: 'gray.50',
+              bg: 'gray.800',
             }}
+            color="gray.500"
+            rounded="md"
           >
-                        Website           
-          </FormLabel>
-                    
-          <InputGroup size="sm">
-                        
-            <InputLeftAddon
-              bg="gray.50"
-              _dark={{
-                bg: 'gray.800',
-              }}
-              color="gray.500"
-              rounded="md"
-            >
-                            http://             
-            </InputLeftAddon>
-                        
-            <Input
-              type="tel"
-              placeholder="www.example.com"
-              focusBorderColor="brand.400"
-              rounded="md"
-            />
-                      
-          </InputGroup>
-                  
-        </FormControl>
-                
-        <FormControl id="email" mt={1}>
-                    
-          <FormLabel
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: 'gray.50',
-            }}
-          >
-                        About           
-          </FormLabel>
-                    
-          <Textarea
-            placeholder="you@example.com"
-            rows={3}
-            shadow="sm"
+            http://             
+          </InputLeftAddon>
+                      
+          <Input
+            type="tel"
+            placeholder="www.example.com"
             focusBorderColor="brand.400"
-            fontSize={{
-              sm: 'sm',
-            }}
+            rounded="md"
           />
                     
-          <FormHelperText>
-                        Brief description for your profile. URLs are
-            hyperlinked.           
-          </FormHelperText>
-                  
-        </FormControl>
-              
-      </SimpleGrid>
-          
+        </InputGroup>
+                
+      </FormControl>
+              
+      <FormControl id="email" mt={1}>
+                  
+        <FormLabel
+          fontSize="sm"
+          fontWeight="md"
+          color="gray.700"
+          _dark={{
+            color: 'gray.50',
+          }}
+        >
+                      About           
+        </FormLabel>
+                  
+        <Textarea
+          placeholder="you@example.com"
+          rows={3}
+          shadow="sm"
+          focusBorderColor="brand.400"
+          fontSize={{
+            sm: 'sm',
+          }}
+        />
+                  
+        <FormHelperText>
+                      Brief description for your profile. URLs are
+          hyperlinked.           
+        </FormHelperText>
+                
+      </FormControl>
+                 
     </>
   );
 };

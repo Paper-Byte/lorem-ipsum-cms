@@ -2,6 +2,7 @@ import { extendTheme } from '@chakra-ui/react';
 import { ButtonStyle as Button } from './ButtonStyle';
 import { HeadingStyle as Heading } from './HeadingStyle';
 import { ProgressStyle as Progress } from './ProgressStyle';
+import { CheckboxStyle as Checkbox } from './CheckboxStyle';
 import { mode } from '@chakra-ui/theme-tools';
 import colors from './palette';
 export default extendTheme({
@@ -29,5 +30,6 @@ export default extendTheme({
     Button,
     Heading,
     Progress,
+    Checkbox,
   },
 });
