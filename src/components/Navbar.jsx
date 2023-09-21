@@ -56,7 +56,7 @@ export default function WithSubnavigation() {
           justify={{ base: 'center', md: 'start' }}
         >
           <Image
-            src="https://pbs.twimg.com/profile_images/1755236722/logo_400x400.jpg"
+            src="process.env.REACT_APP_LOGO"
             alt="Marketplace Logo"
             borderRadius="full"
             boxSize="40px"

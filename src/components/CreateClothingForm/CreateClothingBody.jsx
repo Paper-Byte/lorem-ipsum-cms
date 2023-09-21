@@ -125,7 +125,7 @@ export default function Multistep() {
 
     const postNewClothing = async () => {
       try {
-        const resp = await fetch(process.env.REACT_APP_LOCAL_API, {
+        const resp = await fetch(process.env.REACT_APP_API, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
