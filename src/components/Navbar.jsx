@@ -56,7 +56,7 @@ export default function WithSubnavigation() {
           justify={{ base: 'center', md: 'start' }}
         >
           <Image
-            src="process.env.REACT_APP_LOGO"
+            src={process.env.REACT_APP_LOGO}
             alt="Marketplace Logo"
             borderRadius="full"
             boxSize="40px"
