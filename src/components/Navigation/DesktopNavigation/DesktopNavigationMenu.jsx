@@ -6,6 +6,8 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import DesktopNavigationItem from './DesktopNavigationItem';
+import { NavLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const DesktopNavigationMenu = ({ NAV_ITEMS }) => {
   return (
@@ -38,10 +40,12 @@ const DesktopNavigationMenu = ({ NAV_ITEMS }) => {
               >
                 <Stack>
                   {navItem.children.map((child) => (
-                    <DesktopNavigationItem
-                      key={child.label}
-                      {...child}
-                    />
+                    <NavLink to={child.href} exact>
+                      <DesktopNavigationItem
+                        key={child.label}
+                        {...child}
+                      />
+                    </NavLink>
                   ))}
                 </Stack>
               </PopoverContent>

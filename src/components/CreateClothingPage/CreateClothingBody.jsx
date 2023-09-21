@@ -11,7 +11,7 @@ import Form2 from './Forms/ClothingForm2';
 import Form3 from './Forms/ClothingForm3';
 import { useToast } from '@chakra-ui/react';
 
-export default function Multistep() {
+const CreateClothingBody = () => {
   const toast = useToast();
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
@@ -279,4 +279,6 @@ export default function Multistep() {
           
     </>
   );
-}
+};
+
+export default CreateClothingBody;

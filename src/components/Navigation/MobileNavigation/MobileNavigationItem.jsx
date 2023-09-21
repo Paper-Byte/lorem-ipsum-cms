@@ -9,21 +9,17 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
+import { NavLink } from 'react-router-dom';
 
 const MobileNavigationItem = ({ label, children, href }) => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
-      <Box
-        py={2}
-        as="a"
-        href={href ?? '#'}
+      <NavLink
+        to={href ?? '#'}
         justifyContent="space-between"
         alignItems="center"
-        _hover={{
-          textDecoration: 'none',
-        }}
       >
         <Text
           fontWeight={600}
@@ -40,8 +36,7 @@ const MobileNavigationItem = ({ label, children, href }) => {
             h={6}
           />
         )}
-      </Box>
-
+      </NavLink>
       <Collapse
         in={isOpen}
         animateOpacity
@@ -57,9 +52,7 @@ const MobileNavigationItem = ({ label, children, href }) => {
         >
           {children &&
             children.map((child) => (
-              <Box as="a" key={child.label} py={2} href={child.href}>
-                {child.label}
-              </Box>
+              <NavLink to={href ?? '#'}>{child.label}</NavLink>
             ))}
         </Stack>
       </Collapse>

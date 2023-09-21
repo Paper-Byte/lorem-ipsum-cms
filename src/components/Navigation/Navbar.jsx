@@ -6,42 +6,43 @@ import {
   useDisclosure,
   Image,
 } from '@chakra-ui/react';
+
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import MobileNavigationMenu from './MobileNavigation/MobileNavigationMenu';
 import DesktopNavigationMenu from './DesktopNavigation/DesktopNavigationMenu';
 
-const NAV_ITEMS = [
-  {
-    label: 'Welcome',
-    href: process.env.REACT_APP_WEBPAGE_HOME,
-  },
-  {
-    label: 'Create Listing',
-    children: [
-      {
-        label: 'Clothing',
-        subLabel: 'T-Shirts, Sweaters, Hoodies, etc.',
-        href: process.env.REACT_APP_WEBPAGE_CREATE_CLOTHING,
-      },
-      {
-        label: 'Novelties',
-        subLabel: 'Mug, Stuffed Animals, etc.',
-        href: '#',
-      },
-    ],
-  },
-  {
-    label: 'Your Inventory',
-    href: '#',
-  },
-  {
-    label: 'Preview Catalogue',
-    href: '#',
-  },
-];
-
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
+
+  const NAV_ITEMS = [
+    {
+      label: 'Welcome',
+      href: `/welcome`,
+    },
+    {
+      label: 'Create Listing',
+      children: [
+        {
+          label: 'Clothing',
+          subLabel: 'T-Shirts, Sweaters, Hoodies, etc.',
+          href: '/create-clothing',
+        },
+        {
+          label: 'Novelties',
+          subLabel: 'Mug, Stuffed Animals, etc.',
+          href: '/create-clothing',
+        },
+      ],
+    },
+    {
+      label: 'Your Inventory',
+      href: '#',
+    },
+    {
+      label: 'Preview Catalogue',
+      href: '#',
+    },
+  ];
 
   return (
     <Box>
