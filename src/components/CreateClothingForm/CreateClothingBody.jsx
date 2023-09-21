@@ -141,42 +141,38 @@ export default function Multistep() {
           }),
         });
         const data = await resp.json();
-        setCanReset(true);
+        setClothingDetails({
+          ...clothingDetails,
+          item: '',
+          category: 'clothing',
+          type: '',
+          image: '',
+          description: '',
+          sizes: [
+            { size: 'xs', isAvailable: false },
+            { size: 's', isAvailable: false },
+            { size: 'm', isAvailable: false },
+            { size: 'l', isAvailable: false },
+            { size: 'xl', isAvailable: false },
+          ],
+          colors: [
+            { colorName: 'black', isAvailable: false },
+            { colorName: 'white', isAvailable: false },
+            { colorName: 'firebrick', isAvailable: false },
+            { colorName: 'navy', isAvailable: false },
+            { colorName: 'aquamarine', isAvailable: false },
+            { colorName: 'coral', isAvailable: false },
+          ],
+          price: 0,
+          availability: true,
+        });
+        setStep(1);
         successMessage();
       } catch {
-        setCanReset(false);
         failMessage();
       }
     };
     postNewClothing();
-    if (canReset) {
-      setClothingDetails({
-        ...clothingDetails,
-        item: '',
-        category: 'clothing',
-        type: '',
-        image: '',
-        description: '',
-        sizes: [
-          { size: 'xs', isAvailable: false },
-          { size: 's', isAvailable: false },
-          { size: 'm', isAvailable: false },
-          { size: 'l', isAvailable: false },
-          { size: 'xl', isAvailable: false },
-        ],
-        colors: [
-          { colorName: 'black', isAvailable: false },
-          { colorName: 'white', isAvailable: false },
-          { colorName: 'firebrick', isAvailable: false },
-          { colorName: 'navy', isAvailable: false },
-          { colorName: 'aquamarine', isAvailable: false },
-          { colorName: 'coral', isAvailable: false },
-        ],
-        price: 0,
-        availability: true,
-      });
-      setStep(1);
-    }
   };
 
   return (

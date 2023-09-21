@@ -10,8 +10,8 @@ import {
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
-  useBreakpointValue,
   useDisclosure,
+  Image,
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -55,16 +55,12 @@ export default function WithSubnavigation() {
           flex={{ base: 1 }}
           justify={{ base: 'center', md: 'start' }}
         >
-          <Text
-          // textAlign={useBreakpointValue({
-          //   base: "center",
-          //   md: "left",
-          // })}
-          // fontFamily={"heading"}
-          >
-            Logo
-          </Text>
-
+          <Image
+            src="https://pbs.twimg.com/profile_images/1755236722/logo_400x400.jpg"
+            alt="Marketplace Logo"
+            borderRadius="full"
+            boxSize="40px"
+          />
           <Flex
             display={{ base: 'none', md: 'flex' }}
             className="w-full"
