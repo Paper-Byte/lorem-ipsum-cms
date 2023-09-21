@@ -7,7 +7,6 @@ import {
 } from '@chakra-ui/react';
 import DesktopNavigationItem from './DesktopNavigationItem';
 import { NavLink } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 
 const DesktopNavigationMenu = ({ NAV_ITEMS }) => {
   return (
@@ -16,18 +15,9 @@ const DesktopNavigationMenu = ({ NAV_ITEMS }) => {
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
-              <Box
-                as="a"
-                p={2}
-                href={navItem.href ?? '#'}
-                fontSize={'sm'}
-                fontWeight={500}
-                _hover={{
-                  textDecoration: 'none',
-                }}
-              >
+              <NavLink to={navItem.href ?? '#'}>
                 {navItem.label}
-              </Box>
+              </NavLink>
             </PopoverTrigger>
 
             {navItem.children && (
