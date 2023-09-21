@@ -4,15 +4,31 @@ import {
   Center,
   Flex,
   Heading,
+  Icon,
   Image,
   Stack,
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
 
-import React, { useEffect } from 'react';
+import {
+  BsGraphUp,
+  BsFillEmojiHeartEyesFill,
+  MdOutlineAttachMoney,
+} from 'react-icons';
 
-export default function WelcomeCard() {
+const WelcomeCard = ({ userData }) => {
+  const {
+    legalName,
+    userName,
+    shopName,
+    profileImage,
+    userBiography,
+    shopFavorites,
+    userSales,
+    userIncome,
+  } = userData;
+
   return (
     <Center py={6}>
       <Stack
@@ -21,19 +37,17 @@ export default function WelcomeCard() {
         w={{ sm: '100%', md: '540px' }}
         height={{ sm: '476px', md: '20rem' }}
         direction={{ base: 'column', md: 'row' }}
-        // eslint-disable-next-line react-hooks/rules-of-hooks
         bg={useColorModeValue('white', 'gray.900')}
         boxShadow={'2xl'}
         padding={4}
       >
-        <Flex flex={1} bg="blue.200">
+        <Flex flex={1}>
           <Image
             objectFit="cover"
             boxSize="100%"
-            src={
-              'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
-            }
-            alt="#"
+            src={profileImage}
+            alt="User's profile picture"
+            rounded={'full'}
           />
         </Flex>
         <Stack
@@ -45,21 +59,23 @@ export default function WelcomeCard() {
           pt={2}
         >
           <Heading fontSize={'2xl'} fontFamily={'body'}>
-            Lindsey James
+            {legalName}
           </Heading>
           <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
-            @lindsey_jam3s
+            {userName}
           </Text>
           <Text
             textAlign={'center'}
-            // eslint-disable-next-line react-hooks/rules-of-hooks
             color={useColorModeValue('gray.700', 'gray.400')}
-            px={3}
+            fontSize={'2xl'}
           >
-            Actress, musician, songwriter and artist. PM for work
-            inquires or
-            <Text color={'blue.400'}>#tag</Text>
-            me in your posts
+            {shopName}
+          </Text>
+          <Text
+            textAlign={'center'}
+            color={useColorModeValue('gray.700', 'gray.400')}
+          >
+            {userBiography}
           </Text>
           <Stack
             align={'center'}
@@ -67,15 +83,7 @@ export default function WelcomeCard() {
             direction={'row'}
             mt={6}
           >
-            <Badge
-              px={2}
-              py={1}
-              // eslint-disable-next-line react-hooks/rules-of-hooks
-              bg={useColorModeValue('gray.50', 'gray.800')}
-              fontWeight={'400'}
-            >
-              #art
-            </Badge>
+            <Icon></Icon>
             <Badge
               px={2}
               py={1}
@@ -137,4 +145,6 @@ export default function WelcomeCard() {
       </Stack>
     </Center>
   );
-}
+};
+
+export default WelcomeCard;

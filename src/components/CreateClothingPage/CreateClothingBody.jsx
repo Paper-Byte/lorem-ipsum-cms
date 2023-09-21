@@ -15,7 +15,6 @@ const CreateClothingBody = () => {
   const toast = useToast();
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
-  const [canReset, setCanReset] = useState(false);
   const [clothingDetails, setClothingDetails] = useState({
     item: '',
     category: 'clothing',
