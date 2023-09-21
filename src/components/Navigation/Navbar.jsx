@@ -20,7 +20,7 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 
-export default function WithSubnavigation() {
+const WithSubnavigation = () => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -75,7 +75,7 @@ export default function WithSubnavigation() {
       </Collapse>
     </Box>
   );
-}
+};
 
 const DesktopNav = () => {
   return (

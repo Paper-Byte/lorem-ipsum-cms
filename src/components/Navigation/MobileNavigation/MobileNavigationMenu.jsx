@@ -1,11 +1,8 @@
 import React from 'react';
-import {
-  Stack,
-  MobileNavItem,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { Stack, useColorModeValue } from '@chakra-ui/react';
+import MobileNavigationItem from './MobileNavigationItem';
 
-const MobileNavMenu = ({ nav_items }) => {
+const MobileNavigationMenu = ({ nav_items }) => {
   return (
     <Stack
       bg={useColorModeValue('white', 'gray.800')}
@@ -13,10 +10,10 @@ const MobileNavMenu = ({ nav_items }) => {
       display={{ md: 'none' }}
     >
       {nav_items.map((navItem) => (
-        <MobileNavItem key={navItem.label} {...navItem} />
+        <MobileNavigationItem key={navItem.label} {...navItem} />
       ))}
     </Stack>
   );
 };
 
-export default MobileNavMenu;
+export default MobileNavigationMenu;

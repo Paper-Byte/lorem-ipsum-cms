@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 
-const MobileNavItem = ({ label, children, href }) => {
+const MobileNavigationItem = ({ label, children, href }) => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -67,4 +67,4 @@ const MobileNavItem = ({ label, children, href }) => {
   );
 };
 
-export default MobileNavItem;
+export default MobileNavigationItem;
