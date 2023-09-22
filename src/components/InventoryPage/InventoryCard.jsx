@@ -27,14 +27,17 @@ const InventoryCard = ({ itemToDisplay }) => {
     item,
     image,
     description,
+    price,
     sizes,
     colors,
     availability,
   } = currentItem;
+
   const handleItemOptionsString = (event) => {
     const { name, value } = event.target;
     setCurrentItem({ ...currentItem, [name]: value });
   };
+
   const handleItemOptionsSizes = (event) => {
     const { name } = event.target;
     const newSizes = currentItem.sizes.map((e) => {
@@ -45,6 +48,31 @@ const InventoryCard = ({ itemToDisplay }) => {
     });
     setCurrentItem({ ...currentItem, sizes: newSizes });
   };
+  const handleItemOptionsColors = (event) => {
+    const { name } = event.target;
+    const newColors = currentItem.colors.map((e) => {
+      if (e.colorName === name) {
+        e.isAvailable = !e.isAvailable;
+      }
+      return e;
+    });
+    setCurrentItem({ ...currentItem, colors: newColors });
+  };
+
+  const handleItemOptionsAvailability = (event) => {
+    const flipMe = currentItem.isAvailable;
+    setCurrentItem({ ...currentItem, isAvailable: flipMe });
+  };
+
+  const colorEnum = {
+    black: 'black',
+    white: 'white',
+    firebrick: 'red',
+    navy: 'blue',
+    aquamarine: 'teal',
+    coral: 'orange',
+  };
+
   return (
     <>
       <Card
@@ -71,6 +99,24 @@ const InventoryCard = ({ itemToDisplay }) => {
               </AccordionButton>
             </Heading>
             <AccordionPanel>
+              {/* <Box as="span" flex="1" textAlign="left">
+                <Editable value={image} w="300px">
+                  <EditablePreview />
+                  <EditableInput
+                    name="image"
+                    onChange={handleItemOptionsString}
+                  />
+                </Editable>
+              </Box>
+              <Box as="span" flex="1" textAlign="left">
+                <Editable value={description} w="300px">
+                  <EditablePreview />
+                  <EditableInput
+                    name="description"
+                    onChange={handleItemOptionsString}
+                  />
+                </Editable>
+              </Box> */}
               {sizes !== null &&
                 sizes.map((e) => {
                   return (
@@ -83,6 +129,24 @@ const InventoryCard = ({ itemToDisplay }) => {
                     </Button>
                   );
                 })}
+              {colors.map((e) => {
+                return (
+                  <Button
+                    rounded="full"
+                    colorScheme={colorEnum[e.colorName]}
+                    variant={e.isAvailable ? 'solid' : 'outline'}
+                    name={e.colorName}
+                    onClick={handleItemOptionsColors}
+                  />
+                );
+              })}
+              <Button
+                variant={availability ? 'solid' : 'outline'}
+                name="availability"
+                onClick={handleItemOptionsAvailability}
+              >
+                In Stock
+              </Button>
               <IconButton
                 colorScheme="green"
                 icon={<AiOutlineSave />}
