@@ -75,31 +75,39 @@ const InventoryCard = ({ itemToDisplay }) => {
 
   return (
     <>
-      <Card
+      {/* <Card
         w="700px"
         h="100px"
         margin="10px"
         alignSelf="center"
         variant={'elevated'}
       >
-        <CardBody>
-          <AccordionItem>
-            <Heading>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  <Editable value={item} w="300px">
-                    <EditablePreview />
-                    <EditableInput
-                      name="item"
-                      onChange={handleItemOptionsString}
-                    />
-                  </Editable>
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </Heading>
-            <AccordionPanel>
-              {/* <Box as="span" flex="1" textAlign="left">
+        <CardBody> */}
+      <AccordionItem
+        h="auto"
+        marginTop="20px"
+        marginBottom="20px"
+        rounded="full"
+        _dark={{
+          color: 'gray.50',
+        }}
+      >
+        <Heading>
+          <AccordionButton>
+            <Box as="span" flex="1" textAlign="left">
+              <Editable value={item} w="300px">
+                <EditablePreview />
+                <EditableInput
+                  name="item"
+                  onChange={handleItemOptionsString}
+                />
+              </Editable>
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+        </Heading>
+        <AccordionPanel>
+          {/* <Box as="span" flex="1" textAlign="left">
                 <Editable value={image} w="300px">
                   <EditablePreview />
                   <EditableInput
@@ -117,48 +125,42 @@ const InventoryCard = ({ itemToDisplay }) => {
                   />
                 </Editable>
               </Box> */}
-              {sizes !== null &&
-                sizes.map((e) => {
-                  return (
-                    <Button
-                      variant={e.isAvailable ? 'solid' : 'outline'}
-                      onClick={handleItemOptionsSizes}
-                      name={e.size}
-                    >
-                      {e.size}
-                    </Button>
-                  );
-                })}
-              {colors.map((e) => {
-                return (
-                  <Button
-                    rounded="full"
-                    colorScheme={colorEnum[e.colorName]}
-                    variant={e.isAvailable ? 'solid' : 'outline'}
-                    name={e.colorName}
-                    onClick={handleItemOptionsColors}
-                  />
-                );
-              })}
+          {sizes !== null &&
+            sizes.map((e) => {
+              return (
+                <Button
+                  variant={e.isAvailable ? 'solid' : 'outline'}
+                  onClick={handleItemOptionsSizes}
+                  name={e.size}
+                >
+                  {e.size}
+                </Button>
+              );
+            })}
+          {colors.map((e) => {
+            return (
               <Button
-                variant={availability ? 'solid' : 'outline'}
-                name="availability"
-                onClick={handleItemOptionsAvailability}
-              >
-                In Stock
-              </Button>
-              <IconButton
-                colorScheme="green"
-                icon={<AiOutlineSave />}
+                rounded="full"
+                colorScheme={colorEnum[e.colorName]}
+                variant={e.isAvailable ? 'solid' : 'outline'}
+                name={e.colorName}
+                onClick={handleItemOptionsColors}
               />
-              <IconButton
-                colorScheme="red"
-                icon={<AiOutlineDelete />}
-              />
-            </AccordionPanel>
-          </AccordionItem>
-        </CardBody>
-      </Card>
+            );
+          })}
+          <Button
+            variant={availability ? 'solid' : 'outline'}
+            name="availability"
+            onClick={handleItemOptionsAvailability}
+          >
+            In Stock
+          </Button>
+          <IconButton colorScheme="green" icon={<AiOutlineSave />} />
+          <IconButton colorScheme="red" icon={<AiOutlineDelete />} />
+        </AccordionPanel>
+      </AccordionItem>
+      {/* </CardBody>
+      </Card> */}
       <Divider />
     </>
   );

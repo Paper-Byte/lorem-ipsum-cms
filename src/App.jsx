@@ -20,7 +20,7 @@ function App() {
         const data = await response.json();
         setUserCatalogue(data);
       } catch (error) {
-        console.log('Error: '`${error}`);
+        console.log(`Error: ${error}`);
       }
     };
     fetchUserCatalogue();
