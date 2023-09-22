@@ -83,7 +83,7 @@ const CreateClothingBody = () => {
     const { name, value } = event.target;
     setClothingDetails({
       ...clothingDetails,
-      [name]: parseInt(value) + 0.99,
+      [name]: parseInt(value),
     });
   };
 
@@ -97,9 +97,11 @@ const CreateClothingBody = () => {
       description,
       sizes,
       colors,
-      price,
       availabilty,
     } = clothingDetails;
+
+    let { price } = clothingDetails;
+    price += 0.99;
 
     const successMessage = () => {
       toast({

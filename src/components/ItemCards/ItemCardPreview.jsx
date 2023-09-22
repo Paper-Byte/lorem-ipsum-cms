@@ -82,7 +82,7 @@ const ItemCardPreview = ({ itemListing }) => {
             {item}
           </Heading>
           <Text fontWeight={800} fontSize={'xl'}>
-            ${price}
+            ${price + 0.99}
           </Text>
         </Stack>
       </Box>

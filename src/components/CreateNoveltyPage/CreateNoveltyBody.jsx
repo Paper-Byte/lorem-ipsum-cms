@@ -66,7 +66,7 @@ const CreateNoveltyBody = () => {
     const { name, value } = event.target;
     setNoveltyDetails({
       ...noveltyDetails,
-      [name]: parseInt(value) + 0.99,
+      [name]: parseInt(value),
     });
   };
 
@@ -80,9 +80,12 @@ const CreateNoveltyBody = () => {
       description,
       sizes,
       colors,
-      price,
       availabilty,
     } = noveltyDetails;
+
+    let { price } = noveltyDetails;
+
+    price += 0.99;
 
     const successMessage = () => {
       toast({
