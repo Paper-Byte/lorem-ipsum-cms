@@ -10,10 +10,9 @@ import {
   Image,
 } from '@chakra-ui/react';
 
-const ItemCard = ({ itemListing }) => {
+const ItemCardPreview = ({ itemListing }) => {
   const {
     item,
-    category,
     type,
     image,
     description,
@@ -91,4 +90,4 @@ const ItemCard = ({ itemListing }) => {
   );
 };
 
-export default ItemCard;
+export default ItemCardPreview;

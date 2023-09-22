@@ -13,56 +13,18 @@ import {
 } from '@chakra-ui/react';
 
 const Form2 = ({
-  sizes,
   colors,
   price,
-  handleClothingOptionsSizes,
-  handleClothingOptionsColors,
-  handleClothingOptionsInteger,
+  handleNoveltyOptionsColors,
+  handleNoveltyOptionsInteger,
 }) => {
   return (
     <>
             
       <Heading w="100%" textAlign={'center'} size="md" mb="2%">
-        Clothing Options       
+        Novelty Options       
       </Heading>
        
-      <Flex>
-           
-        <FormControl isRequired>
-                  
-          <FormLabel
-            htmlFor="sizes"
-            fontSize="md"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: 'gray.50',
-            }}
-            mt="2%"
-          >
-             Size Options         
-          </FormLabel>
-                  
-          <Stack spacing={[1, 50]} direction={['column', 'row']}>
-            {sizes.map((e) => {
-              return (
-                <Checkbox
-                  key={e.size}
-                  size="md"
-                  onChange={handleClothingOptionsSizes}
-                  name={e.size}
-                  isChecked={e.isAvailable}
-                >
-                  {e.size.toUpperCase()}
-                </Checkbox>
-              );
-            })}
-          </Stack>
-                
-        </FormControl>
-             
-      </Flex>
       <Flex>
            
         <FormControl isRequired>
@@ -86,7 +48,7 @@ const Form2 = ({
                 <Checkbox
                   key={e.colorName}
                   size="doItBIG"
-                  onChange={handleClothingOptionsColors}
+                  onChange={handleNoveltyOptionsColors}
                   name={e.colorName}
                   isChecked={e.isAvailable}
                   variant={'dynamic'}
@@ -130,7 +92,7 @@ const Form2 = ({
                 id="price"
                 focusBorderColor="brand.400"
                 shadow="sm"
-                onChange={handleClothingOptionsInteger}
+                onChange={handleNoveltyOptionsInteger}
                 w="24"
                 value={price}
               />

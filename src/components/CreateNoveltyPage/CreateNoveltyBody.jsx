@@ -6,28 +6,22 @@ import {
   Button,
   Flex,
 } from '@chakra-ui/react';
-import ClothingForm1 from './Forms/ClothingForm1';
-import ClothingForm2 from './Forms/ClothingForm2';
-import ClothingForm3 from './Forms/ClothingForm3';
+import NoveltyForm1 from './Forms/NoveltyForm1';
+import NoveltyForm2 from './Forms/NoveltyForm2';
+import NoveltyForm3 from './Forms/NoveltyForm3';
 import { useToast } from '@chakra-ui/react';
 
-const CreateClothingBody = () => {
+const CreateNoveltyBody = () => {
   const toast = useToast();
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
-  const [clothingDetails, setClothingDetails] = useState({
+  const [noveltyDetails, setNoveltyDetails] = useState({
     item: '',
-    category: 'clothing',
+    category: 'novelty',
     type: '',
     image: '',
     description: '',
-    sizes: [
-      { size: 'xs', isAvailable: false },
-      { size: 's', isAvailable: false },
-      { size: 'm', isAvailable: false },
-      { size: 'l', isAvailable: false },
-      { size: 'xl', isAvailable: false },
-    ],
+    sizes: null,
     colors: [
       { colorName: 'black', isAvailable: false },
       { colorName: 'white', isAvailable: false },
@@ -43,51 +37,40 @@ const CreateClothingBody = () => {
   let canSubmit = false;
 
   if (
-    clothingDetails.item !== '' &&
-    clothingDetails.type !== '' &&
-    clothingDetails.image !== '' &&
-    clothingDetails.description !== '' &&
-    clothingDetails.price > 0
+    noveltyDetails.item !== '' &&
+    noveltyDetails.type !== '' &&
+    noveltyDetails.image !== '' &&
+    noveltyDetails.description !== '' &&
+    noveltyDetails.price > 0
   ) {
     canSubmit = true;
   }
 
-  const handleClothingOptionsStrings = (event) => {
+  const handleNoveltyOptionsStrings = (event) => {
     const { name, value } = event.target;
-    setClothingDetails({ ...clothingDetails, [name]: value });
+    setNoveltyDetails({ ...noveltyDetails, [name]: value });
   };
 
-  const handleClothingOptionsSizes = (event) => {
+  const handleNoveltyOptionsColors = (event) => {
     const { name } = event.target;
-    const newSizes = clothingDetails.sizes.map((e) => {
-      if (e.size === name) {
-        e.isAvailable = !e.isAvailable;
-      }
-      return e;
-    });
-    setClothingDetails({ ...clothingDetails, sizes: newSizes });
-  };
-
-  const handleClothingOptionsColors = (event) => {
-    const { name } = event.target;
-    const newColors = clothingDetails.colors.map((e) => {
+    const newColors = noveltyDetails.colors.map((e) => {
       if (e.colorName === name) {
         e.isAvailable = !e.isAvailable;
       }
       return e;
     });
-    setClothingDetails({ ...clothingDetails, colors: newColors });
+    setNoveltyDetails({ ...noveltyDetails, colors: newColors });
   };
 
-  const handleClothingOptionsInteger = (event) => {
+  const handleNoveltyOptionsInteger = (event) => {
     const { name, value } = event.target;
-    setClothingDetails({
-      ...clothingDetails,
+    setNoveltyDetails({
+      ...noveltyDetails,
       [name]: parseInt(value) + 0.99,
     });
   };
 
-  const handleSubmitClothingOption = (event) => {
+  const handleSubmitNoveltyOption = (event) => {
     event.preventDefault();
     const {
       item,
@@ -99,7 +82,7 @@ const CreateClothingBody = () => {
       colors,
       price,
       availabilty,
-    } = clothingDetails;
+    } = noveltyDetails;
 
     const successMessage = () => {
       toast({
@@ -122,7 +105,7 @@ const CreateClothingBody = () => {
       });
     };
 
-    const postNewClothing = async () => {
+    const postNewNovelty = async () => {
       try {
         const resp = await fetch(
           `${process.env.REACT_APP_API}/catalogue`,
@@ -143,20 +126,14 @@ const CreateClothingBody = () => {
           }
         );
         const data = await resp.json();
-        setClothingDetails({
-          ...clothingDetails,
+        setNoveltyDetails({
+          ...noveltyDetails,
           item: '',
-          category: 'clothing',
+          category: 'novelty',
           type: '',
           image: '',
           description: '',
-          sizes: [
-            { size: 'xs', isAvailable: false },
-            { size: 's', isAvailable: false },
-            { size: 'm', isAvailable: false },
-            { size: 'l', isAvailable: false },
-            { size: 'xl', isAvailable: false },
-          ],
+          sizes: null,
           colors: [
             { colorName: 'black', isAvailable: false },
             { colorName: 'white', isAvailable: false },
@@ -174,7 +151,7 @@ const CreateClothingBody = () => {
         failMessage();
       }
     };
-    postNewClothing();
+    postNewNovelty();
   };
 
   return (
@@ -199,28 +176,22 @@ const CreateClothingBody = () => {
         ></Progress>
                 
         {step === 1 ? (
-          <ClothingForm1
-            item={clothingDetails.item}
-            description={clothingDetails.description}
-            clothingType={clothingDetails.type}
-            img={clothingDetails.image}
-            handleClothingOptionsStrings={
-              handleClothingOptionsStrings
-            }
+          <NoveltyForm1
+            item={noveltyDetails.item}
+            description={noveltyDetails.description}
+            noveltyType={noveltyDetails.type}
+            img={noveltyDetails.image}
+            handleNoveltyOptionsStrings={handleNoveltyOptionsStrings}
           />
         ) : step === 2 ? (
-          <ClothingForm2
-            sizes={clothingDetails.sizes}
-            colors={clothingDetails.colors}
-            price={clothingDetails.price}
-            handleClothingOptionsSizes={handleClothingOptionsSizes}
-            handleClothingOptionsColors={handleClothingOptionsColors}
-            handleClothingOptionsInteger={
-              handleClothingOptionsInteger
-            }
+          <NoveltyForm2
+            colors={noveltyDetails.colors}
+            price={noveltyDetails.price}
+            handleNoveltyOptionsColors={handleNoveltyOptionsColors}
+            handleNoveltyOptionsInteger={handleNoveltyOptionsInteger}
           />
         ) : (
-          <ClothingForm3 clothingDetails={clothingDetails} />
+          <NoveltyForm3 noveltyDetails={noveltyDetails} />
         )}
                 
         <ButtonGroup mt="5%" w="100%">
@@ -266,7 +237,7 @@ const CreateClothingBody = () => {
                 colorScheme="red"
                 variant="solid"
                 isDisabled={!canSubmit}
-                onClick={handleSubmitClothingOption}
+                onClick={handleSubmitNoveltyOption}
               >
                                 {canSubmit ? 'Submit' : 'Invalid'}
                               
@@ -283,4 +254,4 @@ const CreateClothingBody = () => {
   );
 };
 
-export default CreateClothingBody;
+export default CreateNoveltyBody;
