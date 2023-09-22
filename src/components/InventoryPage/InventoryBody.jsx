@@ -21,7 +21,7 @@ const InventoryBody = ({ userCatalogue }) => {
       <Stack>
         <Accordion allowToggle>
           {userCatalogue.map((item) => {
-            return <InventoryCard item={item} />;
+            return <InventoryCard itemToDisplay={item} />;
           })}
         </Accordion>
       </Stack>

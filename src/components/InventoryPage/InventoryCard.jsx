@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   CardBody,
@@ -13,11 +13,38 @@ import {
   HStack,
   EditableInput,
   EditableTextarea,
+  EditablePreview,
+  Editable,
   Button,
   Divider,
 } from '@chakra-ui/react';
+import { AiOutlineDelete, AiOutlineSave } from 'react-icons/ai';
 
-const InventoryCard = ({ item }) => {
+const InventoryCard = ({ itemToDisplay }) => {
+  const [currentItem, setCurrentItem] = useState(itemToDisplay);
+  const {
+    id,
+    item,
+    image,
+    description,
+    sizes,
+    colors,
+    availability,
+  } = currentItem;
+  const handleItemOptionsString = (event) => {
+    const { name, value } = event.target;
+    setCurrentItem({ ...currentItem, [name]: value });
+  };
+  const handleItemOptionsSizes = (event) => {
+    const { name } = event.target;
+    const newSizes = currentItem.sizes.map((e) => {
+      if (e.size === name) {
+        e.isAvailable = !e.isAvailable;
+      }
+      return e;
+    });
+    setCurrentItem({ ...currentItem, sizes: newSizes });
+  };
   return (
     <>
       <Card
@@ -32,11 +59,39 @@ const InventoryCard = ({ item }) => {
             <Heading>
               <AccordionButton>
                 <Box as="span" flex="1" textAlign="left">
-                  {item.item}
+                  <Editable value={item} w="300px">
+                    <EditablePreview />
+                    <EditableInput
+                      name="item"
+                      onChange={handleItemOptionsString}
+                    />
+                  </Editable>
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
             </Heading>
+            <AccordionPanel>
+              {sizes !== null &&
+                sizes.map((e) => {
+                  return (
+                    <Button
+                      variant={e.isAvailable ? 'solid' : 'outline'}
+                      onClick={handleItemOptionsSizes}
+                      name={e.size}
+                    >
+                      {e.size}
+                    </Button>
+                  );
+                })}
+              <IconButton
+                colorScheme="green"
+                icon={<AiOutlineSave />}
+              />
+              <IconButton
+                colorScheme="red"
+                icon={<AiOutlineDelete />}
+              />
+            </AccordionPanel>
           </AccordionItem>
         </CardBody>
       </Card>
