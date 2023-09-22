@@ -1,8 +1,5 @@
 import {
   Box,
-  Heading,
-  Container,
-  Text,
   Button,
   Stack,
   Icon,
@@ -11,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import WelcomeCard from './WelcomeCard';
+import { NavLink } from 'react-router-dom';
 
 const WelcomeBody = () => {
   const [userData, setUserData] = useState({});
@@ -35,40 +33,32 @@ const WelcomeBody = () => {
         py={{ base: 20, md: 36 }}
       >
         <WelcomeCard userData={userData} />
-        <Button
-          colorScheme={'green'}
-          bg={'green.400'}
-          rounded={'full'}
-          px={6}
-          _hover={{
-            bg: 'green.500',
-          }}
-        >
-          Get Started
-        </Button>
-        <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
-          Learn more
-        </Button>
-        <Box>
-          <Icon
-            as={Arrow}
-            color={useColorModeValue('gray.800', 'gray.300')}
-            w={71}
-            position={'absolute'}
-            right={-71}
-            top={'10px'}
-          />
-          <Text
-            fontSize={'lg'}
-            fontFamily={'Caveat'}
-            position={'absolute'}
-            right={'-125px'}
-            top={'-15px'}
-            transform={'rotate(10deg)'}
+        <NavLink to="/create-clothing">
+          <Button
+            colorScheme={'green'}
+            bg={'green.400'}
+            rounded={'full'}
+            px={6}
+            _hover={{
+              bg: 'green.500',
+            }}
           >
-            Starting at $15/mo
-          </Text>
-        </Box>
+            Create New Clothing
+          </Button>
+        </NavLink>
+        <NavLink to="/create-novelty">
+          <Button
+            colorScheme={'green'}
+            bg={'green.400'}
+            rounded={'full'}
+            px={6}
+            _hover={{
+              bg: 'green.500',
+            }}
+          >
+            Create New Clothing
+          </Button>
+        </NavLink>
       </Stack>
     </>
   );

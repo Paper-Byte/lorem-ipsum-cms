@@ -1,6 +1,4 @@
 import {
-  Badge,
-  Button,
   Center,
   Flex,
   Heading,
@@ -9,13 +7,10 @@ import {
   Stack,
   Text,
   useColorModeValue,
+  HStack,
 } from '@chakra-ui/react';
-
-import {
-  BsGraphUp,
-  BsFillEmojiHeartEyesFill,
-  MdOutlineAttachMoney,
-} from 'react-icons';
+import { BsGraphUp, BsFillEmojiHeartEyesFill } from 'react-icons/bs';
+import { GiMoneyStack } from 'react-icons/gi';
 
 const WelcomeCard = ({ userData }) => {
   const {
@@ -28,6 +23,29 @@ const WelcomeCard = ({ userData }) => {
     userSales,
     userIncome,
   } = userData;
+
+  const numFormat = (num, digits) => {
+    const lookup = [
+      { value: 1, symbol: '' },
+      { value: 1e3, symbol: 'k' },
+      { value: 1e6, symbol: 'M' },
+      { value: 1e9, symbol: 'G' },
+      { value: 1e12, symbol: 'T' },
+      { value: 1e15, symbol: 'P' },
+      { value: 1e18, symbol: 'E' },
+    ];
+    const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+    let item = lookup
+      .slice()
+      .reverse()
+      .find(function (item) {
+        return num >= item.value;
+      });
+    return item
+      ? (num / item.value).toFixed(digits).replace(rx, '$1') +
+          item.symbol
+      : '0';
+  };
 
   return (
     <Center py={6}>
@@ -83,63 +101,14 @@ const WelcomeCard = ({ userData }) => {
             direction={'row'}
             mt={6}
           >
-            <Icon></Icon>
-            <Badge
-              px={2}
-              py={1}
-              // eslint-disable-next-line react-hooks/rules-of-hooks
-              bg={useColorModeValue('gray.50', 'gray.800')}
-              fontWeight={'400'}
-            >
-              #photography
-            </Badge>
-            <Badge
-              px={2}
-              py={1}
-              // eslint-disable-next-line react-hooks/rules-of-hooks
-              bg={useColorModeValue('gray.50', 'gray.800')}
-              fontWeight={'400'}
-            >
-              #music
-            </Badge>
-          </Stack>
-
-          <Stack
-            width={'100%'}
-            mt={'2rem'}
-            direction={'row'}
-            padding={2}
-            justifyContent={'space-between'}
-            alignItems={'center'}
-          >
-            <Button
-              flex={1}
-              fontSize={'sm'}
-              rounded={'full'}
-              _focus={{
-                bg: 'gray.200',
-              }}
-            >
-              Message
-            </Button>
-            <Button
-              flex={1}
-              fontSize={'sm'}
-              rounded={'full'}
-              bg={'blue.400'}
-              color={'white'}
-              boxShadow={
-                '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
-              }
-              _hover={{
-                bg: 'blue.500',
-              }}
-              _focus={{
-                bg: 'blue.500',
-              }}
-            >
-              Follow
-            </Button>
+            <HStack>
+              <Icon as={BsFillEmojiHeartEyesFill} />
+              <Text>{numFormat(shopFavorites, 2)}</Text>
+              <Icon as={BsGraphUp} />
+              <Text>{numFormat(userSales, 2)}</Text>
+              <Icon as={GiMoneyStack} />
+              <Text>{numFormat(userIncome, 2)}</Text>
+            </HStack>
           </Stack>
         </Stack>
       </Stack>
