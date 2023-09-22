@@ -30,17 +30,17 @@ const Navbar = () => {
         {
           label: 'Novelties',
           subLabel: 'Mug, Stuffed Animals, etc.',
-          href: '/create-clothing',
+          href: '/create-novelty',
         },
       ],
     },
     {
       label: 'Your Inventory',
-      href: '#',
+      href: '/your-inventory',
     },
     {
       label: 'Preview Catalogue',
-      href: '#',
+      href: '/preview-catalogue',
     },
   ];
 
