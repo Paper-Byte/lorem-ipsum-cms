@@ -49,7 +49,7 @@ const WelcomeBody = () => {
               bg: 'green.500',
             }}
           >
-            Create New Clothing
+            Create New Novelty
           </Button>
         </NavLink>
       </Stack>

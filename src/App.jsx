@@ -13,15 +13,22 @@ function App() {
       <Header />
       <Navbar />
       <Switch>
-        <Route exact path="/welcome">
-          <WelcomeBody />
-        </Route>
-        <Route eaxct path="/create-clothing">
-          <CreateClothingBody />
-        </Route>
-        <Route exact path="/create-novelty">
-          <CreateNoveltyBody />
-        </Route>
+        <Route exact path="/welcome" component={WelcomeBody} />
+        <Route
+          eaxct
+          path="/create-clothing"
+          component={CreateClothingBody}
+        />
+        <Route
+          exact
+          path="/create-novelty"
+          component={CreateNoveltyBody}
+        />
+        <Redirect
+          path="*"
+          to="/welcome"
+          component={<WelcomeBody />}
+        />
       </Switch>
       <Footer position="bottom" />
     </div>
