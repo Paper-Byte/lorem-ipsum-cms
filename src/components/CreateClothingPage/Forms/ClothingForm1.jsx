@@ -82,13 +82,10 @@ const Form1 = ({
             w="full"
             rounded="md"
           >
-                        <option value="tshirt">T-Shirt</option>
-                        <option value="hoodie">Hoodie</option>
-                        
+            <option value="tshirt">T-Shirt</option>
+            <option value="hoodie">Hoodie</option>
             <option value="sweatshirt">Sweatshirt</option>
-                        <option value="hat">Hat</option>
-                        <option value="jacket">Jacket</option>
-                      
+            <option value="jacket">Jacket</option>
           </Select>
                   
         </FormControl>

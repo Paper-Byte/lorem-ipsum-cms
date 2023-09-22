@@ -1,40 +1,29 @@
 import React from 'react';
-import { Card, CardBody, Text, Stack, Box } from '@chakra-ui/react';
+import {
+  Card,
+  CardBody,
+  Stack,
+  Box,
+  Accordion,
+} from '@chakra-ui/react';
+import InventoryCard from './InventoryCard';
 
 const InventoryBody = ({ userCatalogue }) => {
   return (
     <Box
       h="800px"
-      w="800px"
+      w="720px"
       boxShadow="md"
       margin="auto"
       rounded="md"
+      className="overflow-y-auto hover:overflow-scroll"
     >
       <Stack>
-        {userCatalogue.map((item) => {
-          return (
-            <Card
-              w="700px"
-              h="100px"
-              margin="10px"
-              alignSelf="center"
-              variant={'elevated'}
-            >
-              <CardBody>{item.item}</CardBody>
-            </Card>
-          );
-        })}
-        {/* <Card
-          w="700px"
-          h="100px"
-          margin="10px"
-          alignSelf="center"
-          variant={'elevated'}
-        >
-          <CardBody>
-            <Text>Do I align?</Text>
-          </CardBody>
-        </Card> */}
+        <Accordion allowToggle>
+          {userCatalogue.map((item) => {
+            return <InventoryCard item={item} />;
+          })}
+        </Accordion>
       </Stack>
     </Box>
   );
