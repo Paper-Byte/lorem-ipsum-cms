@@ -8,7 +8,7 @@ const WelcomeBody = () => {
 
   useEffect(() => {
     const getUserInfo = async () => {
-      const resp = await fetch(`${process.env.REACT_APP_API}/users`);
+      const resp = await fetch(`${process.env.REACT_APP_API_USERS}`);
       const data = await resp.json();
       setUserData(data);
     };

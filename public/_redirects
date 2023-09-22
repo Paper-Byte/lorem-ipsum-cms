@@ -1,0 +1,8 @@
+# Redirects from what the browser requests to what we serve
+
+/ /welcome
+/welcome /welcome
+/create-clothing /create-clothing
+/create-novelty /create-novelty
+/your-inventory /your-inventory
+/preview-catalogue /preview-catalogue

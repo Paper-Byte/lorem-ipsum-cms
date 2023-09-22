@@ -111,7 +111,7 @@ const CreateNoveltyBody = () => {
     const postNewNovelty = async () => {
       try {
         const resp = await fetch(
-          `${process.env.REACT_APP_API}/catalogue`,
+          `${process.env.REACT_APP_API_CATALOGUE}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
