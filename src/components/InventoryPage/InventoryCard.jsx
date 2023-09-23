@@ -205,7 +205,7 @@ const InventoryCard = ({
             <EditableInput name="price" onChange={setPrice} />
           </Editable>
         </Box>
-        {/* Item Image */}
+        {/* Item Description */}
         <Box
           as="span"
           display={'flex'}

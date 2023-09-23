@@ -5,7 +5,6 @@ import InventoryCard from './InventoryCard';
 const InventoryBody = ({
   userCatalogue,
   updateCatalogueAfterDelete,
-  updateCatalogueAfterPatch,
 }) => {
   return (
     <Box
@@ -23,7 +22,6 @@ const InventoryBody = ({
                 updateCatalogueAfterDelete={
                   updateCatalogueAfterDelete
                 }
-                updateCatalogueAfterPatch={updateCatalogueAfterPatch}
               />
             );
           })}

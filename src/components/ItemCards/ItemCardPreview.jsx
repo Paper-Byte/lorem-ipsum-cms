@@ -8,6 +8,10 @@ import {
   Text,
   Stack,
   Image,
+  ButtonGroup,
+  Button,
+  HStack,
+  Divider,
 } from '@chakra-ui/react';
 
 const ItemCardPreview = ({ itemListing }) => {
@@ -21,6 +25,15 @@ const ItemCardPreview = ({ itemListing }) => {
     price,
     availabilty,
   } = itemListing;
+
+  const colorsToDisplay = colors.filter((e) => {
+    return e.isAvailable;
+  });
+
+  const sizesToDisplay = sizes.filter((e) => {
+    return e.isAvailable;
+  });
+
   return (
     <Center py={12}>
       <Box
@@ -28,7 +41,7 @@ const ItemCardPreview = ({ itemListing }) => {
         p={6}
         maxW={'330px'}
         w={'full'}
-        bg={useColorModeValue('white', 'gray.800')}
+        bg={useColorModeValue('accent.200', 'gray.700')}
         boxShadow={'2xl'}
         rounded={'lg'}
         pos={'relative'}
@@ -71,18 +84,55 @@ const ItemCardPreview = ({ itemListing }) => {
             color={'gray.500'}
             fontSize={'sm'}
             textTransform={'uppercase'}
+            fontStyle="underline"
           >
             {type}
           </Text>
           <Heading
             fontSize={'2xl'}
             fontFamily={'body'}
-            fontWeight={500}
+            fontWeight={700}
           >
             {item}
           </Heading>
-          <Text fontWeight={800} fontSize={'xl'}>
-            ${price + 0.99}
+          <Text fontSize={'md'}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Dicta eos error ipsa nemo quia fugiat eum sapiente illo
+            obcaecati? Obcaecati natus assumenda libero minus qui
+            placeat laboriosam tenetur repellendus tempora?
+          </Text>
+          <Divider />
+          <Text fontWeight={600}>Color Options</Text>
+          <HStack>
+            {colorsToDisplay.map((e) => {
+              return (
+                <Box
+                  bg={e.colorName}
+                  w="30px"
+                  h="30px"
+                  rounded="md"
+                />
+              );
+            })}
+          </HStack>
+          <Text fontWeight={600}>Size Options</Text>
+          <HStack>
+            {sizesToDisplay.map((e) => {
+              return (
+                <Box
+                  bg={'gray.500'}
+                  w="30px"
+                  h="30px"
+                  rounded="md"
+                  fontWeight={600}
+                >
+                  <Text align="center">{e.size}</Text>
+                </Box>
+              );
+            })}
+          </HStack>
+          <Text fontWeight={600} fontSize={'ml'}>
+            ${price}
           </Text>
         </Stack>
       </Box>
