@@ -106,7 +106,7 @@ const InventoryCard = ({
         `${process.env.REACT_APP_API_CATALOGUE}/${currentItem.id}`,
         {
           method: 'PATCH',
-          header: {
+          headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
@@ -116,7 +116,7 @@ const InventoryCard = ({
             type: currentItem.type,
             image: currentItem.image,
             description: currentItem.description,
-            size: currentItem.sizes,
+            sizes: currentItem.sizes,
             colors: currentItem.colors,
             price: currentItem.price + 0.99,
             availability: currentItem.availability,
