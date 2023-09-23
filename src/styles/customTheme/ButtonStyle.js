@@ -5,6 +5,8 @@ const fontColor = 'white';
 export const ButtonStyle = defineStyleConfig({
   baseStyle: {
     textTransform: 'uppercase',
+    fontFamily: 'heading',
+    fontWeight: '900',
   },
   sizes: {},
   variants: {
@@ -25,13 +27,24 @@ export const ButtonStyle = defineStyleConfig({
     }),
     dynamic: (props) => ({
       ...accentStyles(props),
-      border: '1px solid',
+      opacity: 0.7,
       borderColor: mode('gray.300', 'gray.900')(props),
       transition: 'all 0.2s',
       bg: `${props.variantColor}`,
       _hover: {
         filter: mode('brightness(0.9)', 'brightness(1.3)')(props),
-        borderColor: mode('gray.700', 'gray.500')(props),
+      },
+    }),
+    dynamicSelected: (props) => ({
+      ...accentStyles(props),
+
+      borderRadius: '50%',
+      border: '1px solid',
+      borderColor: mode('black', 'white')(props),
+      transition: 'all 0.2s',
+      bg: `${props.variantColor}`,
+      _hover: {
+        filter: mode('brightness(0.9)', 'brightness(1.3)')(props),
       },
     }),
   },

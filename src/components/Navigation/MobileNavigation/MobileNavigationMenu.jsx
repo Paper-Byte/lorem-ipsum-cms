@@ -10,7 +10,10 @@ const MobileNavigationMenu = ({ NAV_ITEMS }) => {
       display={{ md: 'none' }}
     >
       {NAV_ITEMS.map((navItem) => (
-        <MobileNavigationItem key={navItem.label} {...navItem} />
+        <MobileNavigationItem
+          key={navItem.label + '-mobile'}
+          {...navItem}
+        />
       ))}
     </Stack>
   );

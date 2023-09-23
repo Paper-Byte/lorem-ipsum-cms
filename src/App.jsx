@@ -32,7 +32,6 @@ function App() {
     });
     setUserCatalogue(newCatalogue);
   };
-  console.log(userCatalogue);
   const updateCatalogueAfterPatch = (
     id,
     updatedItemKey,

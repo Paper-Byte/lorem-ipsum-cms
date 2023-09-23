@@ -4,16 +4,13 @@ import InventoryCard from './InventoryCard';
 
 const InventoryBody = ({
   userCatalogue,
-  updateCatalogueAfterPatch,
   updateCatalogueAfterDelete,
+  updateCatalogueAfterPatch,
 }) => {
   return (
     <Box
-      h="800px"
-      w="720px"
-      boxShadow="md"
-      margin="auto"
-      rounded="md"
+      display={'flex'}
+      justifyContent={'center'}
       className="overflow-y-auto hover:overflow-scroll"
     >
       <Stack>
@@ -21,6 +18,7 @@ const InventoryBody = ({
           {userCatalogue.map((item) => {
             return (
               <InventoryCard
+                key={item.id}
                 itemToDisplay={item}
                 updateCatalogueAfterDelete={
                   updateCatalogueAfterDelete

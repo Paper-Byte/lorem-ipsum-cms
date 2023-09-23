@@ -1,96 +1,53 @@
 import React, { useState } from 'react';
 import {
-  ButtonGroup,
-  IconButton,
   AccordionButton,
   AccordionIcon,
-  AccordionPanel,
   AccordionItem,
-  Heading,
-  Text,
+  AccordionPanel,
   Box,
-  HStack,
-  EditableInput,
-  EditableTextarea,
-  EditablePreview,
-  Editable,
+  Flex,
+  Heading,
   Button,
-  Divider,
+  Editable,
+  EditableInput,
+  EditablePreview,
   Image,
-  Stack,
+  useColorModeValue,
+  IconButton,
 } from '@chakra-ui/react';
 import { AiOutlineDelete, AiOutlineSave } from 'react-icons/ai';
 
 const InventoryCard = ({
   itemToDisplay,
-  updateCatalogueAfterPatch,
   updateCatalogueAfterDelete,
+  updateCatalogueAfterPatch,
 }) => {
   const [currentItem, setCurrentItem] = useState(itemToDisplay);
-  const {
-    id,
-    item,
-    image,
-    description,
-    price,
-    sizes,
-    colors,
-    availability,
-  } = currentItem;
 
-  const handleItemOptionsString = (event) => {
-    const { name, value } = event.target;
-    setCurrentItem({ ...currentItem, [name]: value });
-  };
-
-  const handleItemOptionsSizes = (event) => {
-    const { name } = event.target;
-    const newSizes = currentItem.sizes.map((e) => {
-      if (e.size === name) {
-        e.isAvailable = !e.isAvailable;
-      }
-      return e;
+  const toggleAvailability = () => {
+    setCurrentItem({
+      ...currentItem,
+      availability: !currentItem.availability,
     });
-    setCurrentItem({ ...currentItem, sizes: newSizes });
-  };
-  const handleItemOptionsColors = (event) => {
-    const { name } = event.target;
-    const newColors = currentItem.colors.map((e) => {
-      if (e.colorName === name) {
-        e.isAvailable = !e.isAvailable;
-      }
-      return e;
-    });
-    setCurrentItem({ ...currentItem, colors: newColors });
   };
 
-  const handleItemOptionsAvailability = (event) => {
-    const flipMe = !currentItem.availability;
-    setCurrentItem({ ...currentItem, availability: flipMe });
-  };
-
-  const handleItemOptionsPrice = (event) => {
-    if (Number.isNaN(parseInt(event.target.value))) {
-      setCurrentItem({ ...currentItem, price: 0 });
-    } else {
-      setCurrentItem({
-        ...currentItem,
-        price: parseInt(event.target.value),
-      });
-    }
+  const setPrice = (event) => {
+    const numericValue = event.target.value.replace(/[^0-9]/g, ''); // only numbers.
+    const price = parseInt(numericValue) || 0;
+    setCurrentItem({ ...currentItem, price });
   };
 
   const handleItemDeletion = () => {
     const itemDeletion = async () => {
       try {
         const resp = await fetch(
-          `${process.env.REACT_APP_API_CATALOGUE}/${id}`,
+          `${process.env.REACT_APP_API_CATALOGUE}/${currentItem.id}`,
           {
             method: 'DELETE',
           }
         );
         const data = await resp.json();
-        updateCatalogueAfterDelete(id);
+        updateCatalogueAfterDelete(currentItem.id);
       } catch (error) {
         console.error(`Error: ${error}`);
       }
@@ -98,152 +55,228 @@ const InventoryCard = ({
     itemDeletion();
   };
 
+  const toggleSizeAvailability = (sizeToToggle) => {
+    setCurrentItem((prevItem) => {
+      const updatedSizes = prevItem.sizes.map((size) => {
+        const { size: currentSize, isAvailable } = size;
+        return currentSize === sizeToToggle
+          ? { size: currentSize, isAvailable: !isAvailable }
+          : size;
+      });
+
+      return { ...prevItem, sizes: updatedSizes };
+    });
+  };
+
+  const toggleColorAvailability = (
+    colorName,
+    updateCatalogueAfterDelete
+  ) => {
+    setCurrentItem((prevItem) => ({
+      ...prevItem,
+      colors: prevItem.colors.map((color) =>
+        color.colorName === colorName
+          ? { ...color, isAvailable: !color.isAvailable }
+          : color
+      ),
+    }));
+  };
+
   return (
-    <>
-      <AccordionItem
-        h="auto"
-        marginTop="20px"
-        marginBottom="20px"
-        _dark={{
-          color: 'gray.50',
-        }}
-        w="700px"
-      >
-        <Heading>
-          <AccordionButton>
-            <Box as="span" flex="1" textAlign="left">
-              <Text color="gray">Item Name:</Text>
-              <Editable value={item} w="300px">
-                <EditablePreview />
-                <EditableInput
-                  name="item"
-                  onChange={handleItemOptionsString}
-                />
-              </Editable>
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-        </Heading>
-        <AccordionPanel>
-          <Box as="span" flex="1" textAlign="left">
-            <Text color="gray" fontWeight="bold">
-              Item Image:
-            </Text>
-            <HStack>
-              <Editable
-                value={image}
-                w="300px"
-                isTruncated
-                textOverflow="hidden"
-              >
-                <EditablePreview />
-                <EditableInput
-                  name="image"
-                  onChange={handleItemOptionsString}
-                />
-              </Editable>
-              <Image
-                src={
-                  image.length === 0
-                    ? 'https://placehold.co/400' &&
-                      setCurrentItem({
-                        ...currentItem,
-                        image: 'https://placehold.co/400',
-                      })
-                    : image
-                }
-                alt="Item's displayed image"
-                rounded="full"
-                boxSize="70px"
-                marginLeft="20px"
-              />
-            </HStack>
-          </Box>
-          <Box as="span" flex="1" textAlign="left">
-            <Text color="gray" fontWeight="bold">
-              Item Price:
-            </Text>
-            <Editable value={price} w="300px">
-              <EditablePreview />
-              <EditableInput
-                name="price"
-                onChange={handleItemOptionsPrice}
-              />
-            </Editable>
-          </Box>
-          <Box as="span" flex="1" textAlign="left">
-            <Text color="gray" fontWeight="bold">
-              Item Description:
-            </Text>
-            <Editable value={description} w="300px" isTruncated>
-              <EditablePreview />
-              <EditableTextarea
-                name="description"
-                onChange={handleItemOptionsString}
-              />
-            </Editable>
-          </Box>
-          <Box as="span" flex="1">
-            <Text color="gray" fontWeight="bold">
-              Size Options:
-            </Text>
-            <ButtonGroup spacing="3">
-              {sizes !== null &&
-                sizes.map((e) => {
-                  return (
-                    <Button
-                      variant={e.isAvailable ? 'solid' : 'outline'}
-                      onClick={handleItemOptionsSizes}
-                      name={e.size}
-                    >
-                      {e.size}
-                    </Button>
-                  );
-                })}
-            </ButtonGroup>
-          </Box>
-          <Text color="gray" fontWeight="bold">
-            Color Options:
-          </Text>
-          <ButtonGroup spacing="3">
-            {colors.map((e) => {
-              return (
-                <Button
-                  rounded="full"
-                  variantColor={e.colorName}
-                  variant={'dynamic'}
-                  name={e.colorName}
-                  onClick={handleItemOptionsColors}
-                />
-              );
-            })}
-          </ButtonGroup>
-          <Stack>
-            <Button
-              w="20%"
-              margin="10px"
-              variant={availability ? 'solid' : 'outline'}
-              name="availability"
-              onClick={handleItemOptionsAvailability}
-            >
-              In Stock
-            </Button>
-          </Stack>
-          <HStack justifyContent="right">
-            <IconButton
-              colorScheme="green"
-              icon={<AiOutlineSave />}
+    <AccordionItem mt={4} mb={4} display="flex" flexDir={'column'}>
+            
+      <Flex>
+                
+        <AccordionButton>
+                    {/* Item Name */}
+                    
+          <Heading size="sm" color="accent.500">
+                        Item Name:           
+          </Heading>
+                    
+          <Editable
+            value={currentItem.item}
+            w="300px"
+            color={useColorModeValue('black', 'white')}
+          >
+                        
+            <EditablePreview />
+                        
+            <EditableInput
+              name="item"
+              onChange={(event) => {
+                setCurrentItem({
+                  ...currentItem,
+                  item: event.target.value,
+                });
+              }}
             />
+                      
+          </Editable>
+                    {/* Item Icon */}
+                    
+          <Box as="span" flex="1" textAlign="right">
+                        
+            <AccordionIcon />
+                      
+          </Box>
+                  
+        </AccordionButton>
+                
+        <Flex>
+                    
+          <AccordionPanel>
+                        {/* Item Image */}
+                        
+            <Image
+              marginTop={'2'}
+              src={currentItem.image || 'https://placehold.co/400'}
+              alt="Item's displayed image"
+              rounded="full"
+              width={['100px', '100px', '100px', '100px', '100px']}
+              objectFit={'cover'}
+            />
+                      
+          </AccordionPanel>
+                  
+        </Flex>
+              
+      </Flex>
+            {/* Item Price */}
+            
+      <AccordionPanel>
+                
+        <Box as="span" flex="1" textAlign="left">
+                    
+          <Heading size="sm" color="accent.500">
+                        Item Price:           
+          </Heading>
+                    
+          <Editable value={currentItem.price} w="300px">
+                        
+            <EditablePreview />
+                        
+            <EditableInput name="price" onChange={setPrice} />
+                      
+          </Editable>
+                  
+        </Box>
+                {/* Item Description */}
+                
+        <Box
+          as="span"
+          display={'flex'}
+          flexDirection="column"
+          textAlign="left"
+        >
+                    
+          <Heading size="sm" color="accent.500">
+                        Item Description:           
+          </Heading>
+                    
+          <Editable
+            value={currentItem.description}
+            isTruncated
+            whiteSpace={'wrap'}
+            maxWidth={'500px'}
+          >
+                        
+            <EditablePreview isTruncated whiteSpace={'wrap'} />
+                        
+            <EditableInput
+              name="description"
+              fontFamily={'body'}
+              onChange={(e) =>
+                setCurrentItem({
+                  ...currentItem,
+                  description: e.target.value,
+                })
+              }
+              isTruncated
+              whiteSpace={'wrap'}
+            />
+                      
+          </Editable>
+                  
+        </Box>
+                {/* Sizes */}
+                
+        <Flex mb={2}>
+                    
+          {currentItem.sizes &&
+            currentItem.sizes.map((size) => (
+              <Button
+                key={size.size}
+                variant={size.isAvailable ? 'secondary' : 'accent'}
+                onClick={() => toggleSizeAvailability(size.size)}
+                border={'1px solid'}
+                maxWidth={'20px'}
+                marginRight={'2'}
+              >
+                                {size.size}
+                              
+              </Button>
+            ))}
+                  
+        </Flex>
+                {/* Colors */}
+                
+        <Flex mb={2}>
+                    
+          {currentItem.colors.map((color) => (
+            <Button
+              key={color.colorName}
+              variantColor={color.colorName}
+              variant={
+                color.isAvailable ? 'dynamic' : 'dynamicSelected'
+              }
+              onClick={() => toggleColorAvailability(color.colorName)}
+              maxWidth={'20px'}
+              marginRight={'2'}
+            />
+          ))}
+                  
+        </Flex>
+                {/* Availability */}
+                
+        <Flex marginTop={4}>
+                    
+          <div className="flex-1">
+                        
             <IconButton
               colorScheme="red"
               icon={<AiOutlineDelete />}
+              marginRight={2}
               onClick={handleItemDeletion}
             />
-          </HStack>
-        </AccordionPanel>
-      </AccordionItem>
-      <Divider />
-    </>
+                      
+          </div>
+                    
+          <div>
+                        
+            <Button
+              colorScheme={currentItem.availability ? 'green' : 'red'}
+              onClick={toggleAvailability}
+              marginRight={'2'}
+            >
+                            
+              {currentItem.availability ? 'Available' : 'Unavailable'}
+                          
+            </Button>
+                        
+            <IconButton
+              colorScheme="green"
+              icon={<AiOutlineSave />}
+              marginRight={2}
+            />
+                      
+          </div>
+                  
+        </Flex>
+              
+      </AccordionPanel>
+          
+    </AccordionItem>
   );
 };
 
