@@ -28,11 +28,11 @@ function App() {
 
   const updateCatalogueAfterDelete = (id) => {
     const newCatalogue = userCatalogue.filter((e) => {
-      return e.id === id;
+      return e.id !== id;
     });
     setUserCatalogue(newCatalogue);
   };
-
+  console.log(userCatalogue);
   const updateCatalogueAfterPatch = (
     id,
     updatedItemKey,
@@ -46,7 +46,6 @@ function App() {
         return e;
       }
     });
-    console.log(newCatalogue);
   };
 
   return (

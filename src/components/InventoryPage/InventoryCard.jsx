@@ -83,20 +83,19 @@ const InventoryCard = ({
   const handleItemDeletion = () => {
     const itemDeletion = async () => {
       try {
-        const resp = fetch(
+        const resp = await fetch(
           `${process.env.REACT_APP_API_CATALOGUE}/${id}`,
           {
             method: 'DELETE',
           }
         );
         const data = await resp.json();
-        console.log(data);
+        updateCatalogueAfterDelete(id);
       } catch (error) {
         console.error(`Error: ${error}`);
       }
     };
     itemDeletion();
-    updateCatalogueAfterDelete(id);
   };
 
   return (
@@ -235,14 +234,21 @@ const InventoryCard = ({
               colorScheme="green"
               icon={<AiOutlineSave />}
             />
-            <IconButton
-              colorScheme="red"
-              icon={<AiOutlineDelete />}
-              onClick={handleItemDeletion}
-            />
+            {/* <AccordionButton>
+              <IconButton
+                colorScheme="red"
+                icon={<AiOutlineDelete />}
+                onClick={() => setTimeout(handleItemDeletion, 1000)}
+              />
+            </AccordionButton> */}
           </HStack>
         </AccordionPanel>
       </AccordionItem>
+      <IconButton
+        colorScheme="red"
+        icon={<AiOutlineDelete />}
+        onClick={handleItemDeletion}
+      />
       <Divider />
     </>
   );
