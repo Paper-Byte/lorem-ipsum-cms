@@ -33,6 +33,8 @@ const InventoryCard = ({
     });
   };
 
+  const updateItemImage = () => {};
+
   const setPrice = (event) => {
     const numericValue = event.target.value.replace(/[^0-9]/g, ''); // only numbers.
     const price = parseInt(numericValue) || 0;
@@ -113,10 +115,25 @@ const InventoryCard = ({
             header: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(currentItem),
+            body: JSON.stringify({
+              id: currentItem.id,
+              item: currentItem.item,
+              category: currentItem.category,
+              type: currentItem.type,
+              image: currentItem.image,
+              description: currentItem.description,
+              size: currentItem.sizes,
+              colors: currentItem.colors,
+              price: currentItem.price + 0.99,
+              availability: currentItem.availability,
+            }),
           }
         );
         const data = await resp.json();
+        console.log(`currentItem state: `);
+        console.log(currentItem);
+        console.log(`data sent back: `);
+        console.log(data);
         successToastMessagePatch();
       } catch (error) {
         console.log(`Error: ${error}`);

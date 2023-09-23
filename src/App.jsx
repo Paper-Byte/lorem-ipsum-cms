@@ -32,11 +32,8 @@ function App() {
     });
     setUserCatalogue(newCatalogue);
   };
-  const updateCatalogueAfterPatch = (
-    id,
-    updatedItemKey,
-    updatedValue
-  ) => {
+
+  const updateCatalogueAfterPatch = (id, updatedValue) => {
     const newCatalogue = userCatalogue.map((e) => {
       if (e.id === id) {
         e.updatedItemKey = updatedValue;
@@ -45,8 +42,10 @@ function App() {
         return e;
       }
     });
+    console.log(
+      `newCatalogue: ${newCatalogue} ||| userCatalogue: ${userCatalogue}`
+    );
   };
-
   return (
     <div>
       <Header />
