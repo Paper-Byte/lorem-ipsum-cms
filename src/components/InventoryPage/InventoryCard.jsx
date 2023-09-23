@@ -234,21 +234,14 @@ const InventoryCard = ({
               colorScheme="green"
               icon={<AiOutlineSave />}
             />
-            {/* <AccordionButton>
-              <IconButton
-                colorScheme="red"
-                icon={<AiOutlineDelete />}
-                onClick={() => setTimeout(handleItemDeletion, 1000)}
-              />
-            </AccordionButton> */}
+            <IconButton
+              colorScheme="red"
+              icon={<AiOutlineDelete />}
+              onClick={handleItemDeletion}
+            />
           </HStack>
         </AccordionPanel>
       </AccordionItem>
-      <IconButton
-        colorScheme="red"
-        icon={<AiOutlineDelete />}
-        onClick={handleItemDeletion}
-      />
       <Divider />
     </>
   );
