@@ -290,42 +290,6 @@ const InventoryCard = ({
           </Editable>
                   
         </Box>
-        <Box
-          as="span"
-          display={'flex'}
-          flexDirection="column"
-          textAlign="left"
-        >
-                    
-          <Heading size="sm" color="accent.500">
-            Item <Image></Image>:           
-          </Heading>
-                    
-          <Editable
-            value={currentItem.image}
-            isTruncated
-            whiteSpace={'wrap'}
-            maxWidth={'500px'}
-          >
-                        
-            <EditablePreview isTruncated whiteSpace={'wrap'} />
-                        
-            <EditableInput
-              name="description"
-              fontFamily={'body'}
-              onChange={(e) =>
-                setCurrentItem({
-                  ...currentItem,
-                  image: e.target.value,
-                })
-              }
-              isTruncated
-              whiteSpace={'wrap'}
-            />
-                      
-          </Editable>
-                  
-        </Box>
                 {/* Sizes */}
                 
         <Flex mb={2}>
