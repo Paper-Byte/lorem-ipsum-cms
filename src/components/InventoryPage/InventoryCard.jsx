@@ -21,7 +21,6 @@ import { AiOutlineDelete, AiOutlineSave } from 'react-icons/ai';
 const InventoryCard = ({
   itemToDisplay,
   updateCatalogueAfterDelete,
-  updateCatalogueAfterPatch,
 }) => {
   const [currentItem, setCurrentItem] = useState(itemToDisplay);
   const toast = useToast();
@@ -90,7 +89,6 @@ const InventoryCard = ({
           method: 'DELETE',
         }
       );
-      const data = await resp.json();
       updateCatalogueAfterDelete(currentItem.id);
       successToastMessageDelete();
     } catch (error) {
@@ -110,24 +108,12 @@ const InventoryCard = ({
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            id: currentItem.id,
-            item: currentItem.item,
-            category: currentItem.category,
-            type: currentItem.type,
-            image: currentItem.image,
-            description: currentItem.description,
-            sizes: currentItem.sizes,
-            colors: currentItem.colors,
-            price: currentItem.price + 0.99,
-            availability: currentItem.availability,
+            ...currentItem,
+            price: Math.round(currentItem.price - 0.99) + 0.99,
           }),
         }
       );
       const data = await resp.json();
-      console.log(`currentItem state: `);
-      console.log(currentItem);
-      console.log(`data sent back: `);
-      console.log(data);
       successToastMessagePatch();
     } catch (error) {
       console.log(`Error: ${error}`);

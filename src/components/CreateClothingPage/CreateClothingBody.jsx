@@ -149,7 +149,7 @@ const CreateClothingBody = () => {
               description,
               sizes,
               colors,
-              price,
+              price: price + 0.99,
               availabilty,
             }),
           }

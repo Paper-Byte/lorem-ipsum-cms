@@ -8,9 +8,11 @@ import {
   Text,
   Stack,
   Image,
+  Button,
+  ButtonGroup,
 } from '@chakra-ui/react';
 
-const ItemCardPreview = ({ itemListing }) => {
+const ItemCardPreview = ({ currentItem }) => {
   const {
     item,
     type,
@@ -20,7 +22,7 @@ const ItemCardPreview = ({ itemListing }) => {
     colors,
     price,
     availabilty,
-  } = itemListing;
+  } = currentItem;
   return (
     <Center py={12}>
       <Box
@@ -88,7 +90,10 @@ const ItemCardPreview = ({ itemListing }) => {
             color={'gray.500'}
             fontSize={'sm'}
             textTransform={'uppercase'}
-          ></Text>
+          >
+            Size Options
+          </Text>
+          <ButtonGroup></ButtonGroup>
         </Stack>
       </Box>
     </Center>
