@@ -17,6 +17,8 @@ import {
   Editable,
   Button,
   Divider,
+  InputLeftAddon,
+  InputRightAddon,
 } from '@chakra-ui/react';
 import { AiOutlineDelete, AiOutlineSave } from 'react-icons/ai';
 
@@ -60,10 +62,21 @@ const InventoryCard = ({ itemToDisplay }) => {
   };
 
   const handleItemOptionsAvailability = (event) => {
-    const flipMe = currentItem.isAvailable;
-    setCurrentItem({ ...currentItem, isAvailable: flipMe });
+    const flipMe = !currentItem.availability;
+    setCurrentItem({ ...currentItem, availability: flipMe });
   };
 
+  const handleItemOptionsPrice = (event) => {
+    if (Number.isNaN(parseInt(event.target.value))) {
+      setCurrentItem({ ...currentItem, price: 0 });
+    } else {
+      setCurrentItem({
+        ...currentItem,
+        price: parseInt(event.target.value),
+      });
+    }
+  };
+  console.log(currentItem.price);
   const colorEnum = {
     black: 'black',
     white: 'white',
@@ -75,19 +88,11 @@ const InventoryCard = ({ itemToDisplay }) => {
 
   return (
     <>
-      {/* <Card
-        w="700px"
-        h="100px"
-        margin="10px"
-        alignSelf="center"
-        variant={'elevated'}
-      >
-        <CardBody> */}
       <AccordionItem
         h="auto"
         marginTop="20px"
         marginBottom="20px"
-        rounded="full"
+        rounded="md"
         _dark={{
           color: 'gray.50',
         }}
@@ -107,24 +112,33 @@ const InventoryCard = ({ itemToDisplay }) => {
           </AccordionButton>
         </Heading>
         <AccordionPanel>
-          {/* <Box as="span" flex="1" textAlign="left">
-                <Editable value={image} w="300px">
-                  <EditablePreview />
-                  <EditableInput
-                    name="image"
-                    onChange={handleItemOptionsString}
-                  />
-                </Editable>
-              </Box>
-              <Box as="span" flex="1" textAlign="left">
-                <Editable value={description} w="300px">
-                  <EditablePreview />
-                  <EditableInput
-                    name="description"
-                    onChange={handleItemOptionsString}
-                  />
-                </Editable>
-              </Box> */}
+          <Box as="span" flex="1" textAlign="left">
+            <Editable value={image} w="300px">
+              <EditablePreview />
+              <EditableInput
+                name="image"
+                onChange={handleItemOptionsString}
+              />
+            </Editable>
+          </Box>
+          <Box as="span" flex="1" textAlign="left">
+            <Editable value={price} w="300px">
+              <EditablePreview />
+              <EditableInput
+                name="price"
+                onChange={handleItemOptionsPrice}
+              />
+            </Editable>
+          </Box>
+          <Box as="span" flex="1" textAlign="left">
+            <Editable value={description} w="300px">
+              <EditablePreview />
+              <EditableTextarea
+                name="description"
+                onChange={handleItemOptionsString}
+              />
+            </Editable>
+          </Box>
           {sizes !== null &&
             sizes.map((e) => {
               return (
@@ -159,8 +173,6 @@ const InventoryCard = ({ itemToDisplay }) => {
           <IconButton colorScheme="red" icon={<AiOutlineDelete />} />
         </AccordionPanel>
       </AccordionItem>
-      {/* </CardBody>
-      </Card> */}
       <Divider />
     </>
   );

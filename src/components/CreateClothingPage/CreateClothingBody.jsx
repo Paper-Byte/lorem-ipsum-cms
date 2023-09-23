@@ -80,11 +80,14 @@ const CreateClothingBody = () => {
   };
 
   const handleClothingOptionsInteger = (event) => {
-    const { name, value } = event.target;
-    setClothingDetails({
-      ...clothingDetails,
-      [name]: parseInt(value),
-    });
+    if (Number.isNaN(parseInt(event.target.value))) {
+      setClothingDetails({ ...clothingDetails, price: 0 });
+    } else {
+      setClothingDetails({
+        ...clothingDetails,
+        price: parseInt(event.target.value),
+      });
+    }
   };
 
   const handleSubmitClothingOption = (event) => {
