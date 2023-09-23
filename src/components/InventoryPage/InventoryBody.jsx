@@ -1,14 +1,12 @@
 import React from 'react';
-import {
-  Card,
-  CardBody,
-  Stack,
-  Box,
-  Accordion,
-} from '@chakra-ui/react';
+import { Stack, Box, Accordion } from '@chakra-ui/react';
 import InventoryCard from './InventoryCard';
 
-const InventoryBody = ({ userCatalogue }) => {
+const InventoryBody = ({
+  userCatalogue,
+  updateCatalogueAfterPatch,
+  updateCatalogueAfterDelete,
+}) => {
   return (
     <Box
       h="800px"
@@ -21,7 +19,15 @@ const InventoryBody = ({ userCatalogue }) => {
       <Stack>
         <Accordion allowToggle>
           {userCatalogue.map((item) => {
-            return <InventoryCard itemToDisplay={item} />;
+            return (
+              <InventoryCard
+                itemToDisplay={item}
+                updateCatalogueAfterDelete={
+                  updateCatalogueAfterDelete
+                }
+                updateCatalogueAfterPatch={updateCatalogueAfterPatch}
+              />
+            );
           })}
         </Accordion>
       </Stack>

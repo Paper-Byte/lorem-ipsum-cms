@@ -23,6 +23,17 @@ export const ButtonStyle = defineStyleConfig({
     accent: (props) => ({
       ...accentStyles(props),
     }),
+    dynamic: (props) => ({
+      ...accentStyles(props),
+      border: '1px solid',
+      borderColor: mode('gray.300', 'gray.900')(props),
+      transition: 'all 0.2s',
+      bg: `${props.variantColor}`,
+      _hover: {
+        filter: mode('brightness(0.9)', 'brightness(1.3)')(props),
+        borderColor: mode('gray.700', 'gray.500')(props),
+      },
+    }),
   },
   defaultProps: {},
 });

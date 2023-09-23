@@ -17,13 +17,16 @@ import {
   Editable,
   Button,
   Divider,
-  InputLeftAddon,
-  InputRightAddon,
   Image,
+  Stack,
 } from '@chakra-ui/react';
 import { AiOutlineDelete, AiOutlineSave } from 'react-icons/ai';
 
-const InventoryCard = ({ itemToDisplay }) => {
+const InventoryCard = ({
+  itemToDisplay,
+  updateCatalogueAfterPatch,
+  updateCatalogueAfterDelete,
+}) => {
   const [currentItem, setCurrentItem] = useState(itemToDisplay);
   const {
     id,
@@ -77,14 +80,24 @@ const InventoryCard = ({ itemToDisplay }) => {
       });
     }
   };
-  console.log(currentItem.price);
-  const colorEnum = {
-    black: 'black',
-    white: 'white',
-    firebrick: 'red',
-    navy: 'blue',
-    aquamarine: 'teal',
-    coral: 'orange',
+
+  const handleItemDeletion = () => {
+    const itemDeletion = async () => {
+      try {
+        const resp = fetch(
+          `${process.env.REACT_APP_API_CATALOGUE}/${id}`,
+          {
+            method: 'DELETE',
+          }
+        );
+        const data = await resp.json();
+        console.log(data);
+      } catch (error) {
+        console.error(`Error: ${error}`);
+      }
+    };
+    itemDeletion();
+    updateCatalogueAfterDelete(id);
   };
 
   return (
@@ -93,7 +106,6 @@ const InventoryCard = ({ itemToDisplay }) => {
         h="auto"
         marginTop="20px"
         marginBottom="20px"
-        rounded="md"
         _dark={{
           color: 'gray.50',
         }}
@@ -173,38 +185,59 @@ const InventoryCard = ({ itemToDisplay }) => {
               />
             </Editable>
           </Box>
-          {sizes !== null &&
-            sizes.map((e) => {
-              return (
-                <Button
-                  variant={e.isAvailable ? 'solid' : 'outline'}
-                  onClick={handleItemOptionsSizes}
-                  name={e.size}
-                >
-                  {e.size}
-                </Button>
-              );
-            })}
+          <Box as="span" flex="1">
+            <Text color="gray" fontWeight="bold">
+              Size Options:
+            </Text>
+            {sizes !== null &&
+              sizes.map((e) => {
+                return (
+                  <Button
+                    variant={e.isAvailable ? 'solid' : 'outline'}
+                    onClick={handleItemOptionsSizes}
+                    name={e.size}
+                  >
+                    {e.size}
+                  </Button>
+                );
+              })}
+          </Box>
+          <Text color="gray" fontWeight="bold">
+            Color Options:
+          </Text>
           {colors.map((e) => {
             return (
               <Button
                 rounded="full"
-                colorScheme={colorEnum[e.colorName]}
-                variant={e.isAvailable ? 'solid' : 'outline'}
+                variantColor={e.colorName}
+                variant={'dynamic'}
                 name={e.colorName}
                 onClick={handleItemOptionsColors}
               />
             );
           })}
-          <Button
-            variant={availability ? 'solid' : 'outline'}
-            name="availability"
-            onClick={handleItemOptionsAvailability}
-          >
-            In Stock
-          </Button>
-          <IconButton colorScheme="green" icon={<AiOutlineSave />} />
-          <IconButton colorScheme="red" icon={<AiOutlineDelete />} />
+          <Stack>
+            <Button
+              w="20%"
+              margin="10px"
+              variant={availability ? 'solid' : 'outline'}
+              name="availability"
+              onClick={handleItemOptionsAvailability}
+            >
+              In Stock
+            </Button>
+          </Stack>
+          <HStack justifyContent="right">
+            <IconButton
+              colorScheme="green"
+              icon={<AiOutlineSave />}
+            />
+            <IconButton
+              colorScheme="red"
+              icon={<AiOutlineDelete />}
+              onClick={handleItemDeletion}
+            />
+          </HStack>
         </AccordionPanel>
       </AccordionItem>
       <Divider />

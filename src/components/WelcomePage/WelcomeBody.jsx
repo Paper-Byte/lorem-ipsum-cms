@@ -15,7 +15,7 @@ const WelcomeBody = () => {
         const data = await resp.json();
         setUserData(data);
       } catch (error) {
-        console.error('Error: '`${error}`);
+        console.error(`Error: ${error}`);
       }
     };
     getUserInfo();

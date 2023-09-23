@@ -24,8 +24,31 @@ function App() {
       }
     };
     fetchUserCatalogue();
-  }, [setUserCatalogue]);
-  console.log(userCatalogue);
+  }, []);
+
+  const updateCatalogueAfterDelete = (id) => {
+    const newCatalogue = userCatalogue.filter((e) => {
+      return e.id === id;
+    });
+    setUserCatalogue(newCatalogue);
+  };
+
+  const updateCatalogueAfterPatch = (
+    id,
+    updatedItemKey,
+    updatedValue
+  ) => {
+    const newCatalogue = userCatalogue.map((e) => {
+      if (e.id === id) {
+        e.updatedItemKey = updatedValue;
+        return e;
+      } else {
+        return e;
+      }
+    });
+    console.log(newCatalogue);
+  };
+
   return (
     <div>
       <Header />
@@ -43,7 +66,11 @@ function App() {
           component={CreateNoveltyBody}
         />
         <Route exact path="/your-inventory">
-          <InventoryBody userCatalogue={userCatalogue} />
+          <InventoryBody
+            userCatalogue={userCatalogue}
+            updateCatalogueAfterDelete={updateCatalogueAfterDelete}
+            updateCatalogueAfterPatch={updateCatalogueAfterPatch}
+          />
         </Route>
         <Redirect
           path="*"
