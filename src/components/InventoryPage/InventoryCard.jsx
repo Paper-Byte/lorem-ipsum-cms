@@ -120,7 +120,12 @@ const InventoryCard = ({ itemToDisplay }) => {
               Item Image:
             </Text>
             <HStack>
-              <Editable value={image} w="300px" isTruncated>
+              <Editable
+                value={image}
+                w="300px"
+                isTruncated
+                textOverflow="hidden"
+              >
                 <EditablePreview />
                 <EditableInput
                   name="image"
@@ -145,6 +150,9 @@ const InventoryCard = ({ itemToDisplay }) => {
             </HStack>
           </Box>
           <Box as="span" flex="1" textAlign="left">
+            <Text color="gray" fontWeight="bold">
+              Item Price:
+            </Text>
             <Editable value={price} w="300px">
               <EditablePreview />
               <EditableInput
@@ -154,7 +162,10 @@ const InventoryCard = ({ itemToDisplay }) => {
             </Editable>
           </Box>
           <Box as="span" flex="1" textAlign="left">
-            <Editable value={description} w="300px">
+            <Text color="gray" fontWeight="bold">
+              Item Description:
+            </Text>
+            <Editable value={description} w="300px" isTruncated>
               <EditablePreview />
               <EditableTextarea
                 name="description"

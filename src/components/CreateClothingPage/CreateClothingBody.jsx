@@ -90,6 +90,13 @@ const CreateClothingBody = () => {
     }
   };
 
+  const handleClothingOptionsBadImage = () => {
+    setClothingDetails({
+      ...clothingDetails,
+      image: 'https://placehold.co/400',
+    });
+  };
+
   const handleSubmitClothingOption = (event) => {
     event.preventDefault();
     const {
@@ -211,6 +218,9 @@ const CreateClothingBody = () => {
             img={clothingDetails.image}
             handleClothingOptionsStrings={
               handleClothingOptionsStrings
+            }
+            handleClothingOptionsBadImage={
+              handleClothingOptionsBadImage
             }
           />
         ) : step === 2 ? (
