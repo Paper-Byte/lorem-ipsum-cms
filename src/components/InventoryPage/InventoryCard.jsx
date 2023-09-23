@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Card,
-  CardBody,
+  ButtonGroup,
   IconButton,
   AccordionButton,
   AccordionIcon,
@@ -189,33 +188,37 @@ const InventoryCard = ({
             <Text color="gray" fontWeight="bold">
               Size Options:
             </Text>
-            {sizes !== null &&
-              sizes.map((e) => {
-                return (
-                  <Button
-                    variant={e.isAvailable ? 'solid' : 'outline'}
-                    onClick={handleItemOptionsSizes}
-                    name={e.size}
-                  >
-                    {e.size}
-                  </Button>
-                );
-              })}
+            <ButtonGroup spacing="3">
+              {sizes !== null &&
+                sizes.map((e) => {
+                  return (
+                    <Button
+                      variant={e.isAvailable ? 'solid' : 'outline'}
+                      onClick={handleItemOptionsSizes}
+                      name={e.size}
+                    >
+                      {e.size}
+                    </Button>
+                  );
+                })}
+            </ButtonGroup>
           </Box>
           <Text color="gray" fontWeight="bold">
             Color Options:
           </Text>
-          {colors.map((e) => {
-            return (
-              <Button
-                rounded="full"
-                variantColor={e.colorName}
-                variant={'dynamic'}
-                name={e.colorName}
-                onClick={handleItemOptionsColors}
-              />
-            );
-          })}
+          <ButtonGroup spacing="3">
+            {colors.map((e) => {
+              return (
+                <Button
+                  rounded="full"
+                  variantColor={e.colorName}
+                  variant={'dynamic'}
+                  name={e.colorName}
+                  onClick={handleItemOptionsColors}
+                />
+              );
+            })}
+          </ButtonGroup>
           <Stack>
             <Button
               w="20%"
