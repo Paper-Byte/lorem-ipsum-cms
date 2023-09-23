@@ -33,8 +33,6 @@ const InventoryCard = ({
     });
   };
 
-  const updateItemImage = () => {};
-
   const setPrice = (event) => {
     const numericValue = event.target.value.replace(/[^0-9]/g, ''); // only numbers.
     const price = parseInt(numericValue) || 0;
@@ -176,7 +174,7 @@ const InventoryCard = ({
                     {/* Item Name */}
                     
           <Heading size="sm" color="accent.500">
-                        Item Name:           
+            Item Name:           
           </Heading>
                     
           <Editable
@@ -215,7 +213,15 @@ const InventoryCard = ({
                         
             <Image
               marginTop={'2'}
-              src={currentItem.image || 'https://placehold.co/400'}
+              src={
+                currentItem.image.length === 0
+                  ? 'https://placehold.co/400' &&
+                    setCurrentItem({
+                      ...currentItem,
+                      image: 'https://placehold.co/400',
+                    })
+                  : currentItem.image
+              }
               alt="Item's displayed image"
               rounded="full"
               width={['100px', '100px', '100px', '100px', '100px']}
@@ -234,7 +240,7 @@ const InventoryCard = ({
         <Box as="span" flex="1" textAlign="left">
                     
           <Heading size="sm" color="accent.500">
-                        Item Price:           
+            Item Price:           
           </Heading>
                     
           <Editable value={currentItem.price} w="300px">
@@ -246,7 +252,7 @@ const InventoryCard = ({
           </Editable>
                   
         </Box>
-                {/* Item Description */}
+                {/* Item Image */}
                 
         <Box
           as="span"
@@ -256,7 +262,7 @@ const InventoryCard = ({
         >
                     
           <Heading size="sm" color="accent.500">
-                        Item Description:           
+            Item Description:           
           </Heading>
                     
           <Editable
@@ -284,10 +290,45 @@ const InventoryCard = ({
           </Editable>
                   
         </Box>
+        <Box
+          as="span"
+          display={'flex'}
+          flexDirection="column"
+          textAlign="left"
+        >
+                    
+          <Heading size="sm" color="accent.500">
+            Item <Image></Image>:           
+          </Heading>
+                    
+          <Editable
+            value={currentItem.image}
+            isTruncated
+            whiteSpace={'wrap'}
+            maxWidth={'500px'}
+          >
+                        
+            <EditablePreview isTruncated whiteSpace={'wrap'} />
+                        
+            <EditableInput
+              name="description"
+              fontFamily={'body'}
+              onChange={(e) =>
+                setCurrentItem({
+                  ...currentItem,
+                  image: e.target.value,
+                })
+              }
+              isTruncated
+              whiteSpace={'wrap'}
+            />
+                      
+          </Editable>
+                  
+        </Box>
                 {/* Sizes */}
                 
         <Flex mb={2}>
-                    
           {currentItem.sizes &&
             currentItem.sizes.map((size) => (
               <Button
@@ -298,8 +339,7 @@ const InventoryCard = ({
                 maxWidth={'20px'}
                 marginRight={'2'}
               >
-                                {size.size}
-                              
+                {size.size}
               </Button>
             ))}
                   
