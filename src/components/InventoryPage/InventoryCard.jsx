@@ -19,6 +19,7 @@ import {
   Divider,
   InputLeftAddon,
   InputRightAddon,
+  Image,
 } from '@chakra-ui/react';
 import { AiOutlineDelete, AiOutlineSave } from 'react-icons/ai';
 
@@ -96,10 +97,12 @@ const InventoryCard = ({ itemToDisplay }) => {
         _dark={{
           color: 'gray.50',
         }}
+        w="700px"
       >
         <Heading>
           <AccordionButton>
             <Box as="span" flex="1" textAlign="left">
+              <Text color="gray">Item Name:</Text>
               <Editable value={item} w="300px">
                 <EditablePreview />
                 <EditableInput
@@ -113,13 +116,33 @@ const InventoryCard = ({ itemToDisplay }) => {
         </Heading>
         <AccordionPanel>
           <Box as="span" flex="1" textAlign="left">
-            <Editable value={image} w="300px">
-              <EditablePreview />
-              <EditableInput
-                name="image"
-                onChange={handleItemOptionsString}
+            <Text color="gray" fontWeight="bold">
+              Item Image:
+            </Text>
+            <HStack>
+              <Editable value={image} w="300px" isTruncated>
+                <EditablePreview />
+                <EditableInput
+                  name="image"
+                  onChange={handleItemOptionsString}
+                />
+              </Editable>
+              <Image
+                src={
+                  image.length === 0
+                    ? 'https://placehold.co/400' &&
+                      setCurrentItem({
+                        ...currentItem,
+                        image: 'https://placehold.co/400',
+                      })
+                    : image
+                }
+                alt="Item's displayed image"
+                rounded="full"
+                boxSize="70px"
+                marginLeft="20px"
               />
-            </Editable>
+            </HStack>
           </Box>
           <Box as="span" flex="1" textAlign="left">
             <Editable value={price} w="300px">
