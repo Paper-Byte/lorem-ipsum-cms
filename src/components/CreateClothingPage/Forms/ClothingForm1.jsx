@@ -57,7 +57,6 @@ const Form1 = ({
               value={img}
               onChange={handleClothingOptionsStrings}
               placeholder="Ex. 'https://png.pngtree.com/png-vector/...'"
-              w="50%"
             />
             <Image
               src={
@@ -68,7 +67,7 @@ const Form1 = ({
               }
               alt="Item's displayed image"
               rounded="full"
-              boxSize="70px"
+              boxSize="90px"
               marginLeft="20px"
             />
           </HStack>

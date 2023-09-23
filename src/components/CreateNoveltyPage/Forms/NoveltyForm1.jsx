@@ -5,6 +5,8 @@ import {
   FormLabel,
   Input,
   Select,
+  HStack,
+  Image,
 } from '@chakra-ui/react';
 
 const Form1 = ({
@@ -13,6 +15,7 @@ const Form1 = ({
   noveltyType,
   description,
   handleNoveltyOptionsStrings,
+  handleNoveltyOptionsBadImage,
 }) => {
   return (
     <>
@@ -45,16 +48,29 @@ const Form1 = ({
           <FormLabel htmlFor="item-image" fontWeight={'normal'}>
             Item Image URL           
           </FormLabel>
-                    
-          <Input
-            id="item-image"
-            name="image"
-            type="text"
-            value={img}
-            onChange={handleNoveltyOptionsStrings}
-            placeholder="Ex. 'https://png.pngtree.com/png-vector/...'"
-          />
-                  
+          <HStack>
+                      
+            <Input
+              id="item-image"
+              name="image"
+              type="text"
+              value={img}
+              onChange={handleNoveltyOptionsStrings}
+              placeholder="Ex. 'https://png.pngtree.com/png-vector/...'"
+            />
+            <Image
+              src={
+                img.length === 0
+                  ? 'https://placehold.co/400' &&
+                    handleNoveltyOptionsBadImage()
+                  : img
+              }
+              alt="Item's displayed image"
+              rounded="full"
+              boxSize="90px"
+              marginLeft="20px"
+            />
+          </HStack>
         </FormControl>
                        
         <FormControl isRequired>

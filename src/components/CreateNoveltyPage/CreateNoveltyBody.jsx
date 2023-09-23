@@ -70,6 +70,13 @@ const CreateNoveltyBody = () => {
     });
   };
 
+  const handleNoveltyOptionsBadImage = () => {
+    setNoveltyDetails({
+      ...noveltyDetails,
+      image: 'https://placehold.co/400',
+    });
+  };
+
   const handleSubmitNoveltyOption = (event) => {
     event.preventDefault();
     const {
@@ -185,6 +192,9 @@ const CreateNoveltyBody = () => {
             noveltyType={noveltyDetails.type}
             img={noveltyDetails.image}
             handleNoveltyOptionsStrings={handleNoveltyOptionsStrings}
+            handleNoveltyOptionsBadImage={
+              handleNoveltyOptionsBadImage
+            }
           />
         ) : step === 2 ? (
           <NoveltyForm2
