@@ -113,7 +113,6 @@ const InventoryCard = ({
           }),
         }
       );
-      const data = await resp.json();
       successToastMessagePatch();
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -244,7 +243,7 @@ const InventoryCard = ({
               currentItem.sizes.map((size) => (
                 <Button
                   key={size.size}
-                  variant={size.isAvailable ? 'secondary' : 'accent'}
+                  variant={size.isAvailable ? 'accent' : 'secondary'}
                   onClick={() => toggleSizeAvailability(size.size)}
                   border={'1px solid'}
                   maxWidth={'20px'}
