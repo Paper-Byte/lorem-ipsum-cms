@@ -14,6 +14,7 @@ import {
   Image,
   useColorModeValue,
   IconButton,
+  useToast,
 } from '@chakra-ui/react';
 import { AiOutlineDelete, AiOutlineSave } from 'react-icons/ai';
 
@@ -23,6 +24,7 @@ const InventoryCard = ({
   updateCatalogueAfterPatch,
 }) => {
   const [currentItem, setCurrentItem] = useState(itemToDisplay);
+  const toast = useToast();
 
   const toggleAvailability = () => {
     setCurrentItem({
@@ -37,7 +39,29 @@ const InventoryCard = ({
     setCurrentItem({ ...currentItem, price });
   };
 
-  const handleItemDeletion = () => {
+  //item listing deleted from db, grandparent state update and according toast
+  const listenForItemDeletion = () => {
+    const successToastMessageDelete = () => {
+      toast({
+        title: 'Item Deleted.',
+        description: "We've deleted your listing for you.",
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+    };
+
+    const errorToastMessageDelete = () => {
+      toast({
+        title: 'Error encountered.',
+        description:
+          'We were unable to delete your item, please try again.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    };
+
     const itemDeletion = async () => {
       try {
         const resp = await fetch(
@@ -48,11 +72,58 @@ const InventoryCard = ({
         );
         const data = await resp.json();
         updateCatalogueAfterDelete(currentItem.id);
+        successToastMessageDelete();
       } catch (error) {
         console.error(`Error: ${error}`);
+        errorToastMessageDelete();
       }
     };
     itemDeletion();
+  };
+
+  //item listing patched in db, grandparent state update and according toast
+  const listenForItemPatch = () => {
+    const successToastMessagePatch = () => {
+      toast({
+        title: 'Item Saved.',
+        description: "We've updated your listing for you.",
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+    };
+
+    const errorToastMessagePatch = () => {
+      toast({
+        title: 'Error encountered.',
+        description:
+          'We were unable to save your item, please try again.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    };
+
+    const itemPatch = async () => {
+      try {
+        const resp = await fetch(
+          `${process.env.REACT_APP_API_CATALOGUE}/${currentItem.id}`,
+          {
+            method: 'PATCH',
+            header: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(currentItem),
+          }
+        );
+        const data = await resp.json();
+        successToastMessagePatch();
+      } catch (error) {
+        console.log(`Error: ${error}`);
+        errorToastMessagePatch();
+      }
+    };
+    itemPatch();
   };
 
   const toggleSizeAvailability = (sizeToToggle) => {
@@ -68,10 +139,7 @@ const InventoryCard = ({
     });
   };
 
-  const toggleColorAvailability = (
-    colorName,
-    updateCatalogueAfterDelete
-  ) => {
+  const toggleColorAvailability = (colorName) => {
     setCurrentItem((prevItem) => ({
       ...prevItem,
       colors: prevItem.colors.map((color) =>
@@ -247,7 +315,7 @@ const InventoryCard = ({
               colorScheme="red"
               icon={<AiOutlineDelete />}
               marginRight={2}
-              onClick={handleItemDeletion}
+              onClick={listenForItemDeletion}
             />
                       
           </div>
@@ -268,6 +336,7 @@ const InventoryCard = ({
               colorScheme="green"
               icon={<AiOutlineSave />}
               marginRight={2}
+              onClick={listenForItemPatch}
             />
                       
           </div>

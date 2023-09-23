@@ -5,11 +5,11 @@ import {
   ButtonGroup,
   Button,
   Flex,
+  useToast,
 } from '@chakra-ui/react';
 import NoveltyForm1 from './Forms/NoveltyForm1';
 import NoveltyForm2 from './Forms/NoveltyForm2';
 import NoveltyForm3 from './Forms/NoveltyForm3';
-import { useToast } from '@chakra-ui/react';
 
 const CreateNoveltyBody = () => {
   const toast = useToast();
@@ -94,7 +94,7 @@ const CreateNoveltyBody = () => {
 
     price += 0.99;
 
-    const successMessage = () => {
+    const successToastMessagePost = () => {
       toast({
         title: 'Item created.',
         description: "We've created your listing for you.",
@@ -104,7 +104,7 @@ const CreateNoveltyBody = () => {
       });
     };
 
-    const failMessage = () => {
+    const errorToastMessagePost = () => {
       toast({
         title: 'Error encountered.',
         description:
@@ -156,9 +156,10 @@ const CreateNoveltyBody = () => {
           availability: true,
         });
         setStep(1);
-        successMessage();
-      } catch {
-        failMessage();
+        successToastMessagePost();
+      } catch (error) {
+        console.error(`Error :${error}`);
+        errorToastMessagePost();
       }
     };
     postNewNovelty();
