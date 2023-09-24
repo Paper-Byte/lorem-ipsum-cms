@@ -1,5 +1,5 @@
 import { Heading } from '@chakra-ui/react';
-import ItemCardPreview from '../../ItemCards/ItemCardPreview';
+import ItemCardPreview from '../../Itemcard';
 
 const Form3 = ({ clothingDetails }) => {
   return (

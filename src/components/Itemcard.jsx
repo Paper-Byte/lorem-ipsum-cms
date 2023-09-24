@@ -131,9 +131,11 @@ const ItemCardPreview = ({ itemListing }) => {
               );
             })}
           </HStack>
-          <Text fontWeight={600} fontSize={'ml'}>
-            ${price}
-          </Text>
+          <Box justifyItems={'right'}>
+            <Text fontWeight={600} fontSize={'ml'}>
+              ${price + 0.99}
+            </Text>
+          </Box>
         </Stack>
       </Box>
     </Center>
