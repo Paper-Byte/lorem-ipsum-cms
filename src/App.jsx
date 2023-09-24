@@ -28,17 +28,20 @@ function App() {
     fetchUserCatalogue();
   }, []);
 
+  console.log(userCatalogue);
+
   return (
     <div className="flex flex-col" style={{ height: '100%' }}>
       <Header />
       <Navbar />
       <Switch>
         <Route exact path="/welcome" component={WelcomeBody} />
-        <Route
-          eaxct
-          path="/create-clothing"
-          component={CreateClothingBody}
-        />
+        <Route eaxct path="/create-clothing">
+          <CreateClothingBody
+            setUserCatalogue={setUserCatalogue}
+            userCatalogue={userCatalogue}
+          />
+        </Route>
         <Route
           exact
           path="/create-novelty"

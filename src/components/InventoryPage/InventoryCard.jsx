@@ -26,7 +26,7 @@ const InventoryCard = ({
   const [currentItem, setCurrentItem] = useState(itemToDisplay);
   const toast = useToast();
 
-  const updateItem = (id, newData) => {
+  const updateCatalogueAfterPatch = (id, newData) => {
     setUserCatalogue((prevUserCatalogue) =>
       prevUserCatalogue.map((item) =>
         item.id === id ? { ...item, ...newData } : item
@@ -35,10 +35,9 @@ const InventoryCard = ({
   };
 
   const updateCatalogueAfterDelete = (id) => {
-    const newCatalogue = currentItem.filter((e) => {
-      return e.id !== id;
-    });
-    setUserCatalogue(newCatalogue);
+    setUserCatalogue((prevUserCatalogue) =>
+      prevUserCatalogue.filter((item) => item.id !== id)
+    );
   };
 
   const successToastMessageDelete = () => {
@@ -130,7 +129,7 @@ const InventoryCard = ({
         }
       );
       const data = await resp.json();
-      updateItem(currentItem.id, data);
+      updateCatalogueAfterPatch(currentItem.id, data);
       console.log(userCatalogue);
       successToastMessagePatch();
     } catch (error) {

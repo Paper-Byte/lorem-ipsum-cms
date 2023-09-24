@@ -11,7 +11,7 @@ import ClothingForm1 from './Forms/ClothingForm1';
 import ClothingForm2 from './Forms/ClothingForm2';
 import ClothingForm3 from './Forms/ClothingForm3';
 
-const CreateClothingBody = () => {
+const CreateClothingBody = ({ setUserCatalogue, userCatalogue }) => {
   const toast = useToast();
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
@@ -51,6 +51,27 @@ const CreateClothingBody = () => {
   ) {
     canSubmit = true;
   }
+
+  const successToastMessagePost = () => {
+    toast({
+      title: 'Item created.',
+      description: "We've created your listing for you.",
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+
+  const errorToastMessagePost = () => {
+    toast({
+      title: 'Error encountered.',
+      description:
+        'We were unable to create your item, please try again.',
+      status: 'error',
+      duration: 3000,
+      isClosable: true,
+    });
+  };
 
   const handleClothingOptionsStrings = (event) => {
     const { name, value } = event.target;
@@ -97,7 +118,7 @@ const CreateClothingBody = () => {
     });
   };
 
-  const handleSubmitClothingOption = (event) => {
+  const submitClothingListing = async (event) => {
     event.preventDefault();
     const {
       item,
@@ -108,86 +129,66 @@ const CreateClothingBody = () => {
       sizes,
       colors,
       availabilty,
+      price,
     } = clothingDetails;
 
-    let { price } = clothingDetails;
-    price += 0.99;
-
-    const successToastMessagePost = () => {
-      toast({
-        title: 'Item created.',
-        description: "We've created your listing for you.",
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
+    try {
+      const resp = await fetch(
+        `${process.env.REACT_APP_API_CATALOGUE}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            item,
+            category,
+            type,
+            image,
+            description,
+            sizes,
+            colors,
+            price: price + 0.99,
+            availabilty,
+          }),
+        }
+      );
+      const data = await resp.json();
+      console.log(data);
+      setUserCatalogue((prevUserCatalogue) => [
+        ...prevUserCatalogue,
+        data,
+      ]);
+      console.log(userCatalogue);
+      setClothingDetails({
+        ...clothingDetails,
+        item: '',
+        category: 'clothing',
+        type: '',
+        image: '',
+        description: '',
+        sizes: [
+          { size: 'xs', isAvailable: false },
+          { size: 's', isAvailable: false },
+          { size: 'm', isAvailable: false },
+          { size: 'l', isAvailable: false },
+          { size: 'xl', isAvailable: false },
+        ],
+        colors: [
+          { colorName: 'black', isAvailable: false },
+          { colorName: 'white', isAvailable: false },
+          { colorName: 'firebrick', isAvailable: false },
+          { colorName: 'navy', isAvailable: false },
+          { colorName: 'aquamarine', isAvailable: false },
+          { colorName: 'coral', isAvailable: false },
+        ],
+        price: 0,
+        availability: true,
       });
-    };
-
-    const errorToastMessagePost = () => {
-      toast({
-        title: 'Error encountered.',
-        description:
-          'We were unable to create your item, please try again.',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
-    };
-
-    const postNewClothing = async () => {
-      try {
-        const resp = await fetch(
-          `${process.env.REACT_APP_API_CATALOGUE}`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              item,
-              category,
-              type,
-              image,
-              description,
-              sizes,
-              colors,
-              price: price + 0.99,
-              availabilty,
-            }),
-          }
-        );
-        const data = await resp.json();
-        setClothingDetails({
-          ...clothingDetails,
-          item: '',
-          category: 'clothing',
-          type: '',
-          image: '',
-          description: '',
-          sizes: [
-            { size: 'xs', isAvailable: false },
-            { size: 's', isAvailable: false },
-            { size: 'm', isAvailable: false },
-            { size: 'l', isAvailable: false },
-            { size: 'xl', isAvailable: false },
-          ],
-          colors: [
-            { colorName: 'black', isAvailable: false },
-            { colorName: 'white', isAvailable: false },
-            { colorName: 'firebrick', isAvailable: false },
-            { colorName: 'navy', isAvailable: false },
-            { colorName: 'aquamarine', isAvailable: false },
-            { colorName: 'coral', isAvailable: false },
-          ],
-          price: 0,
-          availability: true,
-        });
-        setStep(1);
-        successToastMessagePost();
-      } catch (error) {
-        console.error(`Error :${error}`);
-        errorToastMessagePost();
-      }
-    };
-    postNewClothing();
+      setStep(1);
+      successToastMessagePost();
+    } catch (error) {
+      console.error(`Error :${error}`);
+      errorToastMessagePost();
+    }
   };
 
   return (
@@ -282,7 +283,7 @@ const CreateClothingBody = () => {
                 colorScheme="red"
                 variant="solid"
                 isDisabled={!canSubmit}
-                onClick={handleSubmitClothingOption}
+                onClick={submitClothingListing}
               >
                                 {canSubmit ? 'Submit' : 'Invalid'}
                               
