@@ -22,15 +22,11 @@ const Form2 = ({
 }) => {
   return (
     <>
-            
       <Heading w="100%" textAlign={'center'} size="md" mb="2%">
-        Clothing Options       
+        Clothing Options
       </Heading>
-       
       <Flex>
-           
         <FormControl isRequired>
-                  
           <FormLabel
             htmlFor="sizes"
             fontSize="md"
@@ -41,9 +37,8 @@ const Form2 = ({
             }}
             mt="2%"
           >
-             Size Options         
+            Size Options
           </FormLabel>
-                  
           <Stack spacing={[1, 50]} direction={['column', 'row']}>
             {sizes.map((e) => {
               return (
@@ -59,14 +54,10 @@ const Form2 = ({
               );
             })}
           </Stack>
-                
         </FormControl>
-             
       </Flex>
       <Flex>
-           
         <FormControl isRequired>
-                  
           <FormLabel
             htmlFor="colors"
             fontSize="md"
@@ -77,9 +68,8 @@ const Form2 = ({
             }}
             mt="2%"
           >
-             Color Options         
+            Color Options
           </FormLabel>
-                  
           <Stack spacing={[1, 50]} direction={['column', 'row']}>
             {colors.map((e) => {
               return (
@@ -95,14 +85,10 @@ const Form2 = ({
               );
             })}
           </Stack>
-                
         </FormControl>
-             
       </Flex>
       <Box>
-              
         <FormControl>
-                  
           <FormLabel
             htmlFor="price"
             fontSize="sm"
@@ -113,9 +99,9 @@ const Form2 = ({
             }}
             mt="2%"
           >
-            Item Price (USD)         
+            Item Price (USD)
           </FormLabel>
-          <div className="">
+          <Box>
             <InputGroup
               size="md"
               rounded="md"
@@ -123,7 +109,6 @@ const Form2 = ({
               name="price"
             >
               <InputLeftAddon children="$" />
-                     
               <Input
                 type="text"
                 name="price"
@@ -136,11 +121,9 @@ const Form2 = ({
               />
               <InputRightAddon children=".99" />
             </InputGroup>
-                  
-          </div>
+          </Box>
         </FormControl>
       </Box>
-          
     </>
   );
 };

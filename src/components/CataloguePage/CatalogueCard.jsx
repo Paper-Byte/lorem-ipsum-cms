@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   Box,
   Center,
@@ -25,7 +24,12 @@ const CatalogueCard = ({ itemListing }) => {
     price,
     availability,
   } = itemListing;
+
+  //allows only selected colors to be displayed as available for purchase
   const colorsToDisplay = colors.filter((e) => e.isAvailable);
+
+  //allows only selected sizes to be displayed as available on clothing
+  //novelty items do not offer size options at this time
   const sizesToDisplay =
     category !== 'novelty' ? sizes.filter((e) => e.isAvailable) : [];
 
@@ -46,6 +50,7 @@ const CatalogueCard = ({ itemListing }) => {
         flexDir={'column'}
         justifyContent={'space-between'}
       >
+        {/* creates psuedo box shadow effect and animation on hover of card */}
         <Box
           rounded={'lg'}
           mt={-12}
@@ -96,6 +101,7 @@ const CatalogueCard = ({ itemListing }) => {
           </Heading>
           <Text fontSize={'md'}>{description}</Text>
           <Divider />
+          {/*ensures this information is only available if their are options for different sizes */}
           {sizesToDisplay.length > 0 ? (
             <>
               <Text fontWeight={600}>Size Options</Text>
@@ -118,6 +124,7 @@ const CatalogueCard = ({ itemListing }) => {
           ) : (
             <></>
           )}
+          {/*ensures this information is only available if their are options for different colors */}
           {colorsToDisplay.length > 0 ? (
             <>
               <Text fontWeight={600}>Color Options</Text>

@@ -13,8 +13,8 @@ import ClothingForm3 from './Forms/ClothingForm3';
 
 const CreateClothingBody = ({ setUserCatalogue }) => {
   const toast = useToast();
-  const [step, setStep] = useState(1);
-  const [progress, setProgress] = useState(33.33);
+  const [step, setStep] = useState(1); //used to track which Form the user is on
+  const [progress, setProgress] = useState(33.33); //used to fill status bar
   const [clothingDetails, setClothingDetails] = useState({
     item: '',
     category: 'clothing',
@@ -40,6 +40,7 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
     availability: true,
   });
 
+  //psudeo data validation, true validation to come
   let canSubmit = false;
 
   if (
@@ -52,6 +53,7 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
     canSubmit = true;
   }
 
+  //notifies user of a successful posting
   const successToastMessagePost = () => {
     toast({
       title: 'Item created.',
@@ -62,6 +64,7 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
     });
   };
 
+  //notify user of a failed posting
   const errorToastMessagePost = () => {
     toast({
       title: 'Error encountered.',
@@ -73,11 +76,13 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
     });
   };
 
+  //updates string values in state
   const handleClothingOptionsStrings = (event) => {
     const { name, value } = event.target;
     setClothingDetails({ ...clothingDetails, [name]: value });
   };
 
+  //updates size values in state with a value toggle then array replacement
   const handleClothingOptionsSizes = (event) => {
     const { name } = event.target;
     const newSizes = clothingDetails.sizes.map((e) => {
@@ -89,6 +94,7 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
     setClothingDetails({ ...clothingDetails, sizes: newSizes });
   };
 
+  //updates color values in state with a value toggle then array replacement
   const handleClothingOptionsColors = (event) => {
     const { name } = event.target;
     const newColors = clothingDetails.colors.map((e) => {
@@ -100,17 +106,14 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
     setClothingDetails({ ...clothingDetails, colors: newColors });
   };
 
+  //updates price value in state, only allows numbers
   const handleClothingOptionsInteger = (event) => {
-    if (Number.isNaN(parseInt(event.target.value))) {
-      setClothingDetails({ ...clothingDetails, price: 0 });
-    } else {
-      setClothingDetails({
-        ...clothingDetails,
-        price: parseInt(event.target.value),
-      });
-    }
+    const numericValue = event.target.value.replace(/[^0-9]/g, ''); // only numbers
+    const newPrice = parseInt(numericValue) || 0;
+    setClothingDetails({ ...clothingDetails, price: newPrice });
   };
 
+  //tries to guard from broken image icons, actual image error catches to come later
   const handleClothingOptionsBadImage = () => {
     setClothingDetails({
       ...clothingDetails,
@@ -118,6 +121,10 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
     });
   };
 
+  //submits new item created by state to database
+  //updates state holding database GET in App.jsx
+  //resets state of page, progress, and currentItem condiotnally
+  //fires appropriate toast
   const submitClothingListing = async (event) => {
     event.preventDefault();
     const {
@@ -191,17 +198,15 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
 
   return (
     <>
-         
       <Box
         borderWidth="1px"
         rounded="lg"
         shadow="1px 1px 3px rgba(0,0,0,0.3)"
-        maxWidth={800}
+        minWidth={700}
         p={6}
         m="10px auto"
         as="form"
       >
-         
         <Progress
           hasStripe
           value={progress}
@@ -209,7 +214,6 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
           mx="5%"
           isAnimated
         ></Progress>
-                
         {step === 1 ? (
           <ClothingForm1
             item={clothingDetails.item}
@@ -237,13 +241,9 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
         ) : (
           <ClothingForm3 clothingDetails={clothingDetails} />
         )}
-                
         <ButtonGroup mt="5%" w="100%">
-                    
           <Flex w="100%" justifyContent="space-between">
-                        
             <Flex>
-                            
               <Button
                 onClick={() => {
                   setStep(step - 1);
@@ -254,9 +254,8 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
                 w="7rem"
                 mr="5%"
               >
-                                Back               
+                Back
               </Button>
-                            
               <Button
                 w="7rem"
                 isDisabled={step === 3}
@@ -270,11 +269,9 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
                 }}
                 variant="primary"
               >
-                                Next               
+                Next
               </Button>
-                          
             </Flex>
-                        
             {step === 3 ? (
               <Button
                 w="7rem"
@@ -283,17 +280,12 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
                 isDisabled={!canSubmit}
                 onClick={submitClothingListing}
               >
-                                {canSubmit ? 'Submit' : 'Invalid'}
-                              
+                {canSubmit ? 'Submit' : 'Invalid'}
               </Button>
             ) : null}
-                      
           </Flex>
-                  
         </ButtonGroup>
-              
       </Box>
-          
     </>
   );
 };

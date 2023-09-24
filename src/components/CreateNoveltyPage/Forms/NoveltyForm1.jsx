@@ -19,19 +19,14 @@ const Form1 = ({
 }) => {
   return (
     <>
-            
       <Heading w="100%" textAlign={'center'} mb="2%" size="md">
-        Novelty Creation       
+        Novelty Creation
       </Heading>
-            
       <Flex direction={'column'}>
-                
         <FormControl isRequired>
-               
           <FormLabel htmlFor="item-name" fontWeight={'normal'}>
             Item Name
           </FormLabel>
-                    
           <Input
             id="item-name"
             name="item"
@@ -40,16 +35,12 @@ const Form1 = ({
             onChange={handleNoveltyOptionsStrings}
             placeholder="Item name..."
           />
-                  
         </FormControl>
-                       
         <FormControl isRequired>
-                    
           <FormLabel htmlFor="item-image" fontWeight={'normal'}>
-            Item Image URL           
+            Item Image URL
           </FormLabel>
           <HStack>
-                      
             <Input
               id="item-image"
               name="image"
@@ -72,9 +63,7 @@ const Form1 = ({
             />
           </HStack>
         </FormControl>
-                       
         <FormControl isRequired>
-                    
           <FormLabel
             htmlFor="type"
             fontSize="sm"
@@ -84,9 +73,8 @@ const Form1 = ({
               color: 'gray.50',
             }}
           >
-             Type Of Novelty         
+             Type Of Novelty 
           </FormLabel>
-                    
           <Select
             id="type"
             name="type"
@@ -103,13 +91,9 @@ const Form1 = ({
             <option value="bowl">Bowl</option>
             <option value="balloon">Balloon</option>
             <option value="phone-case">Phone Case</option>
-                      
           </Select>
-                  
         </FormControl>
-                       
         <FormControl isRequired>
-                    
           <FormLabel
             htmlFor="type"
             fontSize="sm"
@@ -119,9 +103,8 @@ const Form1 = ({
               color: 'gray.50',
             }}
           >
-            Item Description           
+            Item Description
           </FormLabel>
-                    
           <Input
             id="item-description"
             name="description"
@@ -132,7 +115,6 @@ const Form1 = ({
           />
         </FormControl>
       </Flex>
-          
     </>
   );
 };

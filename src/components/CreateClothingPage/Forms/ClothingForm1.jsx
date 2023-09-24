@@ -19,19 +19,14 @@ const Form1 = ({
 }) => {
   return (
     <>
-            
       <Heading w="100%" textAlign={'center'} mb="2%" size="md">
-        Clothing Creation       
+        Clothing Creation
       </Heading>
-            
       <Flex direction={'column'}>
-                
         <FormControl isRequired>
-               
           <FormLabel htmlFor="item-name" fontWeight={'normal'}>
             Item Name
           </FormLabel>
-                    
           <Input
             id="item-name"
             name="item"
@@ -40,15 +35,11 @@ const Form1 = ({
             onChange={handleClothingOptionsStrings}
             placeholder="Item name..."
           />
-                  
         </FormControl>
-                       
         <FormControl isRequired>
-                    
           <FormLabel htmlFor="item-image" fontWeight={'normal'}>
-            Item Image URL           
+            Item Image URL
           </FormLabel>
-           
           <HStack>
             <Input
               id="item-image"
@@ -72,9 +63,7 @@ const Form1 = ({
             />
           </HStack>
         </FormControl>
-                       
         <FormControl isRequired>
-                    
           <FormLabel
             htmlFor="type"
             fontSize="sm"
@@ -84,9 +73,8 @@ const Form1 = ({
               color: 'gray.50',
             }}
           >
-             Type Of Clothing           
+             Type Of Clothing
           </FormLabel>
-                    
           <Select
             id="type"
             name="type"
@@ -103,11 +91,8 @@ const Form1 = ({
             <option value="sweatshirt">Sweatshirt</option>
             <option value="jacket">Jacket</option>
           </Select>
-                  
         </FormControl>
-                       
         <FormControl isRequired>
-                    
           <FormLabel
             htmlFor="type"
             fontSize="sm"
@@ -117,9 +102,8 @@ const Form1 = ({
               color: 'gray.50',
             }}
           >
-            Item Description           
+            Item Description
           </FormLabel>
-                    
           <Input
             id="item-description"
             name="description"
@@ -130,7 +114,6 @@ const Form1 = ({
           />
         </FormControl>
       </Flex>
-          
     </>
   );
 };

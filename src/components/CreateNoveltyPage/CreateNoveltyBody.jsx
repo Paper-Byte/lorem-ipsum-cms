@@ -13,8 +13,8 @@ import NoveltyForm3 from './Forms/NoveltyForm3';
 
 const CreateNoveltyBody = ({ setUserCatalogue }) => {
   const toast = useToast();
-  const [step, setStep] = useState(1);
-  const [progress, setProgress] = useState(33.33);
+  const [step, setStep] = useState(1); //used to track which Form the user is on
+  const [progress, setProgress] = useState(33.33); //used to fill status bar
   const [noveltyDetails, setNoveltyDetails] = useState({
     item: '',
     category: 'novelty',
@@ -34,6 +34,7 @@ const CreateNoveltyBody = ({ setUserCatalogue }) => {
     availability: true,
   });
 
+  //psudeo data validation, true validation to come
   let canSubmit = false;
 
   if (
@@ -46,37 +47,7 @@ const CreateNoveltyBody = ({ setUserCatalogue }) => {
     canSubmit = true;
   }
 
-  const handleNoveltyOptionsStrings = (event) => {
-    const { name, value } = event.target;
-    setNoveltyDetails({ ...noveltyDetails, [name]: value });
-  };
-
-  const handleNoveltyOptionsColors = (event) => {
-    const { name } = event.target;
-    const newColors = noveltyDetails.colors.map((e) => {
-      if (e.colorName === name) {
-        e.isAvailable = !e.isAvailable;
-      }
-      return e;
-    });
-    setNoveltyDetails({ ...noveltyDetails, colors: newColors });
-  };
-
-  const handleNoveltyOptionsInteger = (event) => {
-    const { name, value } = event.target;
-    setNoveltyDetails({
-      ...noveltyDetails,
-      [name]: parseInt(value),
-    });
-  };
-
-  const handleNoveltyOptionsBadImage = () => {
-    setNoveltyDetails({
-      ...noveltyDetails,
-      image: 'https://placehold.co/400',
-    });
-  };
-
+  //notifies user of a successful posting
   const successToastMessagePost = () => {
     toast({
       title: 'Item created.',
@@ -87,6 +58,7 @@ const CreateNoveltyBody = ({ setUserCatalogue }) => {
     });
   };
 
+  //notify user of a failed posting
   const errorToastMessagePost = () => {
     toast({
       title: 'Error encountered.',
@@ -98,6 +70,43 @@ const CreateNoveltyBody = ({ setUserCatalogue }) => {
     });
   };
 
+  //updates string values in state
+  const handleNoveltyOptionsStrings = (event) => {
+    const { name, value } = event.target;
+    setNoveltyDetails({ ...noveltyDetails, [name]: value });
+  };
+
+  //updates color values in state with a value toggle then array replacement
+  const handleNoveltyOptionsColors = (event) => {
+    const { name } = event.target;
+    const newColors = noveltyDetails.colors.map((e) => {
+      if (e.colorName === name) {
+        e.isAvailable = !e.isAvailable;
+      }
+      return e;
+    });
+    setNoveltyDetails({ ...noveltyDetails, colors: newColors });
+  };
+
+  //updates price value in state, only allows numbers
+  const handleNoveltyOptionsInteger = (event) => {
+    const numericValue = event.target.value.replace(/[^0-9]/g, ''); // only numbers
+    const newPrice = parseInt(numericValue) || 0;
+    setNoveltyDetails({ ...noveltyDetails, price: newPrice });
+  };
+
+  //tries to guard from broken image icons, actual image error catches to come later
+  const handleNoveltyOptionsBadImage = () => {
+    setNoveltyDetails({
+      ...noveltyDetails,
+      image: 'https://placehold.co/400',
+    });
+  };
+
+  //submits new item created by state to database
+  //updates state holding database GET in App.jsx
+  //resets state of page, progress, and currentItem condiotnally
+  //fires appropriate toast
   const submitNoveltyListing = async (event) => {
     event.preventDefault();
     const {
@@ -165,17 +174,15 @@ const CreateNoveltyBody = ({ setUserCatalogue }) => {
 
   return (
     <>
-         
       <Box
         borderWidth="1px"
         rounded="lg"
         shadow="1px 1px 3px rgba(0,0,0,0.3)"
-        maxWidth={800}
+        minWidth={700}
         p={6}
         m="10px auto"
         as="form"
       >
-         
         <Progress
           hasStripe
           value={progress}
@@ -183,7 +190,6 @@ const CreateNoveltyBody = ({ setUserCatalogue }) => {
           mx="5%"
           isAnimated
         ></Progress>
-                
         {step === 1 ? (
           <NoveltyForm1
             item={noveltyDetails.item}
@@ -205,13 +211,9 @@ const CreateNoveltyBody = ({ setUserCatalogue }) => {
         ) : (
           <NoveltyForm3 noveltyDetails={noveltyDetails} />
         )}
-                
         <ButtonGroup mt="5%" w="100%">
-                    
           <Flex w="100%" justifyContent="space-between">
-                        
             <Flex>
-                            
               <Button
                 onClick={() => {
                   setStep(step - 1);
@@ -222,9 +224,8 @@ const CreateNoveltyBody = ({ setUserCatalogue }) => {
                 w="7rem"
                 mr="5%"
               >
-                                Back               
+                Back
               </Button>
-                            
               <Button
                 w="7rem"
                 isDisabled={step === 3}
@@ -238,11 +239,9 @@ const CreateNoveltyBody = ({ setUserCatalogue }) => {
                 }}
                 variant="primary"
               >
-                                Next               
+                Next
               </Button>
-                          
             </Flex>
-                        
             {step === 3 ? (
               <Button
                 w="7rem"
@@ -251,17 +250,12 @@ const CreateNoveltyBody = ({ setUserCatalogue }) => {
                 isDisabled={!canSubmit}
                 onClick={submitNoveltyListing}
               >
-                                {canSubmit ? 'Submit' : 'Invalid'}
-                              
+                {canSubmit ? 'Submit' : 'Invalid'}
               </Button>
             ) : null}
-                      
           </Flex>
-                  
         </ButtonGroup>
-              
       </Box>
-          
     </>
   );
 };
