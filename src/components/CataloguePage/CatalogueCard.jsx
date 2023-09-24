@@ -12,6 +12,9 @@ import {
   Divider,
 } from '@chakra-ui/react';
 
+import AvailableIndicator from './StatusIndicator/AvailableStatusIndicator';
+import UnavailableIndicator from './StatusIndicator/UnavailableStatusIndicator';
+
 const ItemCard = ({ itemListing }) => {
   const {
     item,
@@ -74,8 +77,13 @@ const ItemCard = ({ itemListing }) => {
             width={282}
             objectFit={'cover'}
             src={image}
-            alt="#"
+            alt={`${item}'s image`}
           />
+          {availabilty ? (
+            <AvailableIndicator />
+          ) : (
+            <UnavailableIndicator />
+          )}
         </Box>
         <Stack pt={10} align={'center'}>
           <Text
