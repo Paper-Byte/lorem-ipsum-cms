@@ -13,7 +13,7 @@ import {
   Badge,
 } from '@chakra-ui/react';
 
-const ItemCard = ({ itemListing }) => {
+const CatalogueCard = ({ itemListing }) => {
   const {
     item,
     category,
@@ -25,17 +25,9 @@ const ItemCard = ({ itemListing }) => {
     price,
     availability,
   } = itemListing;
-
-  const colorsToDisplay = colors.filter((e) => {
-    return e.isAvailable;
-  });
-  let sizesToDisplay = [];
-
-  if (category !== 'novelty') {
-    sizesToDisplay = sizes.filter((e) => {
-      return e.isAvailable;
-    });
-  }
+  const colorsToDisplay = colors.filter((e) => e.isAvailable);
+  const sizesToDisplay =
+    category !== 'novelty' ? sizes.filter((e) => e.isAvailable) : [];
 
   return (
     <Center py={12}>
@@ -104,20 +96,7 @@ const ItemCard = ({ itemListing }) => {
           </Heading>
           <Text fontSize={'md'}>{description}</Text>
           <Divider />
-          <Text fontWeight={600}>Color Options</Text>
-          <HStack>
-            {colorsToDisplay.map((e) => {
-              return (
-                <Box
-                  bg={e.colorName}
-                  w="30px"
-                  h="30px"
-                  rounded="md"
-                />
-              );
-            })}
-          </HStack>
-          {category !== 'novelty' ? (
+          {sizesToDisplay.length > 0 ? (
             <>
               <Text fontWeight={600}>Size Options</Text>
               <HStack>
@@ -132,6 +111,25 @@ const ItemCard = ({ itemListing }) => {
                     >
                       <Text align="center">{e.size}</Text>
                     </Box>
+                  );
+                })}
+              </HStack>
+            </>
+          ) : (
+            <></>
+          )}
+          {colorsToDisplay.length > 0 ? (
+            <>
+              <Text fontWeight={600}>Color Options</Text>
+              <HStack>
+                {colorsToDisplay.map((e) => {
+                  return (
+                    <Box
+                      bg={e.colorName}
+                      w="30px"
+                      h="30px"
+                      rounded="md"
+                    />
                   );
                 })}
               </HStack>
@@ -161,4 +159,4 @@ const ItemCard = ({ itemListing }) => {
   );
 };
 
-export default ItemCard;
+export default CatalogueCard;

@@ -11,7 +11,7 @@ import NoveltyForm1 from './Forms/NoveltyForm1';
 import NoveltyForm2 from './Forms/NoveltyForm2';
 import NoveltyForm3 from './Forms/NoveltyForm3';
 
-const CreateNoveltyBody = () => {
+const CreateNoveltyBody = ({ setUserCatalogue }) => {
   const toast = useToast();
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
@@ -77,7 +77,28 @@ const CreateNoveltyBody = () => {
     });
   };
 
-  const handleSubmitNoveltyOption = (event) => {
+  const successToastMessagePost = () => {
+    toast({
+      title: 'Item created.',
+      description: "We've created your listing for you.",
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+
+  const errorToastMessagePost = () => {
+    toast({
+      title: 'Error encountered.',
+      description:
+        'We were unable to create your item, please try again.',
+      status: 'error',
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+
+  const submitNoveltyListing = async (event) => {
     event.preventDefault();
     const {
       item,
@@ -86,83 +107,60 @@ const CreateNoveltyBody = () => {
       image,
       description,
       sizes,
+      price,
       colors,
       availabilty,
     } = noveltyDetails;
 
-    let { price } = noveltyDetails;
-
-    price += 0.99;
-
-    const successToastMessagePost = () => {
-      toast({
-        title: 'Item created.',
-        description: "We've created your listing for you.",
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
+    try {
+      const resp = await fetch(
+        `${process.env.REACT_APP_API_CATALOGUE}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            item,
+            category,
+            type,
+            image,
+            description,
+            sizes,
+            colors,
+            price: price + 0.99,
+            availabilty,
+          }),
+        }
+      );
+      const data = await resp.json();
+      setUserCatalogue((prevUserCatalogue) => [
+        ...prevUserCatalogue,
+        data,
+      ]);
+      setNoveltyDetails({
+        ...noveltyDetails,
+        item: '',
+        category: 'novelty',
+        type: '',
+        image: '',
+        description: '',
+        sizes: null,
+        colors: [
+          { colorName: 'black', isAvailable: false },
+          { colorName: 'white', isAvailable: false },
+          { colorName: 'firebrick', isAvailable: false },
+          { colorName: 'navy', isAvailable: false },
+          { colorName: 'aquamarine', isAvailable: false },
+          { colorName: 'coral', isAvailable: false },
+        ],
+        price: 0,
+        availability: true,
       });
-    };
-
-    const errorToastMessagePost = () => {
-      toast({
-        title: 'Error encountered.',
-        description:
-          'We were unable to create your item, please try again.',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
-    };
-
-    const postNewNovelty = async () => {
-      try {
-        const resp = await fetch(
-          `${process.env.REACT_APP_API_CATALOGUE}`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              item,
-              category,
-              type,
-              image,
-              description,
-              sizes,
-              colors,
-              price: price + 0.99,
-              availabilty,
-            }),
-          }
-        );
-        const data = await resp.json();
-        setNoveltyDetails({
-          ...noveltyDetails,
-          item: '',
-          category: 'novelty',
-          type: '',
-          image: '',
-          description: '',
-          sizes: null,
-          colors: [
-            { colorName: 'black', isAvailable: false },
-            { colorName: 'white', isAvailable: false },
-            { colorName: 'firebrick', isAvailable: false },
-            { colorName: 'navy', isAvailable: false },
-            { colorName: 'aquamarine', isAvailable: false },
-            { colorName: 'coral', isAvailable: false },
-          ],
-          price: 0,
-          availability: true,
-        });
-        setStep(1);
-        successToastMessagePost();
-      } catch (error) {
-        console.error(`Error :${error}`);
-        errorToastMessagePost();
-      }
-    };
-    postNewNovelty();
+      setStep(1);
+      successToastMessagePost();
+    } catch (error) {
+      console.error(`Error :${error}`);
+      errorToastMessagePost();
+    }
   };
 
   return (
@@ -251,7 +249,7 @@ const CreateNoveltyBody = () => {
                 colorScheme="red"
                 variant="solid"
                 isDisabled={!canSubmit}
-                onClick={handleSubmitNoveltyOption}
+                onClick={submitNoveltyListing}
               >
                                 {canSubmit ? 'Submit' : 'Invalid'}
                               

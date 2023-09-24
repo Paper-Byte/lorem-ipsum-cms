@@ -2,10 +2,10 @@ import React from 'react';
 import ItemCard from './CatalogueCard';
 import { SimpleGrid, Box } from '@chakra-ui/react';
 
-const CataloguePreview = ({ userCatalogue }) => {
+const CatalogueBody = ({ userCatalogue }) => {
   return (
     <Box className="overflow-y-auto .no-scrollbar" h="800px">
-      <SimpleGrid columns={4}>
+      <SimpleGrid columns={4} spacing={3}>
         {userCatalogue.map((e) => {
           return <ItemCard itemListing={e} />;
         })}
@@ -14,4 +14,4 @@ const CataloguePreview = ({ userCatalogue }) => {
   );
 };
 
-export default CataloguePreview;
+export default CatalogueBody;

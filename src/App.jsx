@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Navbar from './components/Navigation/Navbar.jsx';
 import CreateClothingBody from './components/CreateClothingPage/CreateClothingBody';
-import Footer from './components/Footer';
+import FooterBody from './components/Footer/FooterBody';
 import WelcomeBody from './components/WelcomePage/WelcomeBody';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import CreateNoveltyBody from './components/CreateNoveltyPage/CreateNoveltyBody';
@@ -37,16 +37,11 @@ function App() {
       <Switch>
         <Route exact path="/welcome" component={WelcomeBody} />
         <Route eaxct path="/create-clothing">
-          <CreateClothingBody
-            setUserCatalogue={setUserCatalogue}
-            userCatalogue={userCatalogue}
-          />
+          <CreateClothingBody setUserCatalogue={setUserCatalogue} />
         </Route>
-        <Route
-          exact
-          path="/create-novelty"
-          component={CreateNoveltyBody}
-        />
+        <Route exact path="/create-novelty">
+          <CreateNoveltyBody setUserCatalogue={setUserCatalogue} />
+        </Route>
         <Route exact path="/your-inventory">
           <InventoryBody
             userCatalogue={userCatalogue}
@@ -62,7 +57,7 @@ function App() {
           component={<WelcomeBody />}
         />
       </Switch>
-      <Footer position="bottom" />
+      <FooterBody position="bottom" />
     </div>
   );
 }

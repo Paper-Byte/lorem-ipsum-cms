@@ -4,12 +4,13 @@ import {
   Button,
   Stack,
   useColorMode,
+  Box,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <div className="m-2">
+    <Box className="m-2">
       <Stack
         flex={{ base: 1, md: 0 }}
         justify={'space-between'}
@@ -20,13 +21,13 @@ const Header = () => {
           Marketplace Admin Panel
         </Heading>
 
-        <div>
+        <Box>
           <Button onClick={toggleColorMode} variant={'accent'}>
             {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
           </Button>
-        </div>
+        </Box>
       </Stack>
-    </div>
+    </Box>
   );
 };
 

@@ -11,7 +11,7 @@ import ClothingForm1 from './Forms/ClothingForm1';
 import ClothingForm2 from './Forms/ClothingForm2';
 import ClothingForm3 from './Forms/ClothingForm3';
 
-const CreateClothingBody = ({ setUserCatalogue, userCatalogue }) => {
+const CreateClothingBody = ({ setUserCatalogue }) => {
   const toast = useToast();
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
@@ -152,12 +152,10 @@ const CreateClothingBody = ({ setUserCatalogue, userCatalogue }) => {
         }
       );
       const data = await resp.json();
-      console.log(data);
       setUserCatalogue((prevUserCatalogue) => [
         ...prevUserCatalogue,
         data,
       ]);
-      console.log(userCatalogue);
       setClothingDetails({
         ...clothingDetails,
         item: '',

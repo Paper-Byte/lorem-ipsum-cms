@@ -24,27 +24,13 @@ const WelcomeCard = ({ userData }) => {
     userIncome,
   } = userData;
 
-  const numFormat = (num, digits) => {
-    const lookup = [
-      { value: 1, symbol: '' },
-      { value: 1e3, symbol: 'k' },
-      { value: 1e6, symbol: 'M' },
-      { value: 1e9, symbol: 'G' },
-      { value: 1e12, symbol: 'T' },
-      { value: 1e15, symbol: 'P' },
-      { value: 1e18, symbol: 'E' },
-    ];
-    const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-    let item = lookup
-      .slice()
-      .reverse()
-      .find(function (item) {
-        return num >= item.value;
-      });
-    return item
-      ? (num / item.value).toFixed(digits).replace(rx, '$1') +
-          item.symbol
-      : '0';
+  const numFormat = (num) => {
+    if (num > 1000 && num < 999999) {
+      num = Math.floor(num / 100) / 10.0 + 'k';
+    } else if (num > 999999) {
+      num = Math.floor(num / 100) / 10.0 + 'm';
+    }
+    return num;
   };
 
   return (
@@ -103,11 +89,11 @@ const WelcomeCard = ({ userData }) => {
           >
             <HStack>
               <Icon as={BsFillEmojiHeartEyesFill} />
-              <Text>{numFormat(shopFavorites, 2)}</Text>
+              <Text>{numFormat(shopFavorites)}</Text>
               <Icon as={BsGraphUp} />
-              <Text>{numFormat(userSales, 2)}</Text>
+              <Text>{numFormat(userSales)}</Text>
               <Icon as={GiMoneyStack} />
-              <Text>{numFormat(userIncome, 2)}</Text>
+              <Text>{numFormat(userIncome)}</Text>
             </HStack>
           </Stack>
         </Stack>
