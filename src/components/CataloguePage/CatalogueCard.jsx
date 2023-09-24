@@ -8,13 +8,11 @@ import {
   Text,
   Stack,
   Image,
-  ButtonGroup,
-  Button,
   HStack,
   Divider,
 } from '@chakra-ui/react';
 
-const ItemCardPreview = ({ itemListing }) => {
+const ItemCard = ({ itemListing }) => {
   const {
     item,
     type,
@@ -95,12 +93,7 @@ const ItemCardPreview = ({ itemListing }) => {
           >
             {item}
           </Heading>
-          <Text fontSize={'md'}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Dicta eos error ipsa nemo quia fugiat eum sapiente illo
-            obcaecati? Obcaecati natus assumenda libero minus qui
-            placeat laboriosam tenetur repellendus tempora?
-          </Text>
+          <Text fontSize={'md'}>{description}</Text>
           <Divider />
           <Text fontWeight={600}>Color Options</Text>
           <HStack>
@@ -142,4 +135,4 @@ const ItemCardPreview = ({ itemListing }) => {
   );
 };
 
-export default ItemCardPreview;
+export default ItemCard;

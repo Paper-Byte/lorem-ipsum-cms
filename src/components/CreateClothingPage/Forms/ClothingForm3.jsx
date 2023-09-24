@@ -1,5 +1,5 @@
 import { Heading } from '@chakra-ui/react';
-import ItemCardPreview from '../../Itemcard';
+import ItemCard from '../../CataloguePage/CatalogueCard';
 
 const Form3 = ({ clothingDetails }) => {
   return (
@@ -8,7 +8,7 @@ const Form3 = ({ clothingDetails }) => {
       <Heading w="100%" textAlign={'center'} size="md">
                 Card Preview       
       </Heading>
-      <ItemCardPreview itemListing={clothingDetails} />
+      <ItemCard itemListing={clothingDetails} />
     </>
   );
 };

@@ -7,7 +7,7 @@ import WelcomeBody from './components/WelcomePage/WelcomeBody';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import CreateNoveltyBody from './components/CreateNoveltyPage/CreateNoveltyBody';
 import InventoryBody from './components/InventoryPage/InventoryBody';
-import CataloguePreview from './components/Preview';
+import CataloguePreview from './components/CataloguePage/CatalogueBody';
 
 function App() {
   const [userCatalogue, setUserCatalogue] = useState([]);
