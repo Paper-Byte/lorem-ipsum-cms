@@ -10,10 +10,8 @@ import {
   Image,
   HStack,
   Divider,
+  Badge,
 } from '@chakra-ui/react';
-
-import AvailableIndicator from './StatusIndicator/AvailableStatusIndicator';
-import UnavailableIndicator from './StatusIndicator/UnavailableStatusIndicator';
 
 const ItemCard = ({ itemListing }) => {
   const {
@@ -43,7 +41,7 @@ const ItemCard = ({ itemListing }) => {
         maxW={'330px'}
         w={'full'}
         bg={useColorModeValue('accent.200', 'gray.700')}
-        boxShadow={'2xl'}
+        boxShadow={'md'}
         rounded={'lg'}
         pos={'relative'}
         zIndex={1}
@@ -52,7 +50,7 @@ const ItemCard = ({ itemListing }) => {
           rounded={'lg'}
           mt={-12}
           pos={'relative'}
-          height={'230px'}
+          height={'200px'}
           _after={{
             transition: 'all .3s ease',
             content: '""',
@@ -61,8 +59,8 @@ const ItemCard = ({ itemListing }) => {
             pos: 'absolute',
             top: 5,
             left: 0,
-            backgroundImage: `url(${image})`,
-            filter: 'blur(15px)',
+            bg: 'gray.500',
+            filter: 'blur(17px)',
             zIndex: -1,
           }}
           _groupHover={{
@@ -79,10 +77,16 @@ const ItemCard = ({ itemListing }) => {
             src={image}
             alt={`${item}'s image`}
           />
-          {availabilty ? (
-            <AvailableIndicator />
+          {!availabilty ? (
+            <Badge
+              colorScheme="green"
+              variant="solid"
+              fontWeight={700}
+            >
+              Available!
+            </Badge>
           ) : (
-            <UnavailableIndicator />
+            <Badge colorScheme={'Maroon'}>Out Of Stock</Badge>
           )}
         </Box>
         <Stack pt={10} align={'center'}>
