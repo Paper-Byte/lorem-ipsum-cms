@@ -197,14 +197,14 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
   };
 
   return (
-    <>
+    <Box h="800px">
       <Box
         borderWidth="1px"
         rounded="lg"
         shadow="1px 1px 3px rgba(0,0,0,0.3)"
         minWidth={700}
         p={6}
-        m="10px auto"
+        m="30px"
         as="form"
       >
         <Progress
@@ -286,7 +286,7 @@ const CreateClothingBody = ({ setUserCatalogue }) => {
           </Flex>
         </ButtonGroup>
       </Box>
-    </>
+    </Box>
   );
 };
 

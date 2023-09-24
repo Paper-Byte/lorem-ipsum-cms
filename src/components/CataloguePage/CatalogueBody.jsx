@@ -1,18 +1,21 @@
 import React from 'react';
-import ItemCard from './CatalogueCard';
+import CatalogueCard from './CatalogueCard';
 import { SimpleGrid, Box } from '@chakra-ui/react';
 
-//creates container for CatalogueCards
-//allows NavBar to stay visiable and Entries to be scrollable
 const CatalogueBody = ({ userCatalogue }) => {
   return (
-    <Box className="overflow-y-auto" h="800px">
-      <SimpleGrid columns={4} spacing={3}>
-        {userCatalogue.map((e) => {
-          return <ItemCard itemListing={e} />;
-        })}
-      </SimpleGrid>
-    </Box>
+    {
+      /*Allows CatalogueCards to be scrollable while keeping NavBar on screen*/
+    },
+    (
+      <Box className="overflow-y-auto" h="800px">
+        <SimpleGrid columns={4} spacing={3}>
+          {userCatalogue.map((e) => {
+            return <CatalogueCard itemListing={e} />;
+          })}
+        </SimpleGrid>
+      </Box>
+    )
   );
 };
 

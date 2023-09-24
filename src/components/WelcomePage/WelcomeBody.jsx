@@ -22,7 +22,7 @@ const WelcomeBody = () => {
   }, []);
 
   return (
-    <>
+    <Box h="800px">
       <Stack
         as={Box}
         textAlign={'center'}
@@ -57,7 +57,7 @@ const WelcomeBody = () => {
           </Button>
         </NavLink>
       </Stack>
-    </>
+    </Box>
   );
 };
 

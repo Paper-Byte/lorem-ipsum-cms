@@ -15,9 +15,9 @@ import {
   useColorModeValue,
   IconButton,
   useToast,
-  HStack,
 } from '@chakra-ui/react';
 import { AiOutlineDelete, AiOutlineSave } from 'react-icons/ai';
+
 const InventoryCard = ({
   itemToDisplay,
   setUserCatalogue,
@@ -95,10 +95,10 @@ const InventoryCard = ({
     setCurrentItem({ ...currentItem, price });
   };
 
-  //item listing deleted from db, grandparent state update and according toast
+  //item listing deleted from db, grandparent state update and according toast fired
   const deleteDatabaseItemEntry = async () => {
     try {
-      const resp = await fetch(
+      await fetch(
         `${process.env.REACT_APP_API_CATALOGUE}/${currentItem.id}`,
         {
           method: 'DELETE',
