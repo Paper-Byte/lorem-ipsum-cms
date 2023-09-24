@@ -20,10 +20,26 @@ import {
 import { AiOutlineDelete, AiOutlineSave } from 'react-icons/ai';
 const InventoryCard = ({
   itemToDisplay,
-  updateCatalogueAfterDelete,
+  setUserCatalogue,
+  userCatalogue,
 }) => {
   const [currentItem, setCurrentItem] = useState(itemToDisplay);
   const toast = useToast();
+
+  const updateItem = (id, newData) => {
+    setUserCatalogue((prevUserCatalogue) =>
+      prevUserCatalogue.map((item) =>
+        item.id === id ? { ...item, ...newData } : item
+      )
+    );
+  };
+
+  const updateCatalogueAfterDelete = (id) => {
+    const newCatalogue = currentItem.filter((e) => {
+      return e.id !== id;
+    });
+    setUserCatalogue(newCatalogue);
+  };
 
   const successToastMessageDelete = () => {
     toast({
@@ -113,6 +129,9 @@ const InventoryCard = ({
           }),
         }
       );
+      const data = await resp.json();
+      updateItem(currentItem.id, data);
+      console.log(userCatalogue);
       successToastMessagePatch();
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -188,8 +207,9 @@ const InventoryCard = ({
               }
               alt="Item's displayed image"
               rounded="full"
-              width={['100px', '100px', '100px', '100px', '100px']}
-              objectFit={'cover'}
+              width={'200px'}
+              height={'200px'}
+              objectFit="cover"
             />
           </AccordionPanel>
         </Flex>
@@ -244,6 +264,7 @@ const InventoryCard = ({
                 <Button
                   key={size.size}
                   variant={size.isAvailable ? 'accent' : 'secondary'}
+                  borderRadius={size.isAvailable ? '50%' : 'md'}
                   onClick={() => toggleSizeAvailability(size.size)}
                   border={'1px solid'}
                   maxWidth={'20px'}
@@ -260,7 +281,7 @@ const InventoryCard = ({
                 key={color.colorName}
                 variantColor={color.colorName}
                 variant={
-                  color.isAvailable ? 'dynamic' : 'dynamicSelected'
+                  color.isAvailable ? 'dynamicSelected' : 'dynamic'
                 }
                 onClick={() =>
                   toggleColorAvailability(color.colorName)

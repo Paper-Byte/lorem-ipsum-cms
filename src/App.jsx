@@ -24,15 +24,9 @@ function App() {
         console.log(`Error: ${error}`);
       }
     };
+    console.log('fetching catalogue');
     fetchUserCatalogue();
   }, []);
-
-  const updateCatalogueAfterDelete = (id) => {
-    const newCatalogue = userCatalogue.filter((e) => {
-      return e.id !== id;
-    });
-    setUserCatalogue(newCatalogue);
-  };
 
   return (
     <div>
@@ -53,7 +47,7 @@ function App() {
         <Route exact path="/your-inventory">
           <InventoryBody
             userCatalogue={userCatalogue}
-            updateCatalogueAfterDelete={updateCatalogueAfterDelete}
+            setUserCatalogue={setUserCatalogue}
           />
         </Route>
         <Route exact path="/preview-catalogue">

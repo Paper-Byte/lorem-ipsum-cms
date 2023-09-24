@@ -124,23 +124,25 @@ const ItemCard = ({ itemListing }) => {
               );
             })}
           </HStack>
-          <Text fontWeight={600}>Size Options</Text>
           {category !== 'novelty' ? (
-            <HStack>
-              {sizesToDisplay.map((e) => {
-                return (
-                  <Box
-                    bg={'gray.500'}
-                    w="30px"
-                    h="30px"
-                    rounded="md"
-                    fontWeight={600}
-                  >
-                    <Text align="center">{e.size}</Text>
-                  </Box>
-                );
-              })}
-            </HStack>
+            <>
+              <Text fontWeight={600}>Size Options</Text>
+              <HStack>
+                {sizesToDisplay.map((e) => {
+                  return (
+                    <Box
+                      bg={'gray.500'}
+                      w="30px"
+                      h="30px"
+                      rounded="md"
+                      fontWeight={600}
+                    >
+                      <Text align="center">{e.size}</Text>
+                    </Box>
+                  );
+                })}
+              </HStack>
+            </>
           ) : (
             <></>
           )}
