@@ -20,7 +20,6 @@ const Header = () => {
         <Heading noOfLines={1} size="lg">
           Marketplace Admin Panel
         </Heading>
-
         <Box>
           <Button onClick={toggleColorMode} variant={'accent'}>
             {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}

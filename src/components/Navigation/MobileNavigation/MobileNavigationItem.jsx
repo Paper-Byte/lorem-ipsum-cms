@@ -32,6 +32,7 @@ const MobileNavigationItem = ({ label, children, href }) => {
         >
           {label}
         </Text>
+        {/*Checks if the current item has children*/}
         {children && (
           <Icon
             as={ChevronDownIcon}
@@ -56,6 +57,7 @@ const MobileNavigationItem = ({ label, children, href }) => {
           borderColor={useColorModeValue('primary.200', 'primary.50')}
           align={'start'}
         >
+          {/*Checks if the current item has children*/}
           {children &&
             children.map((child) => (
               <NavLink key={child.label} to={child.href}>

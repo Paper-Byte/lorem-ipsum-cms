@@ -18,14 +18,11 @@ import {
 } from '@chakra-ui/react';
 import { AiOutlineDelete, AiOutlineSave } from 'react-icons/ai';
 
-const InventoryCard = ({
-  itemToDisplay,
-  setUserCatalogue,
-  userCatalogue,
-}) => {
+const InventoryCard = ({ itemToDisplay, setUserCatalogue }) => {
   const [currentItem, setCurrentItem] = useState(itemToDisplay);
   const toast = useToast();
 
+  //sets state of grandparent holding the full user's catalogue after PATCH
   const updateCatalogueAfterPatch = (id, newData) => {
     setUserCatalogue((prevUserCatalogue) =>
       prevUserCatalogue.map((item) =>
@@ -34,12 +31,14 @@ const InventoryCard = ({
     );
   };
 
+  //sets state of grandparent holding the full user's catalogue after DELETE
   const updateCatalogueAfterDelete = (id) => {
     setUserCatalogue((prevUserCatalogue) =>
       prevUserCatalogue.filter((item) => item.id !== id)
     );
   };
 
+  //displays toast after successful DELETE
   const successToastMessageDelete = () => {
     toast({
       title: 'Item Deleted.',
@@ -50,6 +49,7 @@ const InventoryCard = ({
     });
   };
 
+  //displays toast after failed DELETE
   const errorToastMessageDelete = () => {
     toast({
       title: 'Error encountered.',
@@ -61,6 +61,7 @@ const InventoryCard = ({
     });
   };
 
+  //displays toast after successful PATCH
   const successToastMessagePatch = () => {
     toast({
       title: 'Item Saved.',
@@ -71,6 +72,7 @@ const InventoryCard = ({
     });
   };
 
+  //displays toast after failed PATCH
   const errorToastMessagePatch = () => {
     toast({
       title: 'Error encountered.',
@@ -82,6 +84,7 @@ const InventoryCard = ({
     });
   };
 
+  //toggles an item's ivailabillity and updates grandparent state
   const toggleAvailability = () => {
     setCurrentItem({
       ...currentItem,
@@ -89,13 +92,14 @@ const InventoryCard = ({
     });
   };
 
+  //sets the price of an item, allows only numbers, before updating grandparent state
   const setPrice = (event) => {
     const numericValue = event.target.value.replace(/[^0-9]/g, ''); // only numbers.
     const price = parseInt(numericValue) || 0;
     setCurrentItem({ ...currentItem, price });
   };
 
-  //item listing deleted from db, grandparent state update and according toast fired
+  //item listing deleted from db, grandparent state update and appropriate toast fired
   const deleteDatabaseItemEntry = async () => {
     try {
       await fetch(
@@ -112,7 +116,7 @@ const InventoryCard = ({
     }
   };
 
-  //item listing patched in db, grandparent state update and according toast
+  //item listing patched in db, grandparent state update and appropriate toast fired
   const patchDatabaseItemEntry = async () => {
     try {
       const resp = await fetch(
@@ -130,14 +134,14 @@ const InventoryCard = ({
       );
       const data = await resp.json();
       updateCatalogueAfterPatch(currentItem.id, data);
-      console.log(userCatalogue);
       successToastMessagePatch();
     } catch (error) {
-      console.log(`Error: ${error}`);
+      console.error(`Error: ${error}`);
       errorToastMessagePatch();
     }
   };
 
+  //toggles a size's availability by the "size" key in the "sizes" array then updates grandparent state
   const toggleSizeAvailability = (sizeToToggle) => {
     setCurrentItem((prevItem) => {
       const updatedSizes = prevItem.sizes.map((size) => {
@@ -150,6 +154,7 @@ const InventoryCard = ({
     });
   };
 
+  //toggles a color's availability by the "colorName" key in the "colors" array then updates grandparent state
   const toggleColorAvailability = (colorName) => {
     setCurrentItem((prevItem) => ({
       ...prevItem,
@@ -196,6 +201,7 @@ const InventoryCard = ({
             <Image
               marginTop={'2'}
               src={
+                //psuedo image error catch
                 currentItem.image.length === 0
                   ? 'https://placehold.co/400' &&
                     setCurrentItem({
@@ -257,11 +263,12 @@ const InventoryCard = ({
         </Box>
         {/* Sizes */}
         <Flex mb={2}>
+          {/*Only renders if 'sizes' exist*/}
           {currentItem.sizes &&
             currentItem.sizes.map((size) => (
               <Button
                 key={size.size}
-                variant={size.isAvailable ? 'accent' : 'secondary'}
+                variant={size.isAvailable ? 'accent' : 'secondary'} //button style changes depending on availability
                 borderRadius={size.isAvailable ? '50%' : 'md'}
                 onClick={() => toggleSizeAvailability(size.size)}
                 border={'1px solid'}
@@ -279,7 +286,7 @@ const InventoryCard = ({
               key={color.colorName}
               variantColor={color.colorName}
               variant={
-                color.isAvailable ? 'dynamicSelected' : 'dynamic'
+                color.isAvailable ? 'dynamicSelected' : 'dynamic' //button style changes based on availability
               }
               onClick={() => toggleColorAvailability(color.colorName)}
               maxWidth={'20px'}

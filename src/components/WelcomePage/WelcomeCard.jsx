@@ -24,6 +24,7 @@ const WelcomeCard = ({ userData }) => {
     userIncome,
   } = userData;
 
+  //formats numbers to be dynamically styled up to 10^9
   const numFormat = (num) => {
     if (num > 1000 && num < 999999) {
       num = Math.floor(num / 100) / 10.0 + 'k';

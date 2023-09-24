@@ -12,6 +12,7 @@ import CataloguePreview from './components/CataloguePage/CatalogueBody';
 function App() {
   const [userCatalogue, setUserCatalogue] = useState([]);
 
+  //fetches user's catalogue on render, set up parent state for 'InventoryBody' and 'CataloguePreview'
   useEffect(() => {
     const fetchUserCatalogue = async () => {
       try {
@@ -21,14 +22,11 @@ function App() {
         const data = await response.json();
         setUserCatalogue(data);
       } catch (error) {
-        console.log(`Error: ${error}`);
+        console.error(`Error: ${error}`);
       }
     };
-    console.log('fetching catalogue');
     fetchUserCatalogue();
   }, []);
-
-  console.log(userCatalogue);
 
   return (
     <div className="flex flex-col" style={{ height: '100%' }}>
