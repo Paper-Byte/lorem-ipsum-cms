@@ -29,7 +29,7 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col" style={{ height: '100%' }}>
       <Header />
       <Navbar />
       <Switch>

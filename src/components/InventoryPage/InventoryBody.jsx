@@ -5,12 +5,12 @@ import InventoryCard from './InventoryCard';
 const InventoryBody = ({ userCatalogue, setUserCatalogue }) => {
   return (
     <Box
-      display={'flex'}
       justifyContent={'center'}
       className="overflow-y-auto hover:overflow-scroll"
-      style={{ flexDirection: 'column' }}
+      mt={5}
+      mb={5}
     >
-      <Stack style={{ flex: 1 }}>
+      <Stack>
         <Accordion className="overflow-auto" allowToggle>
           {userCatalogue.map((item) => {
             return (

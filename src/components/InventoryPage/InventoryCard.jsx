@@ -163,7 +163,7 @@ const InventoryCard = ({
   };
 
   return (
-    <AccordionItem mt={4} mb={4} display="flex" flexDir={'column'}>
+    <AccordionItem display="flex" flexDir={'column'}>
       <Flex>
         <AccordionButton>
           {/* Item Name */}
@@ -257,41 +257,37 @@ const InventoryCard = ({
           </Editable>
         </Box>
         {/* Sizes */}
-        <HStack>
-          <Flex mb={2}>
-            {currentItem.sizes &&
-              currentItem.sizes.map((size) => (
-                <Button
-                  key={size.size}
-                  variant={size.isAvailable ? 'accent' : 'secondary'}
-                  borderRadius={size.isAvailable ? '50%' : 'md'}
-                  onClick={() => toggleSizeAvailability(size.size)}
-                  border={'1px solid'}
-                  maxWidth={'20px'}
-                  marginRight={'2'}
-                >
-                  {size.size}
-                </Button>
-              ))}
-          </Flex>
-          {/* Colors */}
-          <Flex mb={2}>
-            {currentItem.colors.map((color) => (
+        <Flex mb={2}>
+          {currentItem.sizes &&
+            currentItem.sizes.map((size) => (
               <Button
-                key={color.colorName}
-                variantColor={color.colorName}
-                variant={
-                  color.isAvailable ? 'dynamicSelected' : 'dynamic'
-                }
-                onClick={() =>
-                  toggleColorAvailability(color.colorName)
-                }
+                key={size.size}
+                variant={size.isAvailable ? 'accent' : 'secondary'}
+                borderRadius={size.isAvailable ? '50%' : 'md'}
+                onClick={() => toggleSizeAvailability(size.size)}
+                border={'1px solid'}
                 maxWidth={'20px'}
                 marginRight={'2'}
-              />
+              >
+                {size.size}
+              </Button>
             ))}
-          </Flex>
-        </HStack>
+        </Flex>
+        {/* Colors */}
+        <Flex mb={2}>
+          {currentItem.colors.map((color) => (
+            <Button
+              key={color.colorName}
+              variantColor={color.colorName}
+              variant={
+                color.isAvailable ? 'dynamicSelected' : 'dynamic'
+              }
+              onClick={() => toggleColorAvailability(color.colorName)}
+              maxWidth={'20px'}
+              marginRight={'2'}
+            />
+          ))}
+        </Flex>
                 {/* Availability */}
         <Flex marginTop={4}>
           <Box className="flex-1">

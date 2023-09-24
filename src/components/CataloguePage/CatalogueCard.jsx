@@ -23,7 +23,7 @@ const ItemCard = ({ itemListing }) => {
     sizes,
     colors,
     price,
-    availabilty,
+    availability,
   } = itemListing;
 
   const colorsToDisplay = colors.filter((e) => {
@@ -49,6 +49,10 @@ const ItemCard = ({ itemListing }) => {
         rounded={'lg'}
         pos={'relative'}
         zIndex={1}
+        minH={'450px'}
+        display={'flex'}
+        flexDir={'column'}
+        justifyContent={'space-between'}
       >
         <Box
           rounded={'lg'}
@@ -81,17 +85,6 @@ const ItemCard = ({ itemListing }) => {
             src={image}
             alt={`${item}'s image`}
           />
-          {!availabilty ? (
-            <Badge
-              colorScheme="green"
-              variant="solid"
-              fontWeight={700}
-            >
-              Available!
-            </Badge>
-          ) : (
-            <Badge colorScheme={'Maroon'}>Out Of Stock</Badge>
-          )}
         </Box>
         <Stack pt={10} align={'center'}>
           <Text
@@ -152,6 +145,17 @@ const ItemCard = ({ itemListing }) => {
             </Text>
           </Box>
         </Stack>
+        <Badge
+          colorScheme={availability ? 'green' : 'maroon'}
+          variant="solid"
+          fontWeight={700}
+          mt={2}
+          rounded={'md'}
+        >
+          <Text p={2}>
+            {availability ? 'In Stock' : 'Out of Stock'}{' '}
+          </Text>
+        </Badge>
       </Box>
     </Center>
   );
