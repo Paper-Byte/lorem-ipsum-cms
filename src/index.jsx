@@ -12,7 +12,7 @@ root.render(
   <ChakraProvider theme={customTheme}>
     <ColorModeScript initialColorMode={'light'} />
     <BrowserRouter>
-      <App />
+      <App className="overflow-y-auto no-scrollbar" />
     </BrowserRouter>
   </ChakraProvider>
 );

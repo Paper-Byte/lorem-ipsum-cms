@@ -13,7 +13,7 @@ const InventoryBody = ({
       className="overflow-y-auto hover:overflow-scroll"
     >
       <Stack>
-        <Accordion allowToggle>
+        <Accordion className="overflow-auto" allowToggle>
           {userCatalogue.map((item) => {
             return (
               <InventoryCard

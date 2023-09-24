@@ -16,6 +16,7 @@ import {
 const ItemCard = ({ itemListing }) => {
   const {
     item,
+    category,
     type,
     image,
     description,
@@ -28,10 +29,13 @@ const ItemCard = ({ itemListing }) => {
   const colorsToDisplay = colors.filter((e) => {
     return e.isAvailable;
   });
+  let sizesToDisplay = [];
 
-  const sizesToDisplay = sizes.filter((e) => {
-    return e.isAvailable;
-  });
+  if (category !== 'novelty') {
+    sizesToDisplay = sizes.filter((e) => {
+      return e.isAvailable;
+    });
+  }
 
   return (
     <Center py={12}>
@@ -121,24 +125,28 @@ const ItemCard = ({ itemListing }) => {
             })}
           </HStack>
           <Text fontWeight={600}>Size Options</Text>
-          <HStack>
-            {sizesToDisplay.map((e) => {
-              return (
-                <Box
-                  bg={'gray.500'}
-                  w="30px"
-                  h="30px"
-                  rounded="md"
-                  fontWeight={600}
-                >
-                  <Text align="center">{e.size}</Text>
-                </Box>
-              );
-            })}
-          </HStack>
+          {category !== 'novelty' ? (
+            <HStack>
+              {sizesToDisplay.map((e) => {
+                return (
+                  <Box
+                    bg={'gray.500'}
+                    w="30px"
+                    h="30px"
+                    rounded="md"
+                    fontWeight={600}
+                  >
+                    <Text align="center">{e.size}</Text>
+                  </Box>
+                );
+              })}
+            </HStack>
+          ) : (
+            <></>
+          )}
           <Box justifyItems={'right'}>
             <Text fontWeight={600} fontSize={'ml'}>
-              ${price + 0.99}
+              ${Math.round(price - 0.99) + 0.99}
             </Text>
           </Box>
         </Stack>
