@@ -14,6 +14,7 @@ import DesktopNavigationMenu from './DesktopNavigation/DesktopNavigationMenu';
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
 
+  //Prop to edit / control navigation items that display / link to
   const NAV_ITEMS = [
     {
       label: 'Welcome',
@@ -62,6 +63,7 @@ const Navbar = () => {
           <IconButton
             onClick={onToggle}
             icon={
+              //Decides icon to show based on if the current nav item is opened
               isOpen ? (
                 <CloseIcon w={3} h={3} />
               ) : (

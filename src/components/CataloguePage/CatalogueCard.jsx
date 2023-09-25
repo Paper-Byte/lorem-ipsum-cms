@@ -101,7 +101,7 @@ const CatalogueCard = ({ itemListing }) => {
           </Heading>
           <Text fontSize={'md'}>{description}</Text>
           <Divider />
-          {/*ensures this information is only available if their are options for different sizes */}
+          {/*ensures this information is only displayed if there are options for different sizes */}
           {sizesToDisplay.length > 0 ? (
             <>
               <Text fontWeight={600}>Size Options</Text>
@@ -124,7 +124,7 @@ const CatalogueCard = ({ itemListing }) => {
           ) : (
             <></>
           )}
-          {/*ensures this information is only available if their are options for different colors */}
+          {/*ensures this information is only displayed if there are options for different colors */}
           {colorsToDisplay.length > 0 ? (
             <>
               <Text fontWeight={600}>Color Options</Text>
@@ -135,7 +135,7 @@ const CatalogueCard = ({ itemListing }) => {
                       bg={e.colorName}
                       w="30px"
                       h="30px"
-                      rounded="md"
+                      rounded="full"
                     />
                   );
                 })}

@@ -19,7 +19,7 @@ const DesktopNavigationMenu = ({ NAV_ITEMS }) => {
                 {navItem.label}
               </NavLink>
             </PopoverTrigger>
-
+            {/*Checks if the current prop has chliden to control sub-navigation */}
             {navItem.children && (
               <PopoverContent
                 border={0}

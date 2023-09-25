@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 const WelcomeBody = () => {
   const [userData, setUserData] = useState({});
 
+  //grabs user info on render, full relationships for backend coming later - this entry is for proof of concept
   useEffect(() => {
     const getUserInfo = async () => {
       try {
