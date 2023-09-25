@@ -49,13 +49,13 @@ On application restart, your changes will be applied and visible.
 ## Usage
 
 _Creating an item_
-[https://media1.giphy.com/media/jwtGynBVEL48VvsakJ/giphy.gif?cid=2154d3d78bbac83fd8e9dfc6a1cd48815348f528ae59f4a9&ep=v1_gifs_username_username&rid=giphy.gif&ct=g]
+![https://media1.giphy.com/media/jwtGynBVEL48VvsakJ/giphy.gif?cid=2154d3d78bbac83fd8e9dfc6a1cd48815348f528ae59f4a9&ep=v1_gifs_username_username&rid=giphy.gif&ct=g]
 
 _Deleting a listing_
-[https://media4.giphy.com/media/lw6OP0uIj2eD2SlnUW/giphy.gif?cid=2154d3d7618c4a5bf603d85eeebc7f3a8d534e59148b398e&ep=v1_gifs_username_username&rid=giphy.gif&ct=g]
+![https://media4.giphy.com/media/lw6OP0uIj2eD2SlnUW/giphy.gif?cid=2154d3d7618c4a5bf603d85eeebc7f3a8d534e59148b398e&ep=v1_gifs_username_username&rid=giphy.gif&ct=g]
 
 _Previewing Catalogue_
-[https://media2.giphy.com/media/m3J2bevnCEL3JhRSkC/giphy.gif?cid=2154d3d78ebba954eb1c9bfa5e9ca5b6711dc74e82a7139a&ep=v1_gifs_username_username&rid=giphy.gif&ct=g]
+![https://media2.giphy.com/media/m3J2bevnCEL3JhRSkC/giphy.gif?cid=2154d3d78ebba954eb1c9bfa5e9ca5b6711dc74e82a7139a&ep=v1_gifs_username_username&rid=giphy.gif&ct=g]
 
 Full walkthrough of usage of the webb can be found [here](https://youtu.be/8WiAF672UBM)
 
