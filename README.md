@@ -49,13 +49,13 @@ On application restart, your changes will be applied and visible.
 ## Usage
 
 _Creating an item_
-[https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnZocnZ1c2E0dG9raWJmczlnMTU1M2VuOGFjdW5iMnZwaTl2cTVubyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jwtGynBVEL48VvsakJ/giphy.gif]
+![GIF of creating an item](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnZocnZ1c2E0dG9raWJmczlnMTU1M2VuOGFjdW5iMnZwaTl2cTVubyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jwtGynBVEL48VvsakJ/giphy.gif)
 
 _Deleting a listing_
-[https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDZieTJianZmbWo3eHhtMXNmYm1peDQ1N3kza2dkZzVocXgxZHlodiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lw6OP0uIj2eD2SlnUW/giphy.gif]
+![GIF of listing deletion](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDZieTJianZmbWo3eHhtMXNmYm1peDQ1N3kza2dkZzVocXgxZHlodiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lw6OP0uIj2eD2SlnUW/giphy.gif)
 
 _Previewing Catalogue_
-[https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3I4dmYzbzQ4cXB0Yzg1dzIzMjI1d2FzN2cwdmRrNTdvdGR6Y3hqNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/m3J2bevnCEL3JhRSkC/giphy.gif]
+![GIF of previewing users catalogue](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3I4dmYzbzQ4cXB0Yzg1dzIzMjI1d2FzN2cwdmRrNTdvdGR6Y3hqNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/m3J2bevnCEL3JhRSkC/giphy.gif)
 
 Full walkthrough of usage of the webb can be found [here](https://youtu.be/8WiAF672UBM)
 
